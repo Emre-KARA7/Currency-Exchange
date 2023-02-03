@@ -1,7 +1,7 @@
 import React from 'react';
 import {SafeAreaView, View, Text} from 'react-native';
 import {Formik} from 'formik';
-import axios from 'axios';
+import useHttps from '../../hooks/useHttps';
 import Config from 'react-native-config';
 
 import Button from '../../components/Button';
@@ -10,28 +10,14 @@ import Input from '../../components/Input';
 function SignUp_2({route, navigation}) {
   //
   const {name, surname, b_date, tckn, photo} = route.params;
+  const {data, loading, error, post} = useHttps();
 
   function ApopToTop() {
     navigation.popToTop();
   }
 
   function handleForm(values) {
-    axios
-      .post(Config.API_URL + 'signup', {
-        firstName: name,
-        lastName: surname,
-        date_of_birth: b_date,
-        tckn: tckn,
-        tel: values.tel,
-        password: values.pass1,
-        photo: photo,
-      })
-      .then(function (response) {
-        console.log(response.data);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    post(Config.API_URL + 'signup', values);
   }
 
   return (

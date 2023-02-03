@@ -1,15 +1,18 @@
 import React, {useState} from 'react';
 import {SafeAreaView, View} from 'react-native';
 import {Formik} from 'formik';
-import axios from 'axios';
 import Config from 'react-native-config';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
+import EncryptedStorage from 'react-native-encrypted-storage';
+import useHttps from '../hooks/useHttps';
 
 import Input from '../components/Input';
 import Button from '../components/Button';
 
 function LogIn({navigation}) {
   //
+  const {data, loading, error, post} = useHttps();
+
   const [Check, setCheck] = useState(false);
 
   function ApopToTop() {
@@ -17,17 +20,7 @@ function LogIn({navigation}) {
   }
 
   function handleForm(values) {
-    axios
-      .post(Config.API_URL + 'login', {
-        tckn: values.tckn,
-        password: values.pass,
-      })
-      .then(function (response) {
-        console.log(response.data);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    post(Config.API_URL + 'login', values);
   }
 
   return (
@@ -38,13 +31,13 @@ function LogIn({navigation}) {
             <Input
               label="tckn"
               placeholder="Write your name"
-              onChangeText={handleChange('name')}
+              onChangeText={handleChange('tckn')}
               value={values.tckn}
             />
             <Input
               label="pass"
               placeholder="Write your surname"
-              onChangeText={handleChange('surname')}
+              onChangeText={handleChange('pass')}
               value={values.pass}
             />
             <Button text={'next'} onPress={handleSubmit} />
