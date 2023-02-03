@@ -9,10 +9,10 @@ function SignUp_1({route, navigation}) {
 
   function goToSignUp2() {
     navigation.navigate('SignUp2Screen', {
-      name: JSON.stringify(name),
-      surname: JSON.stringify(surname),
-      b_date: JSON.stringify(b_date),
-      tckn: JSON.stringify(tckn),
+      name: name,
+      surname: surname,
+      b_date: b_date,
+      tckn: tckn,
       photo: null,
     });
   }
