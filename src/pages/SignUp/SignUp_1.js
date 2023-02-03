@@ -1,11 +1,13 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {SafeAreaView, Text} from 'react-native';
+import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 
 import Button from '../../components/Button';
 
 function SignUp_1({route, navigation}) {
   //
   const {name, surname, b_date, tckn} = route.params;
+  const [Photo, setPhoto] = useState(null);
 
   function goToSignUp2() {
     navigation.navigate('SignUp2Screen', {
@@ -13,7 +15,23 @@ function SignUp_1({route, navigation}) {
       surname: surname,
       b_date: b_date,
       tckn: tckn,
-      photo: null,
+      photo: Photo,
+    });
+  }
+
+  function openCamera() {
+    launchCamera({mediaType: 'photo', includeBase64: true}, response => {
+      if (response.assets[0].type) {
+        setPhoto(response);
+      }
+    });
+  }
+
+  function openGallery() {
+    launchImageLibrary({mediaType: 'photo', includeBase64: true}, response => {
+      if (response.assets[0].type) {
+        setPhoto(response);
+      }
     });
   }
 
@@ -21,6 +39,8 @@ function SignUp_1({route, navigation}) {
     <SafeAreaView>
       <Text>SignUp_1</Text>
       <Button text={'goTo SignUp2'} onPress={goToSignUp2} />
+      <Button text={'Gallery'} onPress={openGallery} />
+      <Button text={'Camera'} onPress={openCamera} />
     </SafeAreaView>
   );
 }

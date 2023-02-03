@@ -14,12 +14,12 @@ function SignUp_2({route, navigation}) {
   }
 
   function handleForm(values) {
-    // console.log(values);
-    // console.log(name);
-    // console.log(surname);
-    // console.log(b_date);
-    // console.log(tckn);
-    // console.log(photo);
+    console.log(values);
+    console.log(name);
+    console.log(surname);
+    console.log(b_date);
+    console.log(tckn);
+    console.log(photo);
   }
 
   return (
