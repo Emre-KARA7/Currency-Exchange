@@ -1,6 +1,8 @@
 import React from 'react';
 import {SafeAreaView, View, Text} from 'react-native';
 import {Formik} from 'formik';
+import axios from 'axios';
+import Config from 'react-native-config';
 
 import Button from '../../components/Button';
 import Input from '../../components/Input';
@@ -14,12 +16,22 @@ function SignUp_2({route, navigation}) {
   }
 
   function handleForm(values) {
-    console.log(values);
-    console.log(name);
-    console.log(surname);
-    console.log(b_date);
-    console.log(tckn);
-    console.log(photo);
+    axios
+      .post(Config.API_URL + 'signup', {
+        firstName: name,
+        lastName: surname,
+        date_of_birth: b_date,
+        tckn: tckn,
+        tel: values.tel,
+        password: values.pass1,
+        photo: photo,
+      })
+      .then(function (response) {
+        console.log(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
 
   return (
