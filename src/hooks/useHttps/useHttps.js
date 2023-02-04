@@ -10,7 +10,7 @@ function usePost() {
     try {
       setLoading(true);
       const resData = await axios.post(url, data);
-      setData(resData);
+      setData(resData.data);
       setLoading(false);
     } catch (err) {
       setError(err);
