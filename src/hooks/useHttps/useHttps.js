@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react';
 import axios from 'axios';
 
-function usePost() {
+function useHttps() {
   //
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -10,7 +10,7 @@ function usePost() {
     try {
       setLoading(true);
       const resData = await axios.post(url, data);
-      setData(resData.data);
+      setData(resData);
       setLoading(false);
     } catch (err) {
       setError(err);
@@ -21,4 +21,4 @@ function usePost() {
   return {data, loading, error, post};
 }
 
-export default usePost;
+export default useHttps;
