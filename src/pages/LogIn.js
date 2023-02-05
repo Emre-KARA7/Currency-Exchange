@@ -8,6 +8,7 @@ import Input from '../components/Input';
 import Button from '../components/Button';
 import useHttps from '../hooks/useHttps';
 import useStorage from '../hooks/useStorage';
+import ProfilePhoto from '../components/ProfilePhoto';
 
 function LogIn({navigation}) {
   //
@@ -50,6 +51,7 @@ function LogIn({navigation}) {
               onChangeText={handleChange('tckn')}
               value={values.tckn}
             />
+            <ProfilePhoto />
             <Input
               label="pass"
               placeholder="Write your surname"

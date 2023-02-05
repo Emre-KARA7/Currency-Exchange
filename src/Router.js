@@ -57,7 +57,7 @@ function Router() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        {true ? (
+        {false ? (
           <Stack.Group>
             <Stack.Screen name="HomeScreen" component={Home} />
           </Stack.Group>
