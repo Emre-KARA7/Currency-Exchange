@@ -45,13 +45,13 @@ function LogIn({navigation}) {
       <Formik onSubmit={handleForm} initialValues={{tckn: '', pass: ''}}>
         {({handleSubmit, handleChange, values}) => (
           <View>
+            <ProfilePhoto />
             <Input
               label="tckn"
               placeholder="Write your name"
               onChangeText={handleChange('tckn')}
               value={values.tckn}
             />
-            <ProfilePhoto />
             <Input
               label="pass"
               placeholder="Write your surname"

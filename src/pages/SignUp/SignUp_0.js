@@ -4,6 +4,7 @@ import {Formik} from 'formik';
 
 import Button from '../../components/Button';
 import Input from '../../components/Input';
+import TextInputBtn from '../../components/TextInputBtn';
 
 function SignUp_0({navigation}) {
   //
@@ -36,7 +37,7 @@ function SignUp_0({navigation}) {
               onChangeText={handleChange('surname')}
               value={values.surname}
             />
-            <Input
+            <TextInputBtn
               label="B Date"
               placeholder="Write your birth date"
               onChangeText={handleChange('b_date')}
