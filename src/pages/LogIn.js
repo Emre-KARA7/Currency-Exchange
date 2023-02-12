@@ -2,6 +2,8 @@ import React, {useState} from 'react';
 import {SafeAreaView, View} from 'react-native';
 import {Formik} from 'formik';
 import Config from 'react-native-config';
+import {useDispatch, useSelector} from 'react-redux';
+import auth, {changeAuthState} from '../stores/auth';
 
 import Checkbox from '../components/Checkbox';
 import Input from '../components/Input';
@@ -12,7 +14,10 @@ import ProfilePhoto from '../components/ProfilePhoto';
 
 function LogIn({navigation}) {
   //
+  const dispatch = useDispatch();
+
   const {data, loading, error, post} = useHttps();
+
   const {
     StorageData,
     StorageLoading,
@@ -26,9 +31,17 @@ function LogIn({navigation}) {
   function ApopToTop() {
     navigation.popToTop();
   }
+  const dd = useSelector(state => state.auth.auth);
 
-  function handleForm(values) {
-    post(Config.API_URL + 'login', values);
+  async function handleForm(values) {
+    try {
+      await post(Config.API_URL + 'login', values);
+      if (data && data.data.status === 'login success') {
+        dispatch(changeAuthState(!dd));
+      }
+    } catch (err) {
+      console.error('olm hata lan');
+    }
   }
 
   //if (data) console.log(data.data.status);

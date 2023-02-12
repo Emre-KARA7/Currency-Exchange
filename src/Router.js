@@ -2,6 +2,9 @@ import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import Icon from 'react-native-vector-icons/AntDesign';
+import {Provider, useSelector} from 'react-redux';
+import store from './stores';
 
 // Auth screens
 import Welcome from './pages/Welcome';
@@ -11,9 +14,9 @@ import SignUp_1 from './pages/SignUp/SignUp_1';
 import SignUp_2 from './pages/SignUp/SignUp_2';
 
 // Home Screens
-import Accounts from './pages/Accounts'; //
-import HistoryPage from './pages/History'; //
-import Watchlist from './pages/Watchlist'; //
+import Accounts from './pages/Accounts';
+import HistoryPage from './pages/History';
+import Watchlist from './pages/Watchlist';
 import CreateAccount from './pages/CreateAccount';
 import EditWatchlist from './pages/EditWatchlist';
 import Exchange from './pages/Exchange';
@@ -45,21 +48,61 @@ function AccountsPage() {
 
 function Home() {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+      screenOptions={({route}) => ({
+        // eslint-disable-next-line react/no-unstable-nested-components
+        tabBarIcon: ({focused, color, size}) => {
+          let iconName;
+
+          if (route.name === 'HistoryPage') {
+            iconName = 'clockcircleo';
+          } else if (route.name === 'AccountsPage') {
+            iconName = 'wallet';
+          } else if (route.name === 'WatchlistPage') {
+            iconName = 'linechart';
+          }
+
+          // You can return any component that you like here!
+          return <Icon name={iconName} size={size} color={color} />;
+        },
+        tabBarActiveTintColor: 'tomato',
+        tabBarInactiveTintColor: 'gray',
+      })}>
       <Tab.Screen name="HistoryPage" component={HistoryPage} />
-      <Tab.Screen name="AccountsPage" component={AccountsPage} />
-      <Tab.Screen name="WatchlistPage" component={WatchlistPage} />
+      <Tab.Screen
+        name="AccountsPage"
+        component={AccountsPage}
+        options={{headerShown: false}}
+      />
+      <Tab.Screen
+        name="WatchlistPage"
+        component={WatchlistPage}
+        options={{headerShown: false}}
+      />
     </Tab.Navigator>
   );
 }
 
+function RouterWrapper() {
+  return (
+    <Provider store={store}>
+      <Router />
+    </Provider>
+  );
+}
+
 function Router() {
+  const {auth} = useSelector(state => state.auth);
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        {true ? (
+        {auth ? (
           <Stack.Group>
-            <Stack.Screen name="HomeScreen" component={Home} />
+            <Stack.Screen
+              name="HomeScreen"
+              component={Home}
+              options={{headerShown: false}}
+            />
           </Stack.Group>
         ) : (
           <Stack.Group>
@@ -78,4 +121,4 @@ function Router() {
   );
 }
 
-export default Router;
+export default RouterWrapper;

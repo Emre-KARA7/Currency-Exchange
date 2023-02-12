@@ -3,6 +3,7 @@ import {SafeAreaView, Text} from 'react-native';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 
 import Button from '../../components/Button';
+import ProfilePhoto from '../../components/ProfilePhoto';
 
 function SignUp_1({route, navigation}) {
   //
@@ -38,9 +39,10 @@ function SignUp_1({route, navigation}) {
   return (
     <SafeAreaView>
       <Text>SignUp_1</Text>
-      <Button text={'goTo SignUp2'} onPress={goToSignUp2} />
+      <ProfilePhoto />
       <Button text={'Gallery'} onPress={openGallery} />
       <Button text={'Camera'} onPress={openCamera} />
+      <Button text={'goTo SignUp2'} onPress={goToSignUp2} />
     </SafeAreaView>
   );
 }
