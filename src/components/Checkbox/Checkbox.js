@@ -1,10 +1,9 @@
-import React, {useState} from 'react';
+import React from 'react';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 
 import styles from './Checkbox.style';
 
-const Checkbox = () => {
-  const [Check, setCheck] = useState(false); //checkbox
+const Checkbox = ({onPress}) => {
   return (
     <BouncyCheckbox
       style={styles.container}
@@ -15,7 +14,7 @@ const Checkbox = () => {
       textStyle={styles.text}
       icon={styles.icon}
       innerIconStyle={styles.innerIcon}
-      onPress={Check}
+      onPress={onPress}
     />
   );
 };

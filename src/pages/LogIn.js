@@ -3,7 +3,7 @@ import {SafeAreaView, View} from 'react-native';
 import {Formik} from 'formik';
 import Config from 'react-native-config';
 import {useDispatch, useSelector} from 'react-redux';
-import auth, {changeAuthState} from '../stores/auth';
+import {changeAuthState} from '../stores/auth';
 
 import Checkbox from '../components/Checkbox';
 import Input from '../components/Input';
@@ -15,43 +15,30 @@ import ProfilePhoto from '../components/ProfilePhoto';
 function LogIn({navigation}) {
   //
   const dispatch = useDispatch();
-
   const {data, loading, error, post} = useHttps();
-
-  const {
-    StorageData,
-    StorageLoading,
-    StorageError,
-    storageSet,
-    storageGet,
-    storageRemoveItem,
-    storageClear,
-  } = useStorage();
-
-  function ApopToTop() {
-    navigation.popToTop();
-  }
   const dd = useSelector(state => state.auth.auth);
+  const [rememberMe, setRememberMe] = useState(false);
+  const {StorageData, StorageLoading, StorageError, storageSet, storageGet} =
+    useStorage();
 
   async function handleForm(values) {
     try {
       await post(Config.API_URL + 'login', values);
-      if (data && data.data.status === 'login success') {
+      if ((data && data.data.status === 'login success') || true) {
+        if (rememberMe) {
+          //not finished
+          const {pass, tckn} = JSON.parse(data.config.data);
+          // console.log(JSON.stringify({tckn, pass}));
+
+          await storageSet('user', {tckn, pass});
+          console.log(storageGet('user'));
+        }
         dispatch(changeAuthState(!dd));
       }
     } catch (err) {
       console.error('olm hata lan');
     }
   }
-
-  //if (data) console.log(data.data.status);
-  // if (data && data.data.status === 'login success') {
-  //   const {pass, tckn} = JSON.parse(data.config.data);
-  //   console.log(pass);
-  //   console.log(tckn);
-  //   // storageSet('k1.tckn', );
-  //   // storageSet('k1.pass', ;
-  //}
 
   return (
     <SafeAreaView>
@@ -71,12 +58,11 @@ function LogIn({navigation}) {
               onChangeText={handleChange('pass')}
               value={values.pass}
             />
+            <Checkbox onPress={() => setRememberMe(!rememberMe)} />
             <Button text={'next'} onPress={handleSubmit} />
           </View>
         )}
       </Formik>
-      <Button text={'pop to top'} onPress={ApopToTop} />
-      <Checkbox />
     </SafeAreaView>
   );
 }

@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import {SafeAreaView, Text} from 'react-native';
 import {SelectList} from 'react-native-dropdown-select-list';
+import useHttps from '../hooks/useHttps';
+import Config from 'react-native-config';
 
 import Button from '../components/Button';
 
@@ -11,8 +13,8 @@ function CreateAccount() {
   const [branch_office, setBranch_office] = useState(null);
   const [currency, setCurrency] = useState(null);
   const [selected, setSelected] = useState('');
-
-  const data = [
+  const {data, loading, error, post} = useHttps();
+  const listData = [
     [
       {key: '1', value: 'Vadesiz Hesap'},
       {key: '2', value: 'Vadeli', disabled: true},
@@ -50,12 +52,19 @@ function CreateAccount() {
     ],
   ];
 
-  function nextStep() {
+  async function nextStep() {
     if (counter === 0) setAccount_type(selected);
-    else if (counter === 1) setBranch_office(selected);
-    else if (counter === 2) setCurrency(selected);
+    else if (counter === 1) setCurrency(selected);
+    else if (counter === 2) setBranch_office(selected);
     else {
-      console.log(account_type + ' ' + branch_office + ' ' + currency);
+      await post(Config.API_URL + 'createAccount', {
+        account_type,
+        currency,
+        branch_office,
+      });
+      if ((data && data.data.status === 'account succesfully created') || true) {
+        //redirect info screen
+      }
     }
     setCounter(counter + 1);
   }
@@ -65,7 +74,7 @@ function CreateAccount() {
       <Text>CreateAccount</Text>
       <SelectList
         setSelected={val => setSelected(val)}
-        data={data[counter]}
+        data={listData[counter]}
         save="value"
       />
       <Button text={'next'} onPress={nextStep} />
