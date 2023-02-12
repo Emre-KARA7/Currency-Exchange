@@ -8,11 +8,9 @@ import Button from '../components/Button';
 
 function CreateAccount() {
   //
-  const [counter, setCounter] = useState(0);
   const [account_type, setAccount_type] = useState(null);
   const [branch_office, setBranch_office] = useState(null);
   const [currency, setCurrency] = useState(null);
-  const [selected, setSelected] = useState('');
   const {data, loading, error, post} = useHttps();
   const listData = [
     [
@@ -53,28 +51,33 @@ function CreateAccount() {
   ];
 
   async function nextStep() {
-    if (counter === 0) setAccount_type(selected);
-    else if (counter === 1) setCurrency(selected);
-    else if (counter === 2) setBranch_office(selected);
-    else {
-      await post(Config.API_URL + 'createAccount', {
-        account_type,
-        currency,
-        branch_office,
-      });
-      if ((data && data.data.status === 'account succesfully created') || true) {
-        //redirect info screen
-      }
+    // validade
+    await post(Config.API_URL + 'createAccount', {
+      account_type,
+      currency,
+      branch_office,
+    });
+    if ((data && data.data.status === 'account succesfully created') || true) {
+      //redirect info screen
     }
-    setCounter(counter + 1);
   }
 
   return (
     <SafeAreaView>
       <Text>CreateAccount</Text>
       <SelectList
-        setSelected={val => setSelected(val)}
-        data={listData[counter]}
+        setSelected={val => setAccount_type(val)}
+        data={listData[0]}
+        save="value"
+      />
+      <SelectList
+        setSelected={val => setCurrency(val)}
+        data={listData[1]}
+        save="value"
+      />
+      <SelectList
+        setSelected={val => setBranch_office(val)}
+        data={listData[2]}
         save="value"
       />
       <Button text={'next'} onPress={nextStep} />
