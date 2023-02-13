@@ -42,8 +42,8 @@ function Watchlist({navigation}) {
     navigation.navigate('EditWatchlistScreen');
   }
 
-  function goToExchangeScreen(abbreviation, exchangeMethod) {
-    navigation.navigate('ExchangeScreen');
+  function goToExchangeScreen(abbreviation, exchangeMethod, rate) {
+    navigation.navigate('ExchangeScreen', {abbreviation, exchangeMethod, rate});
   }
 
   return (
@@ -57,11 +57,11 @@ function Watchlist({navigation}) {
             abbreviation={item.abbrv}
             buying={item.buying}
             onPressBuy={() => {
-              goToExchangeScreen(item.abbrv, 'BUY');
+              goToExchangeScreen(item.abbrv, 'BUY', item.buying);
             }}
             selling={item.selling}
             onPressSell={() => {
-              goToExchangeScreen(item.abbrv, 'SELL');
+              goToExchangeScreen(item.abbrv, 'SELL', item.selling);
             }}
           />
         )}
