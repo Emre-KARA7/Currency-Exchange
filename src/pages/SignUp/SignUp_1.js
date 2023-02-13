@@ -22,7 +22,7 @@ function SignUp_1({route, navigation}) {
 
   function openCamera() {
     launchCamera({mediaType: 'photo', includeBase64: true}, response => {
-      if (response.assets[0].type) {
+      if (!response.didCancel && response.assets[0].type) {
         setPhoto(response);
       }
     });
@@ -30,16 +30,15 @@ function SignUp_1({route, navigation}) {
 
   function openGallery() {
     launchImageLibrary({mediaType: 'photo', includeBase64: true}, response => {
-      if (response.assets[0].type) {
+      if (!response.didCancel && response.assets[0].type) {
         setPhoto(response);
       }
     });
   }
-
   return (
     <SafeAreaView>
       <Text>SignUp_1</Text>
-      <ProfilePhoto />
+      <ProfilePhoto data={Photo ? Photo.assets[0].uri : false} />
       <Button text={'Gallery'} onPress={openGallery} />
       <Button text={'Camera'} onPress={openCamera} />
       <Button text={'goTo SignUp2'} onPress={goToSignUp2} />
