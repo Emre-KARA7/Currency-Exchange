@@ -10,7 +10,6 @@ const ProfilePhoto = data => {
   );
   useEffect(() => {
     if (data.data) {
-      console.log('z');
       setImg(<Image style={styles.img} source={{uri: data.data}} />);
     }
   }, [data]);
