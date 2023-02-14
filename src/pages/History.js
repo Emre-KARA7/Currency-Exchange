@@ -1,10 +1,25 @@
 import React from 'react';
-import {SafeAreaView, Text} from 'react-native';
+import {SafeAreaView, FlatList, Text} from 'react-native';
+import HistoryCard from '../components/HistoryCard';
 
 function History() {
+  //
+  const data = [];
   return (
     <SafeAreaView>
-      <Text>History</Text>
+      <FlatList
+        data={data}
+        renderItem={({item}) => (
+          <HistoryCard
+            exchangeType={null}
+            dateTime={null}
+            amount={null}
+            accountName={null}
+          />
+        )}
+        keyExtractor={item => item.id}
+        //item seperator
+      />
     </SafeAreaView>
   );
 }
