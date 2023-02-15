@@ -15,8 +15,8 @@ import ProfilePhoto from '../components/ProfilePhoto';
 function LogIn({navigation}) {
   //
   const dispatch = useDispatch();
+  const authVal = useSelector(state => state.auth.auth);
   const {data, loading, error, post} = useHttps();
-  const dd = useSelector(state => state.auth.auth);
   const [rememberMe, setRememberMe] = useState(false);
   const {StorageData, StorageLoading, StorageError, storageSet, storageGet} =
     useStorage();
@@ -33,10 +33,10 @@ function LogIn({navigation}) {
           await storageSet('user', {tckn, pass});
           console.log(storageGet('user'));
         }
-        dispatch(changeAuthState(!dd));
+        dispatch(changeAuthState(!authVal));
       }
     } catch (err) {
-      console.error('olm hata lan');
+      console.error('Login handle form error');
     }
   }
 

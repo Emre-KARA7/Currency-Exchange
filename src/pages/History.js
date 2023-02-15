@@ -1,21 +1,27 @@
 import React, {useState} from 'react';
-import {SafeAreaView, View, FlatList, Text} from 'react-native';
-import {Formik} from 'formik';
+import {SafeAreaView, StyleSheet, View, FlatList} from 'react-native';
 import Button from '../components/Button';
 import HistoryCard from '../components/HistoryCard';
 import Input from '../components/Input';
 import {SelectList} from 'react-native-dropdown-select-list';
 
+import {useSelector} from 'react-redux'; //redux
+import darkTheme from '../stores/darkTheme';
+
+import {Colors} from '../assets/colors';
+
 function History() {
   //
   const data = [
     {
+      id: 1,
       dateTime: '5/12/2020, 6:50:21 PM',
       exchangeType: 'BUY',
       accountName: 'vadesiz TL',
       amount: 80.5,
     },
     {
+      id: 2,
       dateTime: '5/12/2020, 6:50:21 PM',
       exchangeType: 'BUY',
       accountName: 'vadesiz TL',
@@ -65,10 +71,11 @@ function History() {
     ],
   ];
   //
-  const [amount, setAmount] = useState(0);
+  const [amount, setAmount] = useState('');
   const [account, setAccount] = useState(0);
   const [exchangeType, setExchangeType] = useState(0);
   const [dateTime, setDateTime] = useState(0);
+  const darkTheme = useSelector(state => state.darkTheme.darkTheme); //redux
 
   const [filterAppearance, setFilterAppearance] = useState(
     <Button text={'filtre'} onPress={openFilterPanel} />,
@@ -104,7 +111,7 @@ function History() {
   }
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={darkTheme ? styles.container_dark : styles.container}>
       {filterAppearance}
       <FlatList
         data={data}
@@ -123,4 +130,12 @@ function History() {
   );
 }
 
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: Colors.white,
+  },
+  container_dark: {
+    backgroundColor: Colors.black,
+  },
+});
 export default History;
