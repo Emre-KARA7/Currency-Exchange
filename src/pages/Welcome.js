@@ -16,6 +16,12 @@ function Welcome({navigation}) {
   return (
     <SafeAreaView>
       <Text>Welcome</Text>
+      <Button
+        text={'settings'}
+        onPress={() => {
+          navigation.navigate('SettingsScreen');
+        }}
+      />
       <Button text={'Log in'} onPress={goToLogIn} />
       <Button text={'Sign up'} onPress={goToSignUp} />
     </SafeAreaView>
