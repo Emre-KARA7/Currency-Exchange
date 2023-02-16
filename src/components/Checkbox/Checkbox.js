@@ -1,6 +1,6 @@
 import React from 'react';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
-
+import {Colors} from '../../assets/colors';
 import styles from './Checkbox.style';
 
 const Checkbox = ({onPress, isChecked}) => {
@@ -8,7 +8,7 @@ const Checkbox = ({onPress, isChecked}) => {
     <BouncyCheckbox
       style={styles.container}
       size={30}
-      fillColor={'#388E3C'}
+      fillColor={Colors.main}
       //unfillColor={'#ff0000'}
       textSize
       textStyle={styles.text}

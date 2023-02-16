@@ -1,5 +1,20 @@
 export const Colors = {
-  white: '#FFF',
-  black: '#212121',
-  // your colors
+  main: '#4CAF50',
+  mainDarker: '#388E3C',
+  mainLighter: '#C8E6C9',
+
+  secondary: '#2196F3',
+  secondaryDarker: '#1976D2',
+  secondaryLighter: '#BBDEFB',
+
+  textPrimary: '#212121',
+  dark_textPrimary: '#FDFDFD',
+
+  textSecondary: '#757575',
+  dark_textSecondary: '#DDDDDD',
+
+  background: '#FFFFFF',
+  dark_background: '#23272F',
+
+  divider: '#BDBDBD',
 };
