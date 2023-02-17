@@ -6,6 +6,8 @@ import Button from '../components/Button';
 import {SelectList} from 'react-native-dropdown-select-list';
 import {useTranslation} from 'react-i18next'; //i18n
 
+import InfoCard from '../components/InfoCard';
+
 function Settings() {
   const dispatch = useDispatch();
   const darkTheme = useSelector(state => state.darkTheme.darkTheme);
@@ -18,7 +20,8 @@ function Settings() {
   ];
   return (
     <SafeAreaView>
-      <Text>{t('text01')}</Text>
+      <InfoCard />
+      {/* <Text>{t('text01')}</Text>
       <Switch
         trackColor={{false: '#767577', true: '#81b0ff'}}
         thumbColor={darkTheme ? '#f5dd4b' : '#f4f3f4'}
@@ -31,7 +34,7 @@ function Settings() {
         data={langList}
         save="key"
       />
-      <Button text={'vibrate'} onPress={() => Vibration.vibrate(5000)} />
+      <Button text={'vibrate'} onPress={() => Vibration.vibrate(5000)} /> */}
     </SafeAreaView>
   );
 }
