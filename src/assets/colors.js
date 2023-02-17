@@ -17,4 +17,10 @@ export const Colors = {
   dark_background: '#23272F',
 
   divider: '#BDBDBD',
+
+  // bootstrap colors
+  blue: '#007bff',
+  green: '#28a745',
+  red: '#dc3545',
+  yellow: '#ffc107',
 };

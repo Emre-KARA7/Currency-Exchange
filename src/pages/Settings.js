@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {SafeAreaView, Vibration, Switch, Text} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {changeTheme} from '../stores/darkTheme';
@@ -20,8 +20,7 @@ function Settings() {
   ];
   return (
     <SafeAreaView>
-      <InfoCard />
-      {/* <Text>{t('text01')}</Text>
+      <Text>{t('text01')}</Text>
       <Switch
         trackColor={{false: '#767577', true: '#81b0ff'}}
         thumbColor={darkTheme ? '#f5dd4b' : '#f4f3f4'}
@@ -34,7 +33,7 @@ function Settings() {
         data={langList}
         save="key"
       />
-      <Button text={'vibrate'} onPress={() => Vibration.vibrate(5000)} /> */}
+      <Button text={'vibrate'} onPress={() => Vibration.vibrate(5000)} />
     </SafeAreaView>
   );
 }
