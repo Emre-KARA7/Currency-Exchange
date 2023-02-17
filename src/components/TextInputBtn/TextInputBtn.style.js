@@ -61,12 +61,4 @@ export default StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 8,
   },
-  text_btn: {
-    fontSize: 16,
-    color: Colors.textPrimary,
-  },
-  text_btn_dark: {
-    fontSize: 16,
-    color: Colors.dark_textPrimary,
-  },
 });

@@ -3,8 +3,9 @@ import {View, Text, TouchableOpacity, TextInput} from 'react-native';
 import {useSelector} from 'react-redux'; //redux
 import styles from './TextInputBtn.style';
 import {Colors} from '../../assets/colors';
+import Icon from 'react-native-vector-icons/EvilIcons';
 
-function Input({label, value, placeholder, onChangeText, btnText, onBtnPress}) {
+function Input({label, value, placeholder, onChangeText, onBtnPress}) {
   const darkTheme = useSelector(state => state.darkTheme.darkTheme); //redux
   return (
     <View style={darkTheme ? styles.container_dark : styles.container}>
@@ -23,9 +24,13 @@ function Input({label, value, placeholder, onChangeText, btnText, onBtnPress}) {
           <TouchableOpacity
             style={darkTheme ? styles.container_btn_dark : styles.container_btn}
             onPress={onBtnPress}>
-            <Text style={darkTheme ? styles.text_btn_dark : styles.text_btn}>
-              {btnText}
-            </Text>
+            <Icon
+              name="calendar"
+              size={50}
+              color={
+                darkTheme ? Colors.dark_textSecondary : Colors.textSecondary
+              }
+            />
           </TouchableOpacity>
         </View>
       </View>

@@ -1,13 +1,15 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {SafeAreaView, View, Text} from 'react-native';
 import {Formik} from 'formik';
-
+import DatePicker from 'react-native-date-picker';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
 import TextInputBtn from '../../components/TextInputBtn';
 
 function SignUp_0({navigation}) {
   //
+  const [open, setOpen] = useState(false);
+
   function handleForm(values) {
     navigation.navigate('SignUp1Screen', {
       name: values.name,
@@ -20,9 +22,10 @@ function SignUp_0({navigation}) {
   return (
     <SafeAreaView>
       <Text>SignUp_0</Text>
+
       <Formik
         onSubmit={handleForm}
-        initialValues={{name: '', surname: '', b_date: '', tckn: ''}}>
+        initialValues={{name: '', surname: '', b_date: new Date(), tckn: ''}}>
         {({handleSubmit, handleChange, values}) => (
           <View>
             <Input
@@ -41,7 +44,21 @@ function SignUp_0({navigation}) {
               label="B Date"
               placeholder="Write your birth date"
               onChangeText={handleChange('b_date')}
-              value={values.b_date}
+              onBtnPress={() => setOpen(true)}
+              value={values.b_date.toDateString()}
+            />
+            <DatePicker
+              modal
+              open={open}
+              mode={'date'}
+              date={values.b_date}
+              onConfirm={val => {
+                values.b_date = val;
+                setOpen(false);
+              }}
+              onCancel={() => {
+                setOpen(false);
+              }}
             />
             <Input
               label="TCKN"
