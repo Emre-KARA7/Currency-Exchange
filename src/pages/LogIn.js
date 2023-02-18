@@ -81,7 +81,9 @@ function LogIn({navigation}) {
               onChangeText={handleChange('tckn')}
               value={values.tckn}
             />
-            {errors.tckn && touched.tckn ? <Text>{errors.tckn}</Text> : null}
+            {errors.tckn && touched.tckn ? (
+              <Text style={pagesStyles.formWarnText}>{errors.tckn}</Text>
+            ) : null}
 
             <Input
               secure={true}
@@ -90,9 +92,14 @@ function LogIn({navigation}) {
               onChangeText={handleChange('pass')}
               value={values.pass}
             />
-            {errors.pass && touched.pass ? <Text>{errors.pass}</Text> : null}
+            {errors.pass && touched.pass ? (
+              <Text style={pagesStyles.formWarnText}>{errors.pass}</Text>
+            ) : null}
 
-            <Checkbox onPress={() => setRememberMe(!rememberMe)} />
+            <View style={pagesStyles.flexRowCenter}>
+              <Checkbox onPress={() => setRememberMe(!rememberMe)} />
+              <Text style={pagesStyles.textC}>Remember Me</Text>
+            </View>
 
             <View style={pagesStyles.rightBottom}>
               <Button text={'next'} onPress={handleSubmit} />

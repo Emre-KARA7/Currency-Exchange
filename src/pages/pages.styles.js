@@ -75,7 +75,19 @@ export default StyleSheet.create({
     fontSize: 20,
     fontWeight: '500',
   },
-  textB: {},
+  textB: {
+    color: Colors.main,
+    marginRight: 30,
+    fontSize: 20,
+    fontWeight: '500',
+  },
+  textC: {
+    color: Colors.main,
+    fontSize: 23,
+    marginLeft: -15,
+    fontWeight: '500',
+    textAlignVertical: 'center',
+  },
   exchangeTitle: {
     color: Colors.secondaryDarker,
     fontSize: 40,
@@ -83,6 +95,7 @@ export default StyleSheet.create({
     textAlign: 'center',
     marginVertical: 20,
   },
+
   Center: {
     justifyContent: 'center',
     alignItems: 'center',
