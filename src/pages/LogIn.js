@@ -36,7 +36,7 @@ function LogIn({navigation}) {
         dispatch(changeAuthState(!authVal));
       }
     } catch (err) {
-      console.error('Login handle form error');
+      //console.error('Login handle form error');
     }
   }
 
@@ -69,6 +69,7 @@ function LogIn({navigation}) {
             />
             {errors.tckn && touched.tckn ? <Text>{errors.tckn}</Text> : null}
             <Input
+              secure={true}
               label="pass"
               placeholder="Write your surname"
               onChangeText={handleChange('pass')}

@@ -57,6 +57,7 @@ function SignUp_2({route, navigation}) {
             />
             {errors.tel && touched.tel ? <Text>{errors.tel}</Text> : null}
             <Input
+              secureTextEntry={true}
               label="Sifre"
               placeholder="Write your pass"
               onChangeText={handleChange('pass1')}
@@ -64,6 +65,7 @@ function SignUp_2({route, navigation}) {
             />
             {errors.pass1 && touched.pass1 ? <Text>{errors.pass1}</Text> : null}
             <Input
+              secureTextEntry={true}
               label="Sifre (Tekrar)"
               placeholder="Write your pass"
               onChangeText={handleChange('pass2')}

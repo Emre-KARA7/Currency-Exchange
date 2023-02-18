@@ -10,7 +10,7 @@ function useStorage() {
   const storageSet = async (key, value) => {
     try {
       setStorageLoading(true);
-      console.log(JSON.parse(value));
+      //console.log(JSON.parse(value));
       await EncryptedStorage.setItem(key, JSON.stringify(value)); //----changed
       setStorageLoading(false);
     } catch (err) {
