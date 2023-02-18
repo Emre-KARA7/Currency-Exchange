@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
-import {SafeAreaView, Text} from 'react-native';
+import {SafeAreaView, View, Text} from 'react-native';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
-
+import pagesStyles from '../pages.styles';
 import Button from '../../components/Button';
 import ProfilePhoto from '../../components/ProfilePhoto';
 
@@ -36,12 +36,19 @@ function SignUp_1({route, navigation}) {
     });
   }
   return (
-    <SafeAreaView>
-      <Text>SignUp_1</Text>
-      <ProfilePhoto data={Photo ? Photo.assets[0].uri : false} />
-      <Button text={'Gallery'} onPress={openGallery} />
-      <Button text={'Camera'} onPress={openCamera} />
-      <Button text={'goTo SignUp2'} onPress={goToSignUp2} />
+    <SafeAreaView style={pagesStyles.padding}>
+      <View style={pagesStyles.flexRowCenter}>
+        <ProfilePhoto data={Photo ? Photo.assets[0].uri : false} />
+      </View>
+
+      <View style={pagesStyles.flexRowCenter}>
+        <Button text={'Gallery'} onPress={openGallery} />
+        <Button text={'Camera'} onPress={openCamera} />
+      </View>
+
+      <View style={pagesStyles.rightBottom}>
+        <Button text={'goTo SignUp2'} onPress={goToSignUp2} />
+      </View>
     </SafeAreaView>
   );
 }

@@ -4,7 +4,7 @@ import {Formik} from 'formik';
 import useHttps from '../../hooks/useHttps';
 import Config from 'react-native-config';
 import * as Yup from 'yup';
-
+import pagesStyles from '../pages.styles';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
 
@@ -12,10 +12,6 @@ function SignUp_2({route, navigation}) {
   //
   const {name, surname, b_date, tckn, photo} = route.params;
   const {data, loading, error, post} = useHttps();
-
-  function ApopToTop() {
-    navigation.popToTop();
-  }
 
   function handleForm(values) {
     post(Config.API_URL + 'signup', values);
@@ -41,21 +37,22 @@ function SignUp_2({route, navigation}) {
   });
 
   return (
-    <SafeAreaView>
-      <Text>SignUp_2</Text>
+    <SafeAreaView style={pagesStyles.padding}>
       <Formik
         validationSchema={SignUp2Schema}
         onSubmit={handleForm}
         initialValues={{tel: '', pass1: '', pass2: ''}}>
         {({handleSubmit, handleChange, touched, errors, values}) => (
-          <View>
+          <View style={pagesStyles.flexOne}>
             <Input
               label="Telefon"
               placeholder="Write your name"
               onChangeText={handleChange('tel')}
               value={values.tel}
             />
-            {errors.tel && touched.tel ? <Text>{errors.tel}</Text> : null}
+            {errors.tel && touched.tel ? (
+              <Text style={pagesStyles.formWarnText}>{errors.tel}</Text>
+            ) : null}
             <Input
               secureTextEntry={true}
               label="Sifre"
@@ -63,7 +60,9 @@ function SignUp_2({route, navigation}) {
               onChangeText={handleChange('pass1')}
               value={values.pass1}
             />
-            {errors.pass1 && touched.pass1 ? <Text>{errors.pass1}</Text> : null}
+            {errors.pass1 && touched.pass1 ? (
+              <Text style={pagesStyles.formWarnText}>{errors.pass1}</Text>
+            ) : null}
             <Input
               secureTextEntry={true}
               label="Sifre (Tekrar)"
@@ -71,12 +70,16 @@ function SignUp_2({route, navigation}) {
               onChangeText={handleChange('pass2')}
               value={values.pass2}
             />
-            {errors.pass2 && touched.pass2 ? <Text>{errors.pass2}</Text> : null}
-            <Button text={'next'} onPress={handleSubmit} />
+            {errors.pass2 && touched.pass2 ? (
+              <Text style={pagesStyles.formWarnText}>{errors.pass2}</Text>
+            ) : null}
+
+            <View style={pagesStyles.rightBottom}>
+              <Button text={'next'} onPress={handleSubmit} />
+            </View>
           </View>
         )}
       </Formik>
-      <Button text={'pop to top'} onPress={ApopToTop} />
     </SafeAreaView>
   );
 }

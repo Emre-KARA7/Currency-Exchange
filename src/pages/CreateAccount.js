@@ -1,13 +1,16 @@
 import React, {useState} from 'react';
-import {SafeAreaView, Text} from 'react-native';
-import {SelectList} from 'react-native-dropdown-select-list';
+import {SafeAreaView, Text, View} from 'react-native';
+//import {SelectList} from 'react-native-dropdown-select-list';
 import useHttps from '../hooks/useHttps';
 import Config from 'react-native-config';
-
+import pagesStyles from './pages.styles';
 import Button from '../components/Button';
+import {useSelector} from 'react-redux'; //redux
+import Dropdown from '../components/Dropdown';
 
 function CreateAccount() {
   //
+  const darkTheme = useSelector(state => state.darkTheme.darkTheme); //redux
   const [account_type, setAccount_type] = useState(null);
   const [branch_office, setBranch_office] = useState(null);
   const [currency, setCurrency] = useState(null);
@@ -63,24 +66,45 @@ function CreateAccount() {
   }
 
   return (
-    <SafeAreaView>
-      <Text>CreateAccount</Text>
-      <SelectList
-        setSelected={val => setAccount_type(val)}
+    <SafeAreaView
+      style={
+        darkTheme
+          ? pagesStyles.flexOnePaddingBG_dark
+          : pagesStyles.flexOnePaddingBG
+      }>
+      <Text style={darkTheme ? pagesStyles.textA_dark : pagesStyles.textA}>
+        Hesap Turu
+      </Text>
+      <Dropdown
+        pleaceholder={'lutfen hesap turu seciniz..'}
         data={listData[0]}
-        save="value"
+        setSelected={setAccount_type}
+        save={'value'}
       />
-      <SelectList
-        setSelected={val => setCurrency(val)}
+
+      <Text style={darkTheme ? pagesStyles.textA_dark : pagesStyles.textA}>
+        Para Birimi
+      </Text>
+      <Dropdown
+        pleaceholder={'lutfen para birimi seciniz..'}
         data={listData[1]}
-        save="value"
+        setSelected={setCurrency}
+        save={'value'}
       />
-      <SelectList
-        setSelected={val => setBranch_office(val)}
+
+      <Text style={darkTheme ? pagesStyles.textA_dark : pagesStyles.textA}>
+        Bagli Sube
+      </Text>
+      <Dropdown
+        pleaceholder={'lutfen kayit subesi seciniz..'}
         data={listData[2]}
-        save="value"
+        setSelected={setBranch_office}
+        save={'value'}
       />
-      <Button text={'next'} onPress={nextStep} />
+
+      <View style={pagesStyles.rightBottom}>
+        <Button text={'next'} onPress={nextStep} />
+      </View>
     </SafeAreaView>
   );
 }

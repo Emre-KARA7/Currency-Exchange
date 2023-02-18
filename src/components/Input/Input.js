@@ -17,7 +17,7 @@ function Input({label, value, placeholder, onChangeText, secure}) {
           value={value}
           placeholder={placeholder}
           placeholderTextColor={
-            darkTheme ? Colors.dark_textSeconday : Colors.textSecondary
+            darkTheme ? Colors.dark_textSecondary : Colors.textSecondary
           }
         />
       </View>

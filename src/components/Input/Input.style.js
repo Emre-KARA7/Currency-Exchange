@@ -37,7 +37,7 @@ export default StyleSheet.create({
   },
   input_dark: {
     fontSize: 16,
-    color: Colors.dark_textSeconday,
+    color: Colors.dark_textSecondary,
     flex: 6,
   },
 });

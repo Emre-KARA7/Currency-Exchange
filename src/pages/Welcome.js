@@ -1,6 +1,6 @@
 import React from 'react';
-import {SafeAreaView, Text} from 'react-native';
-
+import {SafeAreaView, View} from 'react-native';
+import pagesStyles from './pages.styles';
 import Button from '../components/Button';
 
 function Welcome({navigation}) {
@@ -14,16 +14,11 @@ function Welcome({navigation}) {
   }
 
   return (
-    <SafeAreaView>
-      <Text>Welcome</Text>
-      <Button
-        text={'settings'}
-        onPress={() => {
-          navigation.navigate('SettingsScreen');
-        }}
-      />
-      <Button text={'Log in'} onPress={goToLogIn} />
-      <Button text={'Sign up'} onPress={goToSignUp} />
+    <SafeAreaView style={pagesStyles.Center}>
+      <View style={pagesStyles.flexRowCenter}>
+        <Button text={'Log in'} onPress={goToLogIn} />
+        <Button text={'Sign up'} onPress={goToSignUp} />
+      </View>
     </SafeAreaView>
   );
 }

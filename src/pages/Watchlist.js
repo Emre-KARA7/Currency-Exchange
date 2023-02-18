@@ -1,11 +1,13 @@
 import React from 'react';
 import {SafeAreaView, FlatList, Text} from 'react-native';
-
-import Button from '../components/Button';
 import WatchlistCard from '../components/WatchlistCard';
+import pagesStyles from './pages.styles';
+import {useSelector} from 'react-redux'; //redux
 
 function Watchlist({navigation}) {
   //
+  const darkTheme = useSelector(state => state.darkTheme.darkTheme); //redux
+
   const data = [
     {
       id: 1,
@@ -38,17 +40,13 @@ function Watchlist({navigation}) {
     },
   ];
 
-  function goToEditWatchlistScreen() {
-    navigation.navigate('EditWatchlistScreen');
-  }
-
   function goToExchangeScreen(abbreviation, exchangeMethod, rate) {
     navigation.navigate('ExchangeScreen', {abbreviation, exchangeMethod, rate});
   }
 
   return (
-    <SafeAreaView>
-      <Button text={'edit watchlist'} onPress={goToEditWatchlistScreen} />
+    <SafeAreaView
+      style={darkTheme ? pagesStyles.flexOne_bg_dark : pagesStyles.flexOne_bg}>
       <FlatList
         data={data}
         renderItem={({item}) => (

@@ -5,7 +5,7 @@ import Config from 'react-native-config';
 import {useDispatch, useSelector} from 'react-redux';
 import {changeAuthState} from '../stores/auth';
 import * as Yup from 'yup';
-
+import pagesStyles from './pages.styles';
 import Checkbox from '../components/Checkbox';
 import Input from '../components/Input';
 import Button from '../components/Button';
@@ -21,6 +21,7 @@ function LogIn({navigation}) {
   const [rememberMe, setRememberMe] = useState(false);
   const {StorageData, StorageLoading, StorageError, storageSet, storageGet} =
     useStorage();
+  const darkTheme = useSelector(state => state.darkTheme.darkTheme); //redux
 
   async function handleForm(values) {
     try {
@@ -53,14 +54,27 @@ function LogIn({navigation}) {
   });
 
   return (
-    <SafeAreaView>
+    <SafeAreaView
+      style={
+        darkTheme
+          ? pagesStyles.flexOnePaddingBG_dark
+          : pagesStyles.flexOnePaddingBG
+      }>
       <Formik
         validationSchema={LoginSchema}
         onSubmit={handleForm}
         initialValues={{tckn: '', pass: ''}}>
         {({handleSubmit, handleChange, touched, errors, values}) => (
-          <View>
-            <ProfilePhoto />
+          <View
+            style={
+              darkTheme
+                ? pagesStyles.flexOnePaddingBG_dark
+                : pagesStyles.flexOnePaddingBG
+            }>
+            <View style={pagesStyles.flexRowCenter}>
+              <ProfilePhoto />
+            </View>
+
             <Input
               label="tckn"
               placeholder="Write your name"
@@ -68,6 +82,7 @@ function LogIn({navigation}) {
               value={values.tckn}
             />
             {errors.tckn && touched.tckn ? <Text>{errors.tckn}</Text> : null}
+
             <Input
               secure={true}
               label="pass"
@@ -76,8 +91,12 @@ function LogIn({navigation}) {
               value={values.pass}
             />
             {errors.pass && touched.pass ? <Text>{errors.pass}</Text> : null}
+
             <Checkbox onPress={() => setRememberMe(!rememberMe)} />
-            <Button text={'next'} onPress={handleSubmit} />
+
+            <View style={pagesStyles.rightBottom}>
+              <Button text={'next'} onPress={handleSubmit} />
+            </View>
           </View>
         )}
       </Formik>

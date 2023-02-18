@@ -3,6 +3,7 @@ import {SafeAreaView, View, Text} from 'react-native';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
 import DatePicker from 'react-native-date-picker';
+import pagesStyles from '../pages.styles';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
 import TextInputBtn from '../../components/TextInputBtn';
@@ -41,9 +42,7 @@ function SignUp_0({navigation}) {
   });
 
   return (
-    <SafeAreaView>
-      <Text>SignUp_0</Text>
-
+    <SafeAreaView style={pagesStyles.padding}>
       <Formik
         validationSchema={SignUp0Schema}
         onSubmit={handleForm}
@@ -56,7 +55,9 @@ function SignUp_0({navigation}) {
               onChangeText={handleChange('name')}
               value={values.name}
             />
-            {errors.name && touched.name ? <Text>{errors.name}</Text> : null}
+            {errors.name && touched.name ? (
+              <Text style={pagesStyles.formWarnText}>*{errors.name}</Text>
+            ) : null}
             <Input
               label="Surname"
               placeholder="Write your surname"
@@ -64,7 +65,7 @@ function SignUp_0({navigation}) {
               value={values.surname}
             />
             {errors.surname && touched.surname ? (
-              <Text>{errors.surname}</Text>
+              <Text style={pagesStyles.formWarnText}>*{errors.surname}</Text>
             ) : null}
             <TextInputBtn
               label="B Date"
@@ -74,7 +75,7 @@ function SignUp_0({navigation}) {
               value={values.b_date.toDateString()}
             />
             {errors.b_date && touched.b_date ? (
-              <Text>{errors.b_date}</Text>
+              <Text style={pagesStyles.formWarnText}>*{errors.b_date}</Text>
             ) : null}
             <DatePicker
               modal
@@ -95,7 +96,9 @@ function SignUp_0({navigation}) {
               onChangeText={handleChange('tckn')}
               value={values.tckn}
             />
-            {errors.tckn && touched.tckn ? <Text>{errors.tckn}</Text> : null}
+            {errors.tckn && touched.tckn ? (
+              <Text style={pagesStyles.formWarnText}>*{errors.tckn}</Text>
+            ) : null}
             <Button text={'next'} onPress={handleSubmit} />
           </View>
         )}

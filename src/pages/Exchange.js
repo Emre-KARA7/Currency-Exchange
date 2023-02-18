@@ -1,9 +1,11 @@
 import React, {useState, useEffect} from 'react';
-import {SafeAreaView, Text} from 'react-native';
+import {SafeAreaView, View, Text} from 'react-native';
 import useHttps from '../hooks/useHttps';
 import Button from '../components/Button';
-import {SelectList} from 'react-native-dropdown-select-list';
+import Dropdown from '../components/Dropdown';
 import Input from '../components/Input';
+import {useSelector} from 'react-redux'; //redux
+import pagesStyles from './pages.styles';
 
 function Exchange({route}) {
   const {data, loading, error, get, post} = useHttps();
@@ -79,24 +81,41 @@ function Exchange({route}) {
     setSelectListFormat();
   }
 
+  const darkTheme = useSelector(state => state.darkTheme.darkTheme); //redux
   return (
-    <SafeAreaView>
-      <Text>
+    <SafeAreaView
+      style={
+        darkTheme
+          ? pagesStyles.flexOnePaddingBG_dark
+          : pagesStyles.flexOnePaddingBG
+      }>
+      <Text style={pagesStyles.exchangeTitle}>
         {abbreviation} {method.title}
       </Text>
-      <Text>{method.exchangeAccount}</Text>
-      <SelectList
-        onSelect={getRate}
-        setSelected={val => setExchangeAccount(val)}
+
+      <Text style={darkTheme ? pagesStyles.textA_dark : pagesStyles.textA}>
+        {method.exchangeAccount}
+      </Text>
+      <Dropdown
         data={selectlistData}
+        setSelected={setExchangeAccount}
         save="AccountTitle"
+        onSelect={getRate}
+        pleaceholder={'lutfen alinacak para turu secin'}
       />
-      <Text>
+
+      <Text style={darkTheme ? pagesStyles.textA_dark : pagesStyles.textA}>
         Oran ({abbreviation}/TL) : {rate}
       </Text>
       <Input label={'Miktar'} value={amount} onChangeText={setAmount} />
-      <Text>Sonuc: {rate * Number(amount)} </Text>
-      <Button text={'Onayla'} onPress={approve} />
+
+      <Text style={darkTheme ? pagesStyles.textA_dark : pagesStyles.textA}>
+        Sonuc: {rate * Number(amount)}{' '}
+      </Text>
+
+      <View style={pagesStyles.rightBottom}>
+        <Button text={'Onayla'} onPress={approve} />
+      </View>
     </SafeAreaView>
   );
 }

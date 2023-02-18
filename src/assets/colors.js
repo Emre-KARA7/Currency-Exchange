@@ -15,6 +15,8 @@ export const Colors = {
 
   background: '#FFFFFF',
   dark_background: '#23272F',
+  background2: '#f0f0f0',
+  dark_background2: '#2c313a',
 
   divider: '#BDBDBD',
 
