@@ -14,7 +14,7 @@ const localLang = {
   init: () => {},
   cacheUserLanguage: () => {},
 };
-console.log(RNLocalize.getLocales()[0].languageCode);
+
 i18next
   .use(localLang)
   .use(initReactI18next)

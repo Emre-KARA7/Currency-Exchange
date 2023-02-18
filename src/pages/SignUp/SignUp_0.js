@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {SafeAreaView, View, Text} from 'react-native';
 import {Formik} from 'formik';
+import * as Yup from 'yup';
 import DatePicker from 'react-native-date-picker';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
@@ -19,14 +20,35 @@ function SignUp_0({navigation}) {
     });
   }
 
+  const SignUp0Schema = Yup.object().shape({
+    tckn: Yup.string()
+      .min(11, 'Too Short!')
+      .max(11, 'Too Long!')
+      .matches(/^\d+$/, 'not a tckn')
+      .required('Required'),
+    name: Yup.string()
+      .min(2, 'Too Short!')
+      .max(50, 'Too Long!')
+      .required('Required'),
+    surname: Yup.string()
+      .min(2, 'Too Short!')
+      .max(50, 'Too Long!')
+      .required('Required'),
+    b_date: Yup.string()
+      .min(2, 'Too Short!')
+      .max(50, 'Too Long!')
+      .required('Required'),
+  });
+
   return (
     <SafeAreaView>
       <Text>SignUp_0</Text>
 
       <Formik
+        validationSchema={SignUp0Schema}
         onSubmit={handleForm}
         initialValues={{name: '', surname: '', b_date: new Date(), tckn: ''}}>
-        {({handleSubmit, handleChange, values}) => (
+        {({handleSubmit, handleChange, touched, errors, values}) => (
           <View>
             <Input
               label="Name"
@@ -34,12 +56,16 @@ function SignUp_0({navigation}) {
               onChangeText={handleChange('name')}
               value={values.name}
             />
+            {errors.name && touched.name ? <Text>{errors.name}</Text> : null}
             <Input
               label="Surname"
               placeholder="Write your surname"
               onChangeText={handleChange('surname')}
               value={values.surname}
             />
+            {errors.surname && touched.surname ? (
+              <Text>{errors.surname}</Text>
+            ) : null}
             <TextInputBtn
               label="B Date"
               placeholder="Write your birth date"
@@ -47,6 +73,9 @@ function SignUp_0({navigation}) {
               onBtnPress={() => setOpen(true)}
               value={values.b_date.toDateString()}
             />
+            {errors.b_date && touched.b_date ? (
+              <Text>{errors.b_date}</Text>
+            ) : null}
             <DatePicker
               modal
               open={open}
@@ -66,6 +95,7 @@ function SignUp_0({navigation}) {
               onChangeText={handleChange('tckn')}
               value={values.tckn}
             />
+            {errors.tckn && touched.tckn ? <Text>{errors.tckn}</Text> : null}
             <Button text={'next'} onPress={handleSubmit} />
           </View>
         )}
