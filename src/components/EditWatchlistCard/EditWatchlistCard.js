@@ -1,11 +1,10 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import {View, Text} from 'react-native';
-import useStorage from '../../hooks/useStorage';
 import Checkbox from '../Checkbox';
 import styles from './EditWatchlistCard.style';
 import {useSelector} from 'react-redux'; //redux
 
-const EditWatchlistCard = ({name, abbreviation}) => {
+const EditWatchlistCard = ({name, abbreviation, onPress}) => {
   const darkTheme = useSelector(state => state.darkTheme.darkTheme); //redux
   return (
     <View style={darkTheme ? styles.container_dark : styles.container}>
@@ -13,7 +12,7 @@ const EditWatchlistCard = ({name, abbreviation}) => {
       <Text style={darkTheme ? styles.text_abrv_dark : styles.text_abrv}>
         {abbreviation}
       </Text>
-      <Checkbox />
+      <Checkbox onPress={onPress} />
     </View>
   );
 };

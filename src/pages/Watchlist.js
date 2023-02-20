@@ -1,5 +1,5 @@
 import React from 'react';
-import {SafeAreaView, FlatList, Text} from 'react-native';
+import {SafeAreaView, FlatList} from 'react-native';
 import WatchlistCard from '../components/WatchlistCard';
 import pagesStyles from './pages.styles';
 import {useSelector} from 'react-redux'; //redux

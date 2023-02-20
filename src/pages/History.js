@@ -1,14 +1,12 @@
 import React, {useState, useEffect} from 'react';
-import {SafeAreaView, StyleSheet, View, FlatList} from 'react-native';
+import {SafeAreaView, View, FlatList} from 'react-native';
 import Button from '../components/Button';
 import HistoryCard from '../components/HistoryCard';
 import Input from '../components/Input';
 import pagesStyles from './pages.styles';
 import Icon from 'react-native-vector-icons/AntDesign';
 import {useSelector} from 'react-redux'; //redux
-import darkTheme from '../stores/darkTheme';
 import Dropdown from '../components/Dropdown';
-import {Colors} from '../assets/colors';
 
 function History({navigation}) {
   //

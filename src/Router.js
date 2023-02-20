@@ -165,7 +165,7 @@ function Router() {
               : Colors.background,
           },
         }}>
-        {auth ? (
+        {true ? ( //auth
           <Stack.Group>
             <Stack.Screen
               name="HomeScreen"
