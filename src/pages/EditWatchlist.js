@@ -4,7 +4,6 @@ import pagesStyles from './pages.styles';
 import EditWatchlistCard from '../components/EditWatchlistCard';
 import {useSelector} from 'react-redux'; //redux
 import useStorage from '../hooks/useStorage';
-import Watchlist from './Watchlist';
 
 function EditWatchlist() {
   //
@@ -25,41 +24,51 @@ function EditWatchlist() {
   function remove(abbrv) {
     setArrToWatc(arrToWatc.filter(i => i.abbrv !== abbrv));
   }
-
   useEffect(() => {
     (async () => {
       if (arrToWatc === ' ') {
         const a = await storageGet('watchlist');
-        setArrToWatc(a);
+        if (a) setArrToWatc(a);
+        else setArrToWatc([]);
       } else await storageSet('watchlist', arrToWatc);
       console.log(arrToWatc);
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [arrToWatc]);
 
-  return (
-    <SafeAreaView
-      style={
-        darkTheme
-          ? pagesStyles.flexOnePaddingBG_dark
-          : pagesStyles.flexOnePaddingBG
-      }>
-      <FlatList
-        data={data}
-        renderItem={({item}) => (
-          <EditWatchlistCard
-            name={item.name}
-            abbreviation={item.abbrv}
-            onPress={isChecked => {
-              isChecked ? add(item.abbrv) : remove(item.abbrv);
-            }}
-          />
-        )}
-        keyExtractor={item => item.id}
-        //item seperator
-      />
-    </SafeAreaView>
-  );
+  function checkControl(abbrv) {
+    if (arrToWatc[0].abbrv) {
+      const even = element => element.abbrv === abbrv;
+      return arrToWatc.some(even);
+    }
+    return false;
+  }
+  if (arrToWatc[0].abbrv) {
+    return (
+      <SafeAreaView
+        style={
+          darkTheme
+            ? pagesStyles.flexOnePaddingBG_dark
+            : pagesStyles.flexOnePaddingBG
+        }>
+        <FlatList
+          data={data}
+          renderItem={({item}) => (
+            <EditWatchlistCard
+              name={item.name}
+              abbreviation={item.abbrv}
+              onPress={check => {
+                check ? add(item.abbrv) : remove(item.abbrv);
+              }}
+              isChecked={checkControl(item.abbrv)}
+            />
+          )}
+          keyExtractor={item => item.id}
+          //item seperator
+        />
+      </SafeAreaView>
+    );
+  }
 }
 
 export default EditWatchlist;

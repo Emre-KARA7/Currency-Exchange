@@ -11,7 +11,7 @@ function useStorage() {
     try {
       setStorageLoading(true);
       const jsonValue = JSON.stringify(value);
-      await AsyncStorage.setItem('@storage_Key', jsonValue);
+      await AsyncStorage.setItem(key, jsonValue);
       setStorageLoading(false);
     } catch (err) {
       setStorageLoading(false);
@@ -22,7 +22,7 @@ function useStorage() {
   const storageGet = async key => {
     try {
       setStorageLoading(true);
-      const jsonValue = await AsyncStorage.getItem('@storage_Key');
+      const jsonValue = await AsyncStorage.getItem(key);
       return jsonValue != null ? JSON.parse(jsonValue) : null;
       //setStorageLoading(false);
     } catch (err) {

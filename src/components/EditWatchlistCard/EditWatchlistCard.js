@@ -4,7 +4,7 @@ import Checkbox from '../Checkbox';
 import styles from './EditWatchlistCard.style';
 import {useSelector} from 'react-redux'; //redux
 
-const EditWatchlistCard = ({name, abbreviation, onPress}) => {
+const EditWatchlistCard = ({name, abbreviation, onPress, isChecked}) => {
   const darkTheme = useSelector(state => state.darkTheme.darkTheme); //redux
   return (
     <View style={darkTheme ? styles.container_dark : styles.container}>
@@ -12,7 +12,7 @@ const EditWatchlistCard = ({name, abbreviation, onPress}) => {
       <Text style={darkTheme ? styles.text_abrv_dark : styles.text_abrv}>
         {abbreviation}
       </Text>
-      <Checkbox onPress={onPress} />
+      <Checkbox onPress={onPress} isChecked={isChecked} />
     </View>
   );
 };
