@@ -16,7 +16,7 @@ function SignUp_0({navigation}) {
     navigation.navigate('SignUp1Screen', {
       name: values.name,
       surname: values.surname,
-      b_date: values.b_date,
+      b_date: values.b_date.toDateString(),
       tckn: values.tckn,
     });
   }
@@ -48,7 +48,7 @@ function SignUp_0({navigation}) {
         onSubmit={handleForm}
         initialValues={{name: '', surname: '', b_date: new Date(), tckn: ''}}>
         {({handleSubmit, handleChange, touched, errors, values}) => (
-          <View>
+          <View style={pagesStyles.flexOne}>
             <Input
               label="Name"
               placeholder="Write your name"
@@ -99,7 +99,10 @@ function SignUp_0({navigation}) {
             {errors.tckn && touched.tckn ? (
               <Text style={pagesStyles.formWarnText}>*{errors.tckn}</Text>
             ) : null}
-            <Button text={'next'} onPress={handleSubmit} />
+
+            <View style={pagesStyles.rightBottom}>
+              <Button text={'next'} onPress={handleSubmit} />
+            </View>
           </View>
         )}
       </Formik>

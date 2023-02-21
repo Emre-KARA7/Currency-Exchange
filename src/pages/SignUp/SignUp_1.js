@@ -1,16 +1,24 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {SafeAreaView, View, Text} from 'react-native';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import pagesStyles from '../pages.styles';
 import Button from '../../components/Button';
 import ProfilePhoto from '../../components/ProfilePhoto';
+import useStorage from '../../hooks/useStorage';
 
 function SignUp_1({route, navigation}) {
   //
+  const {StorageLoading, StorageError, storageSet, storageGet} = useStorage();
+  const [user, setUser] = useState(' ');
   const {name, surname, b_date, tckn} = route.params;
   const [Photo, setPhoto] = useState(null);
 
   function goToSignUp2() {
+    setUser({
+      ...user,
+      photo: Photo.assets[0].base64,
+    });
+
     navigation.navigate('SignUp2Screen', {
       name: name,
       surname: surname,
@@ -19,6 +27,18 @@ function SignUp_1({route, navigation}) {
       photo: Photo,
     });
   }
+
+  useEffect(() => {
+    (async () => {
+      if (user === ' ') {
+        const a = await storageGet('user');
+        if (a) setUser(a);
+        else setUser({});
+      } else await storageSet('user', user);
+      console.log(user);
+    })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
 
   function openCamera() {
     launchCamera({mediaType: 'photo', includeBase64: true}, response => {
@@ -35,6 +55,7 @@ function SignUp_1({route, navigation}) {
       }
     });
   }
+
   return (
     <SafeAreaView style={pagesStyles.padding}>
       <View style={pagesStyles.flexRowCenter}>

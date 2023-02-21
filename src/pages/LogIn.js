@@ -19,8 +19,7 @@ function LogIn({navigation}) {
   const authVal = useSelector(state => state.auth.auth);
   const {data, loading, error, post} = useHttps();
   const [rememberMe, setRememberMe] = useState(false);
-  const {StorageData, StorageLoading, StorageError, storageSet, storageGet} =
-    useStorage();
+  const {StorageLoading, StorageError, storageSet, storageGet} = useStorage();
   const darkTheme = useSelector(state => state.darkTheme.darkTheme); //redux
 
   async function handleForm(values) {
