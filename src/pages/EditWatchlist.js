@@ -9,7 +9,7 @@ function EditWatchlist() {
   //
   const {StorageLoading, StorageError, storageSet, storageGet} = useStorage();
   const darkTheme = useSelector(state => state.darkTheme.darkTheme); //redux
-  const [arrToWatc, setArrToWatc] = useState(' ');
+  const [arrToWatch, setArrToWatch] = useState(' ');
   const data = [
     {id: 1, name: 'ABD DOLARI', abbrv: 'USD'},
     {id: 2, name: 'AVUSTRALYA DOLARI', abbrv: 'AVD'},
@@ -19,31 +19,31 @@ function EditWatchlist() {
   ];
 
   function add(abbrv) {
-    setArrToWatc([...arrToWatc, {abbrv}]);
+    setArrToWatch([...arrToWatch, {abbrv}]);
   }
   function remove(abbrv) {
-    setArrToWatc(arrToWatc.filter(i => i.abbrv !== abbrv));
+    setArrToWatch(arrToWatch.filter(i => i.abbrv !== abbrv));
   }
   useEffect(() => {
     (async () => {
-      if (arrToWatc === ' ') {
+      if (arrToWatch === ' ') {
         const a = await storageGet('watchlist');
-        if (a) setArrToWatc(a);
-        else setArrToWatc([]);
-      } else await storageSet('watchlist', arrToWatc);
-      console.log(arrToWatc);
+        if (a) setArrToWatch(a);
+        else setArrToWatch([{abbrv: ' '}]);
+      } else await storageSet('watchlist', arrToWatch);
+      console.log(arrToWatch);
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [arrToWatc]);
+  }, [arrToWatch]);
 
   function checkControl(abbrv) {
-    if (arrToWatc[0].abbrv) {
+    if (arrToWatch[0].abbrv) {
       const even = element => element.abbrv === abbrv;
-      return arrToWatc.some(even);
+      return arrToWatch.some(even);
     }
     return false;
   }
-  if (arrToWatc[0].abbrv) {
+  if (arrToWatch[0].abbrv) {
     return (
       <SafeAreaView
         style={

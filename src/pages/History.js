@@ -29,7 +29,7 @@ function History({navigation}) {
   // ];
 
   //
-  const [refreshing, setRefreshing] = React.useState(false);
+  const [refreshing, setRefreshing] = useState(false);
   const {StorageLoading, StorageError, storageGet} = useStorage();
   const [amount, setAmount] = useState('');
   const [account, setAccount] = useState(0);

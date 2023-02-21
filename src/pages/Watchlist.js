@@ -1,12 +1,16 @@
-import React from 'react';
-import {SafeAreaView, FlatList} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {SafeAreaView, RefreshControl, FlatList} from 'react-native';
 import WatchlistCard from '../components/WatchlistCard';
 import pagesStyles from './pages.styles';
 import {useSelector} from 'react-redux'; //redux
+import useStorage from '../hooks/useStorage';
 
 function Watchlist({navigation}) {
   //
+  const [refreshing, setRefreshing] = useState(false);
   const darkTheme = useSelector(state => state.darkTheme.darkTheme); //redux
+  const {StorageLoading, StorageError, storageSet, storageGet} = useStorage();
+  const [arrToWatch, setArrToWatch] = useState(' ');
 
   const data = [
     {
@@ -40,6 +44,29 @@ function Watchlist({navigation}) {
     },
   ];
 
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    (async () => {
+      setArrToWatch('a');
+      const a = await storageGet('watchlist');
+      setArrToWatch(a);
+    })();
+    setRefreshing(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    (async () => {
+      if (arrToWatch === ' ') {
+        const a = await storageGet('watchlist');
+        if (a) setArrToWatch(a);
+        else setArrToWatch([]);
+      }
+      console.log(arrToWatch);
+    })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [arrToWatch]);
+
   function goToExchangeScreen(abbreviation, exchangeMethod, rate) {
     navigation.navigate('ExchangeScreen', {abbreviation, exchangeMethod, rate});
   }
@@ -48,6 +75,9 @@ function Watchlist({navigation}) {
     <SafeAreaView
       style={darkTheme ? pagesStyles.flexOne_bg_dark : pagesStyles.flexOne_bg}>
       <FlatList
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
         data={data}
         renderItem={({item}) => (
           <WatchlistCard
