@@ -16,7 +16,7 @@ function SignUp_1({route, navigation}) {
   function goToSignUp2() {
     setUser({
       ...user,
-      photo: Photo.assets[0].base64,
+      photo: Photo.assets[0].uri,
     });
 
     navigation.navigate('SignUp2Screen', {
