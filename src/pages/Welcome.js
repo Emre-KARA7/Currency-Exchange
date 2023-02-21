@@ -20,7 +20,6 @@ function Welcome({navigation}) {
       setFirst(false);
       const a = await storageGet('theme');
       const b = await storageGet('lang');
-      console.log(a, b);
 
       dispatch(changeTheme(a)); //set theme
       i18n.changeLanguage(b); //set lan

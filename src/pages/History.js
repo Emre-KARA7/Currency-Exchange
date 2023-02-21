@@ -7,33 +7,36 @@ import pagesStyles from './pages.styles';
 import Icon from 'react-native-vector-icons/AntDesign';
 import {useSelector} from 'react-redux'; //redux
 import Dropdown from '../components/Dropdown';
+import useStorage from '../hooks/useStorage';
 
 function History({navigation}) {
   //
-  const data = [
-    {
-      id: 1,
-      dateTime: '5/12/2020, 6:50:21 PM',
-      exchangeType: 'BUY',
-      accountName: 'vadesiz TL',
-      amount: 80.5,
-    },
-    {
-      id: 2,
-      dateTime: '5/12/2020, 6:50:21 PM',
-      exchangeType: 'BUY',
-      accountName: 'vadesiz TL',
-      amount: 80.5,
-    },
-  ];
+  // const data = [
+  //   {
+  //     id: 1,
+  //     dateTime: '5/12/2020, 6:50:21 PM',
+  //     exchangeType: 'BUY',
+  //     accountName: 'vadesiz TL',
+  //     amount: 80.5,
+  //   },
+  //   {
+  //     id: 2,
+  //     dateTime: '5/12/2020, 6:50:21 PM',
+  //     exchangeType: 'BUY',
+  //     accountName: 'vadesiz TL',
+  //     amount: 80.5,
+  //   },
+  // ];
 
   //
+  const {StorageLoading, StorageError, storageSet, storageGet} = useStorage();
   const [amount, setAmount] = useState('');
   const [account, setAccount] = useState(0);
   const [exchangeType, setExchangeType] = useState(0);
   const [dateTime, setDateTime] = useState(0);
   const darkTheme = useSelector(state => state.darkTheme.darkTheme); //redux
   const [filterAppearance, setFilterAppearance] = useState(null);
+  const [data, setData] = useState(' ');
 
   useEffect(() => {
     const listFitlterData = [
@@ -135,6 +138,14 @@ function History({navigation}) {
       ),
     });
   }, [amount, navigation, setFilterAppearance]);
+
+  if (data === ' ') {
+    (async () => {
+      setData('a');
+      const a = await storageGet('history');
+      setData(a);
+    })();
+  }
 
   return (
     <SafeAreaView
