@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {SafeAreaView, View, FlatList} from 'react-native';
+import {SafeAreaView, RefreshControl, View, FlatList} from 'react-native';
 import Button from '../components/Button';
 import HistoryCard from '../components/HistoryCard';
 import Input from '../components/Input';
@@ -29,7 +29,8 @@ function History({navigation}) {
   // ];
 
   //
-  const {StorageLoading, StorageError, storageSet, storageGet} = useStorage();
+  const [refreshing, setRefreshing] = React.useState(false);
+  const {StorageLoading, StorageError, storageGet} = useStorage();
   const [amount, setAmount] = useState('');
   const [account, setAccount] = useState(0);
   const [exchangeType, setExchangeType] = useState(0);
@@ -147,6 +148,17 @@ function History({navigation}) {
     })();
   }
 
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    (async () => {
+      setData('a');
+      const a = await storageGet('history');
+      setData(a);
+    })();
+    setRefreshing(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <SafeAreaView
       style={
@@ -156,6 +168,9 @@ function History({navigation}) {
       }>
       {filterAppearance}
       <FlatList
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
         data={data}
         renderItem={({item}) => (
           <HistoryCard

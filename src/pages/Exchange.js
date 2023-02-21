@@ -6,22 +6,57 @@ import Dropdown from '../components/Dropdown';
 import Input from '../components/Input';
 import {useSelector} from 'react-redux'; //redux
 import pagesStyles from './pages.styles';
+import Config from 'react-native-config';
+import useStorage from '../hooks/useStorage';
 
 function Exchange({route}) {
   const {data, loading, error, get, post} = useHttps();
+  const {StorageLoading, StorageError, storageSet, storageGet} = useStorage();
   const {abbreviation, exchangeMethod, rate} = route.params;
+  const [history, setHistory] = useState(' ');
+  const [selectlistData, setSelectlistData] = useState([]);
+  const [amount, setAmount] = useState(null);
+  const [exchangeAccount, setExchangeAccount] = useState(null);
+  const [rate2, setRate2] = useState(null);
   const method =
     exchangeMethod === 'BUY'
       ? {title: 'SATIN AL', exchangeAccount: 'Alinacak Hesap'}
       : {title: 'SAT', exchangeAccount: 'Aktarilacak  Hesap'};
 
-  const [selectlistData, setSelectlistData] = useState([]);
-  const [amount, setAmount] = useState(null);
-  const [exchangeAccount, setExchangeAccount] = useState(null);
-  const [rate2, setRate2] = useState(null);
+  useEffect(() => {
+    (async () => {
+      if (history === ' ') {
+        const h = await storageGet('history');
+        console.log('storage', h);
+        setHistory(h);
+      } else {
+        await storageSet('history', history);
+      }
+    })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [history]);
 
-  function approve() {
-    //post
+  console.log('var', history);
+
+  async function approve() {
+    await post(Config.API_URL + 'exchange', {
+      method: exchangeMethod,
+      amount: amount,
+      account1: abbreviation,
+      account2: exchangeAccount,
+    });
+    if ((data && data.data.status === 'exchange success') || true) {
+      setHistory([
+        {
+          exchangeType: exchangeMethod,
+          amount: amount,
+          dateTime: Date.now(),
+          id: history.length !== null ? history.length : 0,
+          accountName: 'vadesiz ' + abbreviation,
+        },
+        ...history,
+      ]);
+    }
   }
 
   async function getRate() {
