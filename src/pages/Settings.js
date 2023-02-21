@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {SafeAreaView, View, Switch, Text} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {changeTheme} from '../stores/darkTheme';
@@ -6,17 +6,28 @@ import {useTranslation} from 'react-i18next'; //i18n
 import pagesStyles from './pages.styles';
 import Dropdown from '../components/Dropdown';
 import {Colors} from '../assets/colors';
+import useStorage from '../hooks/useStorage';
 
 function Settings() {
+  //
+  const {StorageLoading, StorageError, storageSet, storageGet} = useStorage();
   const dispatch = useDispatch();
-  const darkTheme = useSelector(state => state.darkTheme.darkTheme);
-  const toggleSwitch = () => dispatch(changeTheme(!darkTheme));
   const {t, i18n} = useTranslation(); //i18n
+  const darkTheme = useSelector(state => state.darkTheme.darkTheme); //get theme
 
+  const toggleSwitch = async () => {
+    await storageSet('theme', !darkTheme);
+    dispatch(changeTheme(!darkTheme)); //set theme
+  };
+  const setLang = val => {
+    i18n.changeLanguage(val); //set lan
+    storageSet('lang', i18n.language);
+  };
   const langList = [
     {key: 'en', value: 'English'},
     {key: 'tr', value: 'Türkçe'},
   ];
+
   return (
     <SafeAreaView
       style={
@@ -42,7 +53,7 @@ function Settings() {
       </View>
 
       <Dropdown
-        setSelected={val => i18n.changeLanguage(val)}
+        setSelected={val => setLang(val)}
         data={langList}
         save={'key'}
         pleaceholder={'Language'}
