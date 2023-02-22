@@ -28,7 +28,7 @@ function Exchange({route}) {
       if (history === ' ') {
         const h = await storageGet('history');
         console.log('storage', h);
-        setHistory(h);
+        if (h) setHistory(h);
       } else {
         await storageSet('history', history);
       }
@@ -46,16 +46,28 @@ function Exchange({route}) {
       account2: exchangeAccount,
     });
     if ((data && data.data.status === 'exchange success') || true) {
-      setHistory([
-        {
-          exchangeType: exchangeMethod,
-          amount: amount,
-          dateTime: Date.now(),
-          id: history.length !== null ? history.length : 0,
-          accountName: 'vadesiz ' + abbreviation,
-        },
-        ...history,
-      ]);
+      if (history === ' ') {
+        setHistory([
+          {
+            exchangeType: exchangeMethod,
+            amount: amount,
+            dateTime: Date.now(),
+            id: 0,
+            accountName: 'vadesiz ' + abbreviation,
+          },
+        ]);
+      } else {
+        setHistory([
+          {
+            exchangeType: exchangeMethod,
+            amount: amount,
+            dateTime: Date.now(),
+            id: history.length,
+            accountName: 'vadesiz ' + abbreviation,
+          },
+          ...history,
+        ]);
+      }
     }
   }
 

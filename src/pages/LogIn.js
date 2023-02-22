@@ -121,7 +121,10 @@ function LogIn({navigation}) {
               ) : null}
 
               <View style={pagesStyles.flexRowCenter}>
-                <Checkbox onPress={() => setRememberMe(!rememberMe)} />
+                <Checkbox
+                  isChecked={user.rememberMe}
+                  onPress={() => setRememberMe(!rememberMe)}
+                />
                 <Text style={pagesStyles.textC}>Remember Me</Text>
               </View>
 
