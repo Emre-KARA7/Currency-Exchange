@@ -59,22 +59,18 @@ const InfoCard = ({infoType, infoHeader, infoText, onBtnPress, btnText}) => {
   }, [infoType]);
 
   return (
-    <SafeAreaView>
-      <View style={darkTheme ? styles.container_dark : styles.container}>
-        <View style={styles.containerLottie}>
-          <Lottie source={animation} autoPlay />
-        </View>
-
-        <Text style={headerStyle}>{infoHeader}</Text>
-
-        <Text style={darkTheme ? styles.text_dark : styles.text}>
-          {infoText}
-        </Text>
-
-        <TouchableOpacity onPress={onBtnPress} style={btnStyle}>
-          <Text style={btnTextStyle}>{btnText}</Text>
-        </TouchableOpacity>
+    <SafeAreaView style={darkTheme ? styles.container_dark : styles.container}>
+      <View style={styles.containerLottie}>
+        <Lottie source={animation} autoPlay />
       </View>
+
+      <Text style={headerStyle}>{infoHeader}</Text>
+
+      <Text style={darkTheme ? styles.text_dark : styles.text}>{infoText}</Text>
+
+      <TouchableOpacity onPress={onBtnPress} style={btnStyle}>
+        <Text style={btnTextStyle}>{btnText}</Text>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 };

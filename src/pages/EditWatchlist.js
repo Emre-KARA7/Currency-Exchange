@@ -4,8 +4,9 @@ import pagesStyles from './pages.styles';
 import EditWatchlistCard from '../components/EditWatchlistCard';
 import {useSelector} from 'react-redux'; //redux
 import useStorage from '../hooks/useStorage';
+import InfoCard from '../components/InfoCard';
 
-function EditWatchlist() {
+function EditWatchlist({navigation}) {
   //
   const {StorageLoading, StorageError, storageSet, storageGet} = useStorage();
   const darkTheme = useSelector(state => state.darkTheme.darkTheme); //redux
@@ -43,6 +44,22 @@ function EditWatchlist() {
     }
     return false;
   }
+
+  if (StorageLoading) return <InfoCard />;
+  else if (StorageError) {
+    return (
+      <InfoCard
+        infoType={'ERROR'}
+        btnText={'TAMAM'}
+        infoHeader={'Hata'}
+        infoText={
+          'duzenleme sirasinda beklenmeyen bir hata olustu lutfen daha sonra tekrar deneyin'
+        }
+        onBtnPress={() => navigation.popToTop()}
+      />
+    );
+  }
+
   if (arrToWatch[0].abbrv) {
     return (
       <SafeAreaView

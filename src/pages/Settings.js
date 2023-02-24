@@ -7,8 +7,9 @@ import pagesStyles from './pages.styles';
 import Dropdown from '../components/Dropdown';
 import {Colors} from '../assets/colors';
 import useStorage from '../hooks/useStorage';
+import InfoCard from '../components/InfoCard';
 
-function Settings() {
+function Settings({navigation}) {
   //
   const {StorageLoading, StorageError, storageSet, storageGet} = useStorage();
   const dispatch = useDispatch();
@@ -27,6 +28,21 @@ function Settings() {
     {key: 'en', value: 'English'},
     {key: 'tr', value: 'Türkçe'},
   ];
+
+  if (StorageLoading) return <InfoCard />;
+  else if (StorageError) {
+    return (
+      <InfoCard
+        onBtnPress={() => {
+          navigation.popToTop;
+        }}
+        btnText={'Tamam'}
+        infoType={'ERROR'}
+        infoHeader={'Kayit Hatasi'}
+        infoText={'Ayarlar kaydedilemedi'}
+      />
+    );
+  }
 
   return (
     <SafeAreaView

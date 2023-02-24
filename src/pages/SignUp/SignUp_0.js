@@ -13,6 +13,7 @@ function SignUp_0({navigation}) {
   const [open, setOpen] = useState(false);
 
   function handleForm(values) {
+    console.log(values);
     navigation.navigate('SignUp1Screen', {
       name: values.name,
       surname: values.surname,
@@ -70,7 +71,7 @@ function SignUp_0({navigation}) {
             <TextInputBtn
               label="B Date"
               placeholder="Write your birth date"
-              onChangeText={handleChange('b_date')}
+              //onChangeText={handleChange('b_date')}
               onBtnPress={() => setOpen(true)}
               value={values.b_date.toDateString()}
             />

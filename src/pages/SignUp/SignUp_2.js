@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {SafeAreaView, View, Text} from 'react-native';
 import {Formik} from 'formik';
 import useHttps from '../../hooks/useHttps';
@@ -7,13 +7,16 @@ import * as Yup from 'yup';
 import pagesStyles from '../pages.styles';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
+import InfoCard from '../../components/InfoCard';
 
 function SignUp_2({route, navigation}) {
   //
   const {name, surname, b_date, tckn, photo} = route.params;
   const {data, loading, error, post} = useHttps();
+  const [UIBlock, setUIBlock] = useState(false);
 
   function handleForm(values) {
+    setUIBlock(true);
     post(Config.API_URL + 'signup', values);
   }
 
@@ -35,6 +38,50 @@ function SignUp_2({route, navigation}) {
       .max(50, 'Too Long!')
       .required('Required'),
   });
+
+  if (error) {
+    return (
+      <InfoCard
+        infoType={'ERROR'}
+        btnText={'Tamam'}
+        infoHeader={'Hata'}
+        infoText={
+          'Talebiniz gerceklestirilirken bir hata olustu lutfen daha sonra tekrar deneyin'
+        }
+        onBtnPress={() => {
+          navigation.popToTop();
+        }}
+      />
+    );
+  } else if (loading) {
+    return <InfoCard />;
+  } else if (data && data.data.status === 'sign up success') {
+    return (
+      <InfoCard
+        infoType={'SUCCESS'}
+        btnText={'Tamam'}
+        infoHeader={'Kayit Basarili'}
+        infoText={'Giris yapabilirsiniz. Kaydiniz basarili..'}
+        onBtnPress={() => {
+          navigation.popToTop();
+        }}
+      />
+    );
+  } else if (data && data.data.status === 'sign up failed') {
+    return (
+      <InfoCard
+        infoType={'INFO'}
+        btnText={'Tamam'}
+        infoHeader={'Kayit Basarisiz'}
+        infoText={
+          'Kaydiniz gerceklestirilemedi. Lutfen bilgilerinizi gozden gecirip tekrar deneyiniz..'
+        }
+        onBtnPress={() => {
+          navigation.popToTop();
+        }}
+      />
+    );
+  }
 
   return (
     <SafeAreaView style={pagesStyles.padding}>
@@ -75,7 +122,7 @@ function SignUp_2({route, navigation}) {
             ) : null}
 
             <View style={pagesStyles.rightBottom}>
-              <Button text={'next'} onPress={handleSubmit} />
+              <Button text={'next'} onPress={handleSubmit} disabled={UIBlock} />
             </View>
           </View>
         )}

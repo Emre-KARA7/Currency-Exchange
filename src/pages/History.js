@@ -8,6 +8,7 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import {useSelector} from 'react-redux'; //redux
 import Dropdown from '../components/Dropdown';
 import useStorage from '../hooks/useStorage';
+import InfoCard from '../components/InfoCard';
 
 function History({navigation}) {
   //
@@ -751,6 +752,21 @@ function History({navigation}) {
     //   setRefreshing(false);
     //   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  if (StorageLoading) return <InfoCard />;
+  else if (StorageError) {
+    return (
+      <InfoCard
+        btnText={'Tamam'}
+        infoText={
+          'Gecmis yuklenirken cihaz depolamasi ile ile ilgili olabilecek bir sorun olustu, lutfen daha sonra tekrar deneyin'
+        }
+        infoHeader={'Depolma Hatasi'}
+        infoType={'ERROR'}
+        //onBtnPress={() => {setData(' ')}}
+      />
+    );
+  }
 
   return (
     <SafeAreaView

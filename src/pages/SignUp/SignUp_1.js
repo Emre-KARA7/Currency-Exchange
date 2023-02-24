@@ -5,6 +5,7 @@ import pagesStyles from '../pages.styles';
 import Button from '../../components/Button';
 import ProfilePhoto from '../../components/ProfilePhoto';
 import useStorage from '../../hooks/useStorage';
+import InfoCard from '../../components/InfoCard';
 
 function SignUp_1({route, navigation}) {
   //
@@ -14,18 +15,22 @@ function SignUp_1({route, navigation}) {
   const [Photo, setPhoto] = useState(null);
 
   function goToSignUp2() {
-    setUser({
-      ...user,
-      photo: Photo.assets[0].uri,
-    });
+    if (Photo) {
+      setUser({
+        ...user,
+        photo: Photo.assets[0].uri,
+      });
 
-    navigation.navigate('SignUp2Screen', {
-      name: name,
-      surname: surname,
-      b_date: b_date,
-      tckn: tckn,
-      photo: Photo,
-    });
+      navigation.navigate('SignUp2Screen', {
+        name: name,
+        surname: surname,
+        b_date: b_date,
+        tckn: tckn,
+        photo: Photo,
+      });
+    } else {
+      setPhoto('warn');
+    }
   }
 
   useEffect(() => {
@@ -54,6 +59,17 @@ function SignUp_1({route, navigation}) {
         setPhoto(response);
       }
     });
+  }
+
+  if (Photo === 'warn') {
+    return (
+      <InfoCard
+        btnText={'Tamam'}
+        infoType={'WARNING'}
+        infoHeader={'lutfen resim seciniz'}
+        onBtnPress={() => setPhoto(null)}
+      />
+    );
   }
 
   return (

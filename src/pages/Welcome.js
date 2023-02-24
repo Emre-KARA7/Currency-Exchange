@@ -3,14 +3,13 @@ import {SafeAreaView, View} from 'react-native';
 import pagesStyles from './pages.styles';
 import Button from '../components/Button';
 import useStorage from '../hooks/useStorage';
-
 import {changeTheme} from '../stores/darkTheme';
 import {useDispatch, useSelector} from 'react-redux';
 import {useTranslation} from 'react-i18next'; //i18n
 
 function Welcome({navigation}) {
   //
-  const {StorageLoading, StorageError, storageSet, storageGet} = useStorage();
+  const {storageGet} = useStorage();
   const [first, setFirst] = useState(true);
   const dispatch = useDispatch();
   const {t, i18n} = useTranslation(); //i18n

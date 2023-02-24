@@ -8,16 +8,21 @@ import {useSelector} from 'react-redux'; //redux
 import pagesStyles from './pages.styles';
 import Config from 'react-native-config';
 import useStorage from '../hooks/useStorage';
+import InfoCard from '../components/InfoCard';
 
-function Exchange({route}) {
+function Exchange({route, navigation}) {
   const {data, loading, error, get, post} = useHttps();
   const {StorageLoading, StorageError, storageSet, storageGet} = useStorage();
   const {abbreviation, exchangeMethod, rate} = route.params;
   const [history, setHistory] = useState(' ');
   const [selectlistData, setSelectlistData] = useState([]);
+  const [rate2, setRate2] = useState(null);
+  const darkTheme = useSelector(state => state.darkTheme.darkTheme); //redux
   const [amount, setAmount] = useState(null);
   const [exchangeAccount, setExchangeAccount] = useState(null);
-  const [rate2, setRate2] = useState(null);
+  const [warn, setWarn] = useState(false);
+  const [UIBlock, setUIBlock] = useState(false);
+
   const method =
     exchangeMethod === 'BUY'
       ? {title: 'SATIN AL', exchangeAccount: 'Alinacak Hesap'}
@@ -36,39 +41,40 @@ function Exchange({route}) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [history]);
 
-  console.log('var', history);
-
   async function approve() {
-    await post(Config.API_URL + 'exchange', {
-      method: exchangeMethod,
-      amount: amount,
-      account1: abbreviation,
-      account2: exchangeAccount,
-    });
-    if ((data && data.data.status === 'exchange success') || true) {
-      if (history === ' ') {
-        setHistory([
-          {
-            exchangeType: exchangeMethod,
-            amount: amount,
-            dateTime: Date.now(),
-            id: 0,
-            accountName: 'vadesiz ' + abbreviation,
-          },
-        ]);
-      } else {
-        setHistory([
-          {
-            exchangeType: exchangeMethod,
-            amount: amount,
-            dateTime: Date.now(),
-            id: history.length,
-            accountName: 'vadesiz ' + abbreviation,
-          },
-          ...history,
-        ]);
+    setUIBlock(true);
+    if (exchangeAccount !== null && amount !== null) {
+      await post(Config.API_URL + 'exchange', {
+        method: exchangeMethod,
+        amount: amount,
+        account1: abbreviation,
+        account2: exchangeAccount,
+      });
+      if ((data && data.data.status === 'exchange success') || true) {
+        if (history === ' ') {
+          setHistory([
+            {
+              exchangeType: exchangeMethod,
+              amount: amount,
+              dateTime: Date.now(),
+              id: 0,
+              accountName: 'vadesiz ' + abbreviation,
+            },
+          ]);
+        } else {
+          setHistory([
+            {
+              exchangeType: exchangeMethod,
+              amount: amount,
+              dateTime: Date.now(),
+              id: history.length,
+              accountName: 'vadesiz ' + abbreviation,
+            },
+            ...history,
+          ]);
+        }
       }
-    }
+    } else setWarn(true);
   }
 
   async function getRate() {
@@ -128,7 +134,67 @@ function Exchange({route}) {
     setSelectListFormat();
   }
 
-  const darkTheme = useSelector(state => state.darkTheme.darkTheme); //redux
+  if (loading || StorageLoading) return <InfoCard />;
+  else if (warn) {
+    return (
+      <InfoCard
+        onBtnPress={() => setWarn(false)}
+        btnText={'Tamam'}
+        infoType={'WARNING'}
+        infoHeader={'Eksik Form'}
+        infoText={'formdaki tum alanlari doldurdugunuza emin olunuz'}
+      />
+    );
+  } else if (error) {
+    return (
+      <InfoCard
+        onBtnPress={() => navigation.popToTop()}
+        btnText={'Tamam'}
+        infoType={'ERROR'}
+        infoHeader={'Hata'}
+        infoText={
+          'Talebiniz gerceklestirilirken bir hata olustu lutfen daha sonra tekrar deneyin'
+        }
+      />
+    );
+  } else if (StorageError) {
+    return (
+      <InfoCard
+        onBtnPress={() => navigation.popToTop()}
+        btnText={'Tamam'}
+        infoType={'ERROR'}
+        infoHeader={'Islem Basarili'}
+        infoText={
+          'Islem basarili ancak gecmise kayit esnasinda bir hata olustu'
+        }
+      />
+    );
+  } else if (data && data.data.status === 'exchange failed') {
+    return (
+      <InfoCard
+        onBtnPress={() => navigation.popToTop()}
+        btnText={'Tamam'}
+        infoType={'INFO'}
+        infoHeader={'Islem Reddedildi'}
+        infoText={
+          'Isleminiz reddedildi, bilgilerinizden emin olduktan sonra tekrar deneyiniz, sorunun devam etmesi halinde musteri hizmetleriyle iletisime geciniz'
+        }
+      />
+    );
+  } else if (data && data.data.status === 'exchange success') {
+    return (
+      <InfoCard
+        onBtnPress={() => navigation.popToTop()}
+        btnText={'Tamam'}
+        infoType={'SUCCESS'}
+        infoHeader={'Islem Basarili'}
+        infoText={
+          'Islem Basarili, Islem Kaydinizi Gecmis sayfasinda gorebilirsiniz'
+        }
+      />
+    );
+  }
+
   return (
     <SafeAreaView
       style={
@@ -161,7 +227,7 @@ function Exchange({route}) {
       </Text>
 
       <View style={pagesStyles.rightBottom}>
-        <Button text={'Onayla'} onPress={approve} />
+        <Button text={'Onayla'} onPress={approve} disabled={UIBlock} />
       </View>
     </SafeAreaView>
   );

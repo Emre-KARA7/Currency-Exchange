@@ -7,14 +7,16 @@ import pagesStyles from './pages.styles';
 import Button from '../components/Button';
 import {useSelector} from 'react-redux'; //redux
 import Dropdown from '../components/Dropdown';
+import InfoCard from '../components/InfoCard';
 
-function CreateAccount() {
+function CreateAccount({navigation}) {
   //
   const darkTheme = useSelector(state => state.darkTheme.darkTheme); //redux
   const [account_type, setAccount_type] = useState(null);
   const [branch_office, setBranch_office] = useState(null);
   const [currency, setCurrency] = useState(null);
   const {data, loading, error, post} = useHttps();
+  const [UIBlock, setUIBlock] = useState(false);
   const listData = [
     [
       {key: '1', value: 'Vadesiz Hesap'},
@@ -52,17 +54,66 @@ function CreateAccount() {
       {key: '3', value: '1257 SERDIVAN/SAK', disabled: true},
     ],
   ];
+  const [warn, setWarn] = useState(false);
 
-  async function nextStep() {
-    // validade
-    await post(Config.API_URL + 'createAccount', {
-      account_type,
-      currency,
-      branch_office,
-    });
-    if ((data && data.data.status === 'account succesfully created') || true) {
-      //redirect info screen
-    }
+  async function send() {
+    if (account_type !== null && branch_office !== null && currency !== null) {
+      setUIBlock(true);
+      await post(Config.API_URL + 'createAccount', {
+        account_type,
+        currency,
+        branch_office,
+      });
+    } else setWarn(true);
+  }
+
+  if (loading) return <InfoCard />;
+  else if (warn) {
+    return (
+      <InfoCard
+        onBtnPress={() => setWarn(false)}
+        btnText={'Tamam'}
+        infoType={'WARNING'}
+        infoHeader={'Eksik Form'}
+        infoText={'formdaki tum alanlari doldurdugunuza emin olunuz'}
+      />
+    );
+  } else if (error) {
+    return (
+      <InfoCard
+        onBtnPress={() => navigation.popToTop()}
+        btnText={'Tamam'}
+        infoType={'ERROR'}
+        infoHeader={'Hata'}
+        infoText={
+          'Talebiniz gerceklestirilirken bir hata olustu lutfen daha sonra tekrar deneyin'
+        }
+      />
+    );
+  } else if (data && data.data.status === 'account succesfully created') {
+    return (
+      <InfoCard
+        onBtnPress={() => navigation.popToTop()}
+        btnText={'Tamam'}
+        infoType={'SUCCESS'}
+        infoHeader={'Basarili'}
+        infoText={
+          'Hesabiniz basarili bir sekilde olusturuldu, heasbinizi hesaplarim sayfasinda goruntuleyebilirsiniz'
+        }
+      />
+    );
+  } else if (data && data.data.status === 'account creation failed') {
+    return (
+      <InfoCard
+        onBtnPress={() => navigation.popToTop()}
+        btnText={'Tamam'}
+        infoType={'INFO'}
+        infoHeader={'Basarisiz'}
+        infoText={
+          'Hesabiniz olusturulamadi, lutfen bilgilerinizi gozden gecirip tekrar deneyiniz'
+        }
+      />
+    );
   }
 
   return (
@@ -103,7 +154,7 @@ function CreateAccount() {
       />
 
       <View style={pagesStyles.rightBottom}>
-        <Button text={'next'} onPress={nextStep} />
+        <Button text={'next'} onPress={send} disabled={UIBlock} />
       </View>
     </SafeAreaView>
   );

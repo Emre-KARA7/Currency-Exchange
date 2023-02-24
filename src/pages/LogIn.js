@@ -12,6 +12,7 @@ import Button from '../components/Button';
 import useHttps from '../hooks/useHttps';
 import useStorage from '../hooks/useStorage';
 import ProfilePhoto from '../components/ProfilePhoto';
+import InfoCard from '../components/InfoCard';
 
 function LogIn({navigation}) {
   //
@@ -21,9 +22,11 @@ function LogIn({navigation}) {
   const [user, setUser] = useState(' ');
   const [rememberMe, setRememberMe] = useState(false);
   const {StorageLoading, StorageError, storageSet, storageGet} = useStorage();
+  const [UIBlock, setUIBlock] = useState(false);
   const darkTheme = useSelector(state => state.darkTheme.darkTheme); //redux
 
   async function handleForm(values) {
+    setUIBlock(true);
     try {
       await post(Config.API_URL + 'login', values);
       if ((data && data.data.status === 'login success') || true) {
@@ -73,6 +76,41 @@ function LogIn({navigation}) {
       .required('Required'),
   });
 
+  if (StorageLoading || loading) return <InfoCard />;
+  else if (error) {
+    return (
+      <InfoCard
+        onBtnPress={() => navigation.popToTop()}
+        btnText={'Tamam'}
+        infoType={'ERROR'}
+        infoHeader={'Hata'}
+        infoText={'Sunucuya baglanirken bir hata olustu'}
+      />
+    );
+  } else if (StorageError) {
+    return (
+      <InfoCard
+        onBtnPress={() => {}}
+        btnText={'Tamam'}
+        infoType={'ERROR'}
+        infoHeader={'Kayit Hatasi'}
+        infoText={'Beni hatirla basarisiz'}
+      />
+    );
+  } else if (data && data.data.status === 'login failed') {
+    return (
+      <InfoCard
+        onBtnPress={() => navigation.popToTop()}
+        btnText={'Tamam'}
+        infoType={'WARNING'}
+        infoHeader={'Giris Basarisiz'}
+        infoText={
+          'TCKN veya Sifre hatali, bilgilerinizi kontrol edip tekrar deneyiniz'
+        }
+      />
+    );
+  }
+
   if (user !== ' ') {
     return (
       <SafeAreaView
@@ -121,15 +159,16 @@ function LogIn({navigation}) {
               ) : null}
 
               <View style={pagesStyles.flexRowCenter}>
-                <Checkbox
-                  isChecked={user.rememberMe}
-                  onPress={() => setRememberMe(!rememberMe)}
-                />
+                <Checkbox onPress={() => setRememberMe(!rememberMe)} />
                 <Text style={pagesStyles.textC}>Remember Me</Text>
               </View>
 
               <View style={pagesStyles.rightBottom}>
-                <Button text={'next'} onPress={handleSubmit} />
+                <Button
+                  text={'next'}
+                  onPress={handleSubmit}
+                  disabled={UIBlock}
+                />
               </View>
             </View>
           )}

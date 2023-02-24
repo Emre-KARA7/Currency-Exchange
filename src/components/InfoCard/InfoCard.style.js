@@ -5,10 +5,12 @@ export default StyleSheet.create({
   container: {
     height: 600,
     backgroundColor: Colors.background,
+    flex: 1,
   },
   container_dark: {
     height: 600,
     backgroundColor: Colors.dark_background,
+    flex: 1,
   },
   containerLottie: {
     height: 300,
