@@ -68,32 +68,98 @@ function Router() {
                   <Icon.Button
                     style={pagesStyles.iconBtnOuterStyle}
                     name="setting"
-                    iconStyle={pagesStyles.iconBtnStyle}
+                    iconStyle={
+                      darkTheme
+                        ? pagesStyles.dark_iconBtnStyle
+                        : pagesStyles.iconBtnStyle
+                    }
                     onPress={() => navigation.navigate('SettingsScreen')}
                   />
                 ),
                 title: 'Welcome',
+                headerStyle: {
+                  backgroundColor: darkTheme
+                    ? Colors.dark_background
+                    : Colors.background,
+                },
+                headerTitleStyle: {
+                  color: darkTheme
+                    ? Colors.dark_textPrimary
+                    : Colors.textPrimary,
+                },
               })}
               name="WelcomeScreen"
               component={Welcome}
             />
             <Stack.Screen
-              options={{title: 'Login'}}
+              options={{
+                title: 'Login',
+                headerTintColor: Colors.textSecondary,
+                headerStyle: {
+                  backgroundColor: darkTheme
+                    ? Colors.dark_background
+                    : Colors.background,
+                },
+                headerTitleStyle: {
+                  color: darkTheme
+                    ? Colors.dark_textPrimary
+                    : Colors.textPrimary,
+                },
+              }}
               name="LogInScreen"
               component={LogIn}
             />
             <Stack.Screen
-              options={{title: 'Signup'}}
+              options={{
+                title: 'Signup',
+                headerTintColor: Colors.textSecondary,
+                headerStyle: {
+                  backgroundColor: darkTheme
+                    ? Colors.dark_background
+                    : Colors.background,
+                },
+                headerTitleStyle: {
+                  color: darkTheme
+                    ? Colors.dark_textPrimary
+                    : Colors.textPrimary,
+                },
+              }}
               name="SignUp0Screen"
               component={SignUp_0}
             />
             <Stack.Screen
-              options={{title: 'Signup'}}
+              options={{
+                title: 'Signup',
+                headerTintColor: Colors.textSecondary,
+                headerStyle: {
+                  backgroundColor: darkTheme
+                    ? Colors.dark_background
+                    : Colors.background,
+                },
+                headerTitleStyle: {
+                  color: darkTheme
+                    ? Colors.dark_textPrimary
+                    : Colors.textPrimary,
+                },
+              }}
               name="SignUp1Screen"
               component={SignUp_1}
             />
             <Stack.Screen
-              options={{title: 'Signup'}}
+              options={{
+                title: 'Signup',
+                headerTintColor: Colors.textSecondary,
+                headerStyle: {
+                  backgroundColor: darkTheme
+                    ? Colors.dark_background
+                    : Colors.background,
+                },
+                headerTitleStyle: {
+                  color: darkTheme
+                    ? Colors.dark_textPrimary
+                    : Colors.textPrimary,
+                },
+              }}
               name="SignUp2Screen"
               component={SignUp_2}
             />
@@ -101,7 +167,18 @@ function Router() {
         )}
         <Stack.Group>
           <Stack.Screen
-            options={{title: 'Settings'}}
+            options={{
+              title: 'Settings',
+              headerTintColor: Colors.textSecondary,
+              headerStyle: {
+                backgroundColor: darkTheme
+                  ? Colors.dark_background
+                  : Colors.background,
+              },
+              headerTitleStyle: {
+                color: darkTheme ? Colors.dark_textPrimary : Colors.textPrimary,
+              },
+            }}
             name="SettingsScreen"
             component={Settings}
           />

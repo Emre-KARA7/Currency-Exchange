@@ -715,13 +715,21 @@ function History({navigation}) {
           <Icon.Button
             style={pagesStyles.iconBtnOuterStyle}
             name="setting"
-            iconStyle={pagesStyles.iconBtnStyle}
+            iconStyle={
+              darkTheme
+                ? pagesStyles.dark_iconBtnStyle
+                : pagesStyles.iconBtnStyle
+            }
             onPress={() => navigation.navigate('SettingsScreen')}
           />
           <Icon.Button
             style={pagesStyles.iconBtnOuterStyle}
             name="filter"
-            iconStyle={pagesStyles.iconBtnStyle}
+            iconStyle={
+              darkTheme
+                ? pagesStyles.dark_iconBtnStyle
+                : pagesStyles.iconBtnStyle
+            }
             onPress={() => {
               setFilterAppearance(filterPanel);
             }}

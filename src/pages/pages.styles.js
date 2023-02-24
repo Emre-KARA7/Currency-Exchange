@@ -52,6 +52,13 @@ export default StyleSheet.create({
     fontSize: 35,
     width: 45,
   },
+  dark_iconBtnStyle: {
+    marginRight: 0,
+    backgroundColor: Colors.dark_background,
+    color: Colors.textSecondary,
+    fontSize: 35,
+    width: 45,
+  },
   iconBtnOuterStyle: {
     margin: -8,
     backgroundColor: Colors.background,

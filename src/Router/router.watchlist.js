@@ -6,10 +6,13 @@ import pagesStyles from '../pages/pages.styles';
 import Watchlist from '../pages/Watchlist';
 import EditWatchlist from '../pages/EditWatchlist';
 import Exchange from '../pages/Exchange';
+import {useSelector} from 'react-redux'; //redux
+import {Colors} from '../assets/colors';
 
 const Stack = createNativeStackNavigator();
 
 function WatchlistPage() {
+  const darkTheme = useSelector(state => state.darkTheme.darkTheme); //redux
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -20,29 +23,67 @@ function WatchlistPage() {
               <Icon.Button
                 style={pagesStyles.iconBtnOuterStyle}
                 name="setting"
-                iconStyle={pagesStyles.iconBtnStyle}
+                iconStyle={
+                  darkTheme
+                    ? pagesStyles.dark_iconBtnStyle
+                    : pagesStyles.iconBtnStyle
+                }
                 onPress={() => navigation.navigate('SettingsScreen')}
               />
               <Icon.Button
                 style={pagesStyles.iconBtnOuterStyle}
                 name="edit"
-                iconStyle={pagesStyles.iconBtnStyle}
+                iconStyle={
+                  darkTheme
+                    ? pagesStyles.dark_iconBtnStyle
+                    : pagesStyles.iconBtnStyle
+                }
                 onPress={() => navigation.navigate('EditWatchlistScreen')}
               />
             </View>
           ),
           title: 'Watchlist',
+          headerStyle: {
+            backgroundColor: darkTheme
+              ? Colors.dark_background
+              : Colors.background,
+          },
+          headerTitleStyle: {
+            color: darkTheme ? Colors.dark_textPrimary : Colors.textPrimary,
+          },
         })}
         name="WatchlistScreen"
         component={Watchlist}
       />
       <Stack.Screen
-        options={{title: 'Edit Watchlist'}}
+        options={{
+          title: 'Edit Watchlist',
+          headerTintColor: Colors.textSecondary,
+          headerStyle: {
+            backgroundColor: darkTheme
+              ? Colors.dark_background
+              : Colors.background,
+          },
+          headerTitleStyle: {
+            color: darkTheme ? Colors.dark_textPrimary : Colors.textPrimary,
+          },
+        }}
         name="EditWatchlistScreen"
         component={EditWatchlist}
       />
       <Stack.Screen
-        options={{title: 'Exchange'}}
+        options={{
+          title: 'Exchange',
+          headerTintColor: Colors.textSecondary,
+          headerStyle: {
+            backgroundColor: darkTheme
+              ? Colors.dark_background
+              : Colors.background,
+          },
+          headerTitleStyle: {
+            color: darkTheme ? Colors.dark_textPrimary : Colors.textPrimary,
+          },
+        }}
         name="ExchangeScreen"
         component={Exchange}
       />

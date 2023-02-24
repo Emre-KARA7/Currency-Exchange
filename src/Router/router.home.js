@@ -44,17 +44,33 @@ function Home() {
               <Icon.Button
                 style={pagesStyles.iconBtnOuterStyle}
                 name="setting"
-                iconStyle={pagesStyles.iconBtnStyle}
+                iconStyle={
+                  darkTheme
+                    ? pagesStyles.dark_iconBtnStyle
+                    : pagesStyles.iconBtnStyle
+                }
                 onPress={() => navigation.navigate('SettingsScreen')}
               />
               <Icon.Button
                 style={pagesStyles.iconBtnOuterStyle}
                 name="filter"
-                iconStyle={pagesStyles.iconBtnStyle}
+                iconStyle={
+                  darkTheme
+                    ? pagesStyles.dark_iconBtnStyle
+                    : pagesStyles.iconBtnStyle
+                }
               />
             </View>
           ),
           title: 'History',
+          headerStyle: {
+            backgroundColor: darkTheme
+              ? Colors.dark_background
+              : Colors.background,
+          },
+          headerTitleStyle: {
+            color: darkTheme ? Colors.dark_textPrimary : Colors.textPrimary,
+          },
         })}
         name="HistoryPage"
         component={HistoryPage}
