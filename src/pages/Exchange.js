@@ -133,7 +133,7 @@ function Exchange({route, navigation}) {
     // get('https://aaaah.free.beeceptor.com/accounts');
     setSelectListFormat();
   }
-
+  console.log('storage  :', StorageLoading, '      https  :', loading);
   if (loading || StorageLoading) return <InfoCard />;
   else if (warn) {
     return (

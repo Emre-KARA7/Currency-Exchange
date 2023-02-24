@@ -23,8 +23,13 @@ function useStorage() {
     try {
       setStorageLoading(true);
       const jsonValue = await AsyncStorage.getItem(key);
-      return jsonValue != null ? JSON.parse(jsonValue) : null;
-      //setStorageLoading(false);
+      if (jsonValue != null) {
+        setStorageLoading(false);
+        return JSON.parse(jsonValue);
+      } else {
+        setStorageLoading(false);
+        return null;
+      }
     } catch (err) {
       setStorageLoading(false);
       setStorageError(err);

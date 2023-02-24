@@ -1,4 +1,5 @@
-import React from 'react';
+import React, {useState} from 'react';
+import {View} from 'react-native';
 import {NavigationContainer, useNavigation} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -7,6 +8,8 @@ import {Provider, useSelector} from 'react-redux'; //redux
 import store from './stores';
 import {Colors} from './assets/colors';
 import pagesStyles from './pages/pages.styles';
+import InfoCard from './components/InfoCard';
+import NetInfo from '@react-native-community/netinfo';
 // Auth screens
 import Welcome from './pages/Welcome';
 import LogIn from './pages/LogIn';
@@ -22,7 +25,6 @@ import EditWatchlist from './pages/EditWatchlist';
 import Exchange from './pages/Exchange';
 // Common modal screens
 import Settings from './pages/Settings';
-import {View} from 'react-native';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -155,6 +157,26 @@ function Home() {
 function Router() {
   const {auth} = useSelector(state => state.auth);
   const darkTheme = useSelector(state => state.darkTheme.darkTheme); //redux
+  const [netConnection, setNetConnection] = useState(true);
+
+  const unsubscribe = NetInfo.addEventListener(state => {
+    if (netConnection !== state.isConnected)
+      setNetConnection(state.isConnected);
+  });
+  ////////////////////////////////////////////////////////////
+  ////
+  if (netConnection === false)
+    return (
+      <InfoCard
+        infoType={'WARNING'}
+        infoHeader={'No Connection'}
+        btnText={'Tamam'}
+        infoText={
+          'inernent baglantisi bulunamadi, bir aga bagli oldugunuzdan emin olunca tekrar deneyin'
+        }
+        onBtnPress={() => {}}
+      />
+    );
   return (
     <NavigationContainer>
       <Stack.Navigator
