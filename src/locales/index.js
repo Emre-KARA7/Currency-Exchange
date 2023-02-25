@@ -4,6 +4,7 @@ import * as RNLocalize from 'react-native-localize';
 
 import english from './english.json';
 import turkish from './turkish.json';
+import japanese from './japanese.json';
 
 const localLang = {
   type: 'languageDetector',
@@ -19,11 +20,13 @@ i18next
   .use(localLang)
   .use(initReactI18next)
   .init({
+    fallbackNS: 'common',
     compatibilityJSON: 'v3',
     fallbackLng: 'en',
     resources: {
       en: english,
       tr: turkish,
+      ja: japanese,
     },
     react: {
       useSuspense: false,

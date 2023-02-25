@@ -6,11 +6,13 @@ import AccountCard from '../components/AccountCard';
 import {useSelector} from 'react-redux'; //redux
 import InfoCard from '../components/InfoCard';
 import Config from 'react-native-config';
+import {useTranslation} from 'react-i18next'; //i18n
 
 function Accounts({navigation}) {
   //
   const {data, loading, error, get} = useHttps();
   const darkTheme = useSelector(state => state.darkTheme.darkTheme); //redux
+  const {t} = useTranslation(); //i18n
   const [refreshing, setRefreshing] = useState(false);
   const [isFirst, setIsFirst] = useState(true);
 
@@ -32,9 +34,9 @@ function Accounts({navigation}) {
     return (
       <InfoCard
         infoType={'ERROR'}
-        btnText={'Tamam'}
-        infoHeader={'Hata'}
-        infoText={'Hesap Bilgileri alinamadi. lutfen daha sonra tekrar deneyin'}
+        btnText={t('btn02', {ns: 'common'})}
+        infoHeader={t('err', {ns: 'common'})}
+        infoText={t('errText01', {ns: 'account'})}
         onBtnPress={() => {
           get(Config.API_URL + 'accounts');
         }}
@@ -44,11 +46,9 @@ function Accounts({navigation}) {
     return (
       <InfoCard
         infoType={'INFO'}
-        btnText={'Tamam'}
-        infoHeader={'Hesabiniz Bulunmamaktadir'}
-        infoText={
-          'Bu ekreanda hesaplariniz goruntulenir. Hic hesabiniz bulunmamaktadir. Yukaridaki + simgesine tiklayarak hesap olu;turabilirsiniz'
-        }
+        btnText={t('btn02', {ns: 'common'})}
+        infoHeader={t('infoHeader01', {ns: 'account'})}
+        infoText={t('infoText01', {ns: 'account'})}
         onBtnPress={() => {
           get(Config.API_URL + 'accounts');
         }}

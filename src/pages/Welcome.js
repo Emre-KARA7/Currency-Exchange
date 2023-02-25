@@ -36,8 +36,11 @@ function Welcome({navigation}) {
   return (
     <SafeAreaView style={pagesStyles.Center}>
       <View style={pagesStyles.flexRowCenter}>
-        <Button text={'Log in'} onPress={goToLogIn} />
-        <Button text={'Sign up'} onPress={goToSignUp} />
+        <Button text={t('login', {ns: 'login-welcome'})} onPress={goToLogIn} />
+        <Button
+          text={t('signup', {ns: 'login-welcome'})}
+          onPress={goToSignUp}
+        />
       </View>
     </SafeAreaView>
   );

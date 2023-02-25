@@ -8,10 +8,12 @@ import Button from '../components/Button';
 import {useSelector} from 'react-redux'; //redux
 import Dropdown from '../components/Dropdown';
 import InfoCard from '../components/InfoCard';
+import {useTranslation} from 'react-i18next'; //i18n
 
 function CreateAccount({navigation}) {
   //
   const darkTheme = useSelector(state => state.darkTheme.darkTheme); //redux
+  const {t} = useTranslation(); //i18n
   const [account_type, setAccount_type] = useState(null);
   const [branch_office, setBranch_office] = useState(null);
   const [currency, setCurrency] = useState(null);
@@ -72,46 +74,40 @@ function CreateAccount({navigation}) {
     return (
       <InfoCard
         onBtnPress={() => setWarn(false)}
-        btnText={'Tamam'}
+        btnText={t('btn02', {ns: 'common'})}
         infoType={'WARNING'}
-        infoHeader={'Eksik Form'}
-        infoText={'formdaki tum alanlari doldurdugunuza emin olunuz'}
+        infoHeader={t('infoHeader03', {ns: 'account'})}
+        infoText={t('infoText03', {ns: 'account'})}
       />
     );
   } else if (error) {
     return (
       <InfoCard
         onBtnPress={() => navigation.popToTop()}
-        btnText={'Tamam'}
+        btnText={t('btn02', {ns: 'common'})}
         infoType={'ERROR'}
-        infoHeader={'Hata'}
-        infoText={
-          'Talebiniz gerceklestirilirken bir hata olustu lutfen daha sonra tekrar deneyin'
-        }
+        infoHeader={t('err', {ns: 'common'})}
+        infoText={t('errText', {ns: 'common'})}
       />
     );
   } else if (data && data.data.status === 'account succesfully created') {
     return (
       <InfoCard
         onBtnPress={() => navigation.popToTop()}
-        btnText={'Tamam'}
+        btnText={t('btn02', {ns: 'common'})}
         infoType={'SUCCESS'}
-        infoHeader={'Basarili'}
-        infoText={
-          'Hesabiniz basarili bir sekilde olusturuldu, heasbinizi hesaplarim sayfasinda goruntuleyebilirsiniz'
-        }
+        infoHeader={t('infoHeader02', {ns: 'account'})}
+        infoText={t('infoText02', {ns: 'account'})}
       />
     );
   } else if (data && data.data.status === 'account creation failed') {
     return (
       <InfoCard
         onBtnPress={() => navigation.popToTop()}
-        btnText={'Tamam'}
+        btnText={t('btn02', {ns: 'common'})}
         infoType={'INFO'}
-        infoHeader={'Basarisiz'}
-        infoText={
-          'Hesabiniz olusturulamadi, lutfen bilgilerinizi gozden gecirip tekrar deneyiniz'
-        }
+        infoHeader={t('infoHeader04', {ns: 'account'})}
+        infoText={t('infoText04', {ns: 'account'})}
       />
     );
   }
@@ -127,7 +123,7 @@ function CreateAccount({navigation}) {
         Hesap Turu
       </Text>
       <Dropdown
-        pleaceholder={'lutfen hesap turu seciniz..'}
+        pleaceholder={t('placeholder01', {ns: 'account'})}
         data={listData[0]}
         setSelected={setAccount_type}
         save={'value'}
@@ -137,7 +133,7 @@ function CreateAccount({navigation}) {
         Para Birimi
       </Text>
       <Dropdown
-        pleaceholder={'lutfen para birimi seciniz..'}
+        pleaceholder={t('placeholder02', {ns: 'account'})}
         data={listData[1]}
         setSelected={setCurrency}
         save={'value'}
@@ -147,7 +143,7 @@ function CreateAccount({navigation}) {
         Bagli Sube
       </Text>
       <Dropdown
-        pleaceholder={'lutfen kayit subesi seciniz..'}
+        pleaceholder={t('placeholder03', {ns: 'account'})}
         data={listData[2]}
         setSelected={setBranch_office}
         save={'value'}

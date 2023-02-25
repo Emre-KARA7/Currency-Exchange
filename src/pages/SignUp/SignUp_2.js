@@ -8,12 +8,14 @@ import pagesStyles from '../pages.styles';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
 import InfoCard from '../../components/InfoCard';
+import {useTranslation} from 'react-i18next'; //i18n
 
 function SignUp_2({route, navigation}) {
   //
   const {name, surname, b_date, tckn, photo} = route.params;
   const {data, loading, error, post} = useHttps();
   const [UIBlock, setUIBlock] = useState(false);
+  const {t} = useTranslation(); //i18n
 
   function handleForm(values) {
     setUIBlock(true);
@@ -24,30 +26,28 @@ function SignUp_2({route, navigation}) {
     tel: Yup.string()
       .matches(
         /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/,
-        'Phone number is not valid',
+        t('yup05', {ns: 'common'}),
       )
-      .min(10, 'Too Short')
-      .max(10, 'Too Long')
-      .required('Required'),
+      .min(10, t('yup01', {ns: 'common'}))
+      .max(10, t('yup02', {ns: 'common'}))
+      .required(t('yup03', {ns: 'common'})),
     pass1: Yup.string()
-      .min(2, 'Too Short!')
-      .max(50, 'Too Long!')
-      .required('Required'),
+      .min(2, t('yup01', {ns: 'common'}))
+      .max(50, t('yup02', {ns: 'common'}))
+      .required(t('yup03', {ns: 'common'})),
     pass2: Yup.string()
-      .min(2, 'Too Short!')
-      .max(50, 'Too Long!')
-      .required('Required'),
+      .min(2, t('yup01', {ns: 'common'}))
+      .max(50, t('yup02', {ns: 'common'}))
+      .required(t('yup03', {ns: 'common'})),
   });
 
   if (error) {
     return (
       <InfoCard
         infoType={'ERROR'}
-        btnText={'Tamam'}
-        infoHeader={'Hata'}
-        infoText={
-          'Talebiniz gerceklestirilirken bir hata olustu lutfen daha sonra tekrar deneyin'
-        }
+        btnText={t('btn02', {ns: 'common'})}
+        infoHeader={t('err', {ns: 'common'})}
+        infoText={t('errText', {ns: 'common'})}
         onBtnPress={() => {
           navigation.popToTop();
         }}
@@ -59,9 +59,9 @@ function SignUp_2({route, navigation}) {
     return (
       <InfoCard
         infoType={'SUCCESS'}
-        btnText={'Tamam'}
-        infoHeader={'Kayit Basarili'}
-        infoText={'Giris yapabilirsiniz. Kaydiniz basarili..'}
+        btnText={t('btn02', {ns: 'common'})}
+        infoHeader={t('infoHeader01', {ns: 'signup'})}
+        infoText={t('infoText01', {ns: 'signup'})}
         onBtnPress={() => {
           navigation.popToTop();
         }}
@@ -71,11 +71,9 @@ function SignUp_2({route, navigation}) {
     return (
       <InfoCard
         infoType={'INFO'}
-        btnText={'Tamam'}
-        infoHeader={'Kayit Basarisiz'}
-        infoText={
-          'Kaydiniz gerceklestirilemedi. Lutfen bilgilerinizi gozden gecirip tekrar deneyiniz..'
-        }
+        btnText={t('btn02', {ns: 'common'})}
+        infoHeader={t('infoHeader02', {ns: 'signup'})}
+        infoText={t('infoText02', {ns: 'signup'})}
         onBtnPress={() => {
           navigation.popToTop();
         }}
@@ -92,8 +90,8 @@ function SignUp_2({route, navigation}) {
         {({handleSubmit, handleChange, touched, errors, values}) => (
           <View style={pagesStyles.flexOne}>
             <Input
-              label="Telefon"
-              placeholder="Write your name"
+              label={t('input05', {ns: 'signup'})}
+              placeholder={t('placeholder05', {ns: 'signup'})}
               onChangeText={handleChange('tel')}
               value={values.tel}
             />
@@ -102,8 +100,8 @@ function SignUp_2({route, navigation}) {
             ) : null}
             <Input
               secureTextEntry={true}
-              label="Sifre"
-              placeholder="Write your pass"
+              label={t('input06', {ns: 'signup'})}
+              placeholder={t('placeholder06', {ns: 'signup'})}
               onChangeText={handleChange('pass1')}
               value={values.pass1}
             />
@@ -112,8 +110,8 @@ function SignUp_2({route, navigation}) {
             ) : null}
             <Input
               secureTextEntry={true}
-              label="Sifre (Tekrar)"
-              placeholder="Write your pass"
+              label={t('input07', {ns: 'signup'})}
+              placeholder={t('placeholder06', {ns: 'signup'})}
               onChangeText={handleChange('pass2')}
               value={values.pass2}
             />
@@ -122,7 +120,11 @@ function SignUp_2({route, navigation}) {
             ) : null}
 
             <View style={pagesStyles.rightBottom}>
-              <Button text={'next'} onPress={handleSubmit} disabled={UIBlock} />
+              <Button
+                text={t('btn03', {ns: 'common'})}
+                onPress={handleSubmit}
+                disabled={UIBlock}
+              />
             </View>
           </View>
         )}

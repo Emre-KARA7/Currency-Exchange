@@ -7,10 +7,12 @@ import pagesStyles from '../pages.styles';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
 import TextInputBtn from '../../components/TextInputBtn';
+import {useTranslation} from 'react-i18next'; //i18n
 
 function SignUp_0({navigation}) {
   //
   const [open, setOpen] = useState(false);
+  const {t} = useTranslation(); //i18n
 
   function handleForm(values) {
     console.log(values);
@@ -22,24 +24,25 @@ function SignUp_0({navigation}) {
     });
   }
 
+  //<Text>{t('text02', {ns: 'app'})}</Text> //key - nanmespace
   const SignUp0Schema = Yup.object().shape({
     tckn: Yup.string()
-      .min(11, 'Too Short!')
-      .max(11, 'Too Long!')
-      .matches(/^\d+$/, 'not a tckn')
-      .required('Required'),
+      .min(11, t('yup01', {ns: 'common'}))
+      .max(11, t('yup02', {ns: 'common'}))
+      .matches(/^\d+$/, t('yup04', {ns: 'common'}))
+      .required(t('yup03', {ns: 'common'})),
     name: Yup.string()
-      .min(2, 'Too Short!')
-      .max(50, 'Too Long!')
-      .required('Required'),
+      .min(2, t('yup01', {ns: 'common'}))
+      .max(50, t('yup02', {ns: 'common'}))
+      .required(t('yup03', {ns: 'common'})),
     surname: Yup.string()
-      .min(2, 'Too Short!')
-      .max(50, 'Too Long!')
-      .required('Required'),
+      .min(2, t('yup01', {ns: 'common'}))
+      .max(50, t('yup02', {ns: 'common'}))
+      .required(t('yup03', {ns: 'common'})),
     b_date: Yup.string()
-      .min(2, 'Too Short!')
-      .max(50, 'Too Long!')
-      .required('Required'),
+      .min(2, t('yup01', {ns: 'common'}))
+      .max(50, t('yup02', {ns: 'common'}))
+      .required(t('yup03', {ns: 'common'})),
   });
 
   return (
@@ -51,8 +54,8 @@ function SignUp_0({navigation}) {
         {({handleSubmit, handleChange, touched, errors, values}) => (
           <View style={pagesStyles.flexOne}>
             <Input
-              label="Name"
-              placeholder="Write your name"
+              label={t('input01', {ns: 'signup'})}
+              placeholder={t('placeholder01', {ns: 'signup'})}
               onChangeText={handleChange('name')}
               value={values.name}
             />
@@ -60,8 +63,8 @@ function SignUp_0({navigation}) {
               <Text style={pagesStyles.formWarnText}>*{errors.name}</Text>
             ) : null}
             <Input
-              label="Surname"
-              placeholder="Write your surname"
+              label={t('input02', {ns: 'signup'})}
+              placeholder={t('placeholder02', {ns: 'signup'})}
               onChangeText={handleChange('surname')}
               value={values.surname}
             />
@@ -69,8 +72,8 @@ function SignUp_0({navigation}) {
               <Text style={pagesStyles.formWarnText}>*{errors.surname}</Text>
             ) : null}
             <TextInputBtn
-              label="B Date"
-              placeholder="Write your birth date"
+              label={t('input03', {ns: 'signup'})}
+              placeholder={t('placeholder03', {ns: 'signup'})}
               //onChangeText={handleChange('b_date')}
               onBtnPress={() => setOpen(true)}
               value={values.b_date.toDateString()}
@@ -92,8 +95,8 @@ function SignUp_0({navigation}) {
               }}
             />
             <Input
-              label="TCKN"
-              placeholder="Write your TCKN"
+              label={t('input04', {ns: 'signup'})}
+              placeholder={t('placeholder04', {ns: 'signup'})}
               onChangeText={handleChange('tckn')}
               value={values.tckn}
             />
@@ -102,7 +105,10 @@ function SignUp_0({navigation}) {
             ) : null}
 
             <View style={pagesStyles.rightBottom}>
-              <Button text={'next'} onPress={handleSubmit} />
+              <Button
+                text={t('btn01', {ns: 'common'})}
+                onPress={handleSubmit}
+              />
             </View>
           </View>
         )}

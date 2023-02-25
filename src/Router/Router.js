@@ -8,6 +8,7 @@ import {Colors} from '../assets/colors';
 import pagesStyles from '../pages/pages.styles';
 import InfoCard from '../components/InfoCard';
 import NetInfo from '@react-native-community/netinfo';
+import {useTranslation} from 'react-i18next'; //i18n
 // screens
 import Welcome from '../pages/Welcome';
 import LogIn from '../pages/LogIn';
@@ -21,6 +22,7 @@ const Stack = createNativeStackNavigator();
 function Router() {
   const {auth} = useSelector(state => state.auth);
   const darkTheme = useSelector(state => state.darkTheme.darkTheme); //redux
+  const {t, i18n} = useTranslation(); //i18n
   const [netConnection, setNetConnection] = useState(true);
 
   const unsubscribe = NetInfo.addEventListener(state => {
@@ -76,7 +78,7 @@ function Router() {
                     onPress={() => navigation.navigate('SettingsScreen')}
                   />
                 ),
-                title: 'Welcome',
+                title: t('welcome', {ns: 'router'}),
                 headerStyle: {
                   backgroundColor: darkTheme
                     ? Colors.dark_background
@@ -93,7 +95,7 @@ function Router() {
             />
             <Stack.Screen
               options={{
-                title: 'Login',
+                title: t('login', {ns: 'router'}),
                 headerTintColor: Colors.textSecondary,
                 headerStyle: {
                   backgroundColor: darkTheme
@@ -111,7 +113,7 @@ function Router() {
             />
             <Stack.Screen
               options={{
-                title: 'Signup',
+                title: t('signup', {ns: 'router'}),
                 headerTintColor: Colors.textSecondary,
                 headerStyle: {
                   backgroundColor: darkTheme
@@ -129,7 +131,7 @@ function Router() {
             />
             <Stack.Screen
               options={{
-                title: 'Signup',
+                title: t('signup', {ns: 'router'}),
                 headerTintColor: Colors.textSecondary,
                 headerStyle: {
                   backgroundColor: darkTheme
@@ -147,7 +149,7 @@ function Router() {
             />
             <Stack.Screen
               options={{
-                title: 'Signup',
+                title: t('signup', {ns: 'router'}),
                 headerTintColor: Colors.textSecondary,
                 headerStyle: {
                   backgroundColor: darkTheme
@@ -168,7 +170,7 @@ function Router() {
         <Stack.Group>
           <Stack.Screen
             options={{
-              title: 'Settings',
+              title: t('settings', {ns: 'router'}),
               headerTintColor: Colors.textSecondary,
               headerStyle: {
                 backgroundColor: darkTheme

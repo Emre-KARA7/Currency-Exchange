@@ -9,12 +9,14 @@ import {useSelector} from 'react-redux'; //redux
 import Dropdown from '../components/Dropdown';
 import useStorage from '../hooks/useStorage';
 import InfoCard from '../components/InfoCard';
+import {useTranslation} from 'react-i18next'; //i18n
 
 function History({navigation}) {
   //
   const [refreshing, setRefreshing] = useState(false);
   const {StorageLoading, StorageError, storageGet} = useStorage();
   const darkTheme = useSelector(state => state.darkTheme.darkTheme); //redux
+  const {t} = useTranslation(); //i18n
   const [filterAppearance, setFilterAppearance] = useState(null);
   const data = [
     {
@@ -613,18 +615,18 @@ function History({navigation}) {
       {key: 24, value: 'HEPSI'},
     ],
     [
-      {key: 1, value: 'BUY'},
-      {key: 2, value: 'SELL'},
-      {key: 3, value: 'HEPSI'},
+      {key: 1, value: t('type1', {ns: 'history'})},
+      {key: 2, value: t('type2', {ns: 'history'})},
+      {key: 3, value: t('type3', {ns: 'history'})},
     ],
     [
-      {key: 1, value: '7 gun'},
-      {key: 2, value: '1 ay'},
-      {key: 3, value: '3 ay'},
-      {key: 4, value: '6 ay'},
-      {key: 5, value: '1 yil'},
-      {key: 6, value: '3 yil'},
-      {key: 7, value: 'Tum zamanlar'},
+      {key: 1, value: t('time1', {ns: 'history'})},
+      {key: 2, value: t('time2', {ns: 'history'})},
+      {key: 3, value: t('time3', {ns: 'history'})},
+      {key: 4, value: t('time4', {ns: 'history'})},
+      {key: 5, value: t('time5', {ns: 'history'})},
+      {key: 6, value: t('time6', {ns: 'history'})},
+      {key: 7, value: t('time7', {ns: 'history'})},
     ],
   ];
   //
@@ -634,7 +636,7 @@ function History({navigation}) {
     return (
       <View>
         <Input
-          label={'Miktar'}
+          label={t('amount', {ns: 'history'})}
           value={filterParams.amount}
           onChangeText={val =>
             setFilterParams(pre => ({
@@ -652,7 +654,7 @@ function History({navigation}) {
           }
           data={listFitlterData[0]}
           save={'key'}
-          pleaceholder={'choose currency'}
+          pleaceholder={t('label01', {ns: 'history'})}
         />
         <Dropdown
           setSelected={val =>
@@ -663,7 +665,7 @@ function History({navigation}) {
           }
           data={listFitlterData[1]}
           save={'value'}
-          pleaceholder={'choose log type'}
+          pleaceholder={t('label02', {ns: 'history'})}
         />
         <Dropdown
           setSelected={val =>
@@ -674,12 +676,12 @@ function History({navigation}) {
           }
           data={listFitlterData[2]}
           save={'key'}
-          pleaceholder={'choose date-time'}
+          pleaceholder={t('label03', {ns: 'history'})}
         />
         <View style={pagesStyles.flexRowCenter}>
-          <Button text={'SIFIRLA'} onPress={() => {}} />
+          <Button text={t('reset', {ns: 'history'})} onPress={() => {}} />
           <Button
-            text={'UYGULA'}
+            text={t('apply', {ns: 'history'})}
             onPress={() => {
               setFilterAppearance(null);
               //applyFilter();
@@ -765,11 +767,9 @@ function History({navigation}) {
   else if (StorageError) {
     return (
       <InfoCard
-        btnText={'Tamam'}
-        infoText={
-          'Gecmis yuklenirken cihaz depolamasi ile ile ilgili olabilecek bir sorun olustu, lutfen daha sonra tekrar deneyin'
-        }
-        infoHeader={'Depolma Hatasi'}
+        btnText={t('btn02', {ns: 'common'})}
+        infoText={t('errText', {ns: 'history'})}
+        infoHeader={t('errHeader', {ns: 'history'})}
         infoType={'ERROR'}
         //onBtnPress={() => {setData(' ')}}
       />

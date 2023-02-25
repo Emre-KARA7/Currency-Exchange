@@ -7,11 +7,13 @@ import {useSelector} from 'react-redux'; //redux
 import Accounts from '../pages/Accounts';
 import CreateAccount from '../pages/CreateAccount';
 import {Colors} from '../assets/colors';
+import {useTranslation} from 'react-i18next'; //i18n
 
 const Stack = createNativeStackNavigator();
 
 function AccountsPage() {
   const darkTheme = useSelector(state => state.darkTheme.darkTheme); //redux
+  const {t, i18n} = useTranslation(); //i18n
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -43,7 +45,7 @@ function AccountsPage() {
               />
             </View>
           ),
-          title: 'Accounts',
+          title: t('accounts', {ns: 'router'}),
           headerStyle: {
             backgroundColor: darkTheme
               ? Colors.dark_background
@@ -56,7 +58,7 @@ function AccountsPage() {
       />
       <Stack.Screen
         options={{
-          title: 'Create Account',
+          title: t('create-account', {ns: 'router'}),
           headerTintColor: Colors.textSecondary,
           headerStyle: {
             backgroundColor: darkTheme

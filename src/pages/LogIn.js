@@ -13,6 +13,7 @@ import useHttps from '../hooks/useHttps';
 import useStorage from '../hooks/useStorage';
 import ProfilePhoto from '../components/ProfilePhoto';
 import InfoCard from '../components/InfoCard';
+import {useTranslation} from 'react-i18next'; //i18n
 
 function LogIn({navigation}) {
   //
@@ -24,6 +25,7 @@ function LogIn({navigation}) {
   const {StorageLoading, StorageError, storageSet, storageGet} = useStorage();
   const [UIBlock, setUIBlock] = useState(false);
   const darkTheme = useSelector(state => state.darkTheme.darkTheme); //redux
+  const {t} = useTranslation(); //i18n
 
   async function handleForm(values) {
     setUIBlock(true);
@@ -66,14 +68,14 @@ function LogIn({navigation}) {
 
   const LoginSchema = Yup.object().shape({
     tckn: Yup.string()
-      .min(11, 'Too Short!')
-      .max(11, 'Too Long!')
-      .matches(/^\d+$/, 'not a tckn')
-      .required('Required'),
+      .min(11, t('yup01', {ns: 'common'}))
+      .max(11, t('yup02', {ns: 'common'}))
+      .matches(/^\d+$/, t('yup04', {ns: 'common'}))
+      .required(t('yup03', {ns: 'common'})),
     pass: Yup.string()
-      .min(2, 'Too Short!')
-      .max(50, 'Too Long!')
-      .required('Required'),
+      .min(2, t('yup01', {ns: 'common'}))
+      .max(50, t('yup02', {ns: 'common'}))
+      .required(t('yup03', {ns: 'common'})),
   });
 
   if (StorageLoading || loading) return <InfoCard />;
@@ -81,32 +83,30 @@ function LogIn({navigation}) {
     return (
       <InfoCard
         onBtnPress={() => navigation.popToTop()}
-        btnText={'Tamam'}
+        btnText={t('btn02', {ns: 'common'})}
         infoType={'ERROR'}
-        infoHeader={'Hata'}
-        infoText={'Sunucuya baglanirken bir hata olustu'}
+        infoHeader={t('err', {ns: 'common'})}
+        infoText={t('errText01', {ns: 'login-welcome'})}
       />
     );
   } else if (StorageError) {
     return (
       <InfoCard
         onBtnPress={() => {}}
-        btnText={'Tamam'}
+        btnText={t('btn02', {ns: 'common'})}
         infoType={'ERROR'}
-        infoHeader={'Kayit Hatasi'}
-        infoText={'Beni hatirla basarisiz'}
+        infoHeader={t('errHeader', {ns: 'login-welcome'})}
+        infoText={t('errText02', {ns: 'login-welcome'})}
       />
     );
   } else if (data && data.data.status === 'login failed') {
     return (
       <InfoCard
         onBtnPress={() => navigation.popToTop()}
-        btnText={'Tamam'}
+        btnText={t('btn02', {ns: 'common'})}
         infoType={'WARNING'}
-        infoHeader={'Giris Basarisiz'}
-        infoText={
-          'TCKN veya Sifre hatali, bilgilerinizi kontrol edip tekrar deneyiniz'
-        }
+        infoHeader={t('warnHeader', {ns: 'login-welcome'})}
+        infoText={t('warnText', {ns: 'login-welcome'})}
       />
     );
   }
@@ -138,8 +138,8 @@ function LogIn({navigation}) {
               </View>
 
               <Input
-                label="tckn"
-                placeholder="Write your name"
+                label={t('label01', {ns: 'login-welcome'})}
+                placeholder={t('placeholder01', {ns: 'login-welcome'})}
                 onChangeText={handleChange('tckn')}
                 value={values.tckn}
               />
@@ -149,8 +149,8 @@ function LogIn({navigation}) {
 
               <Input
                 secure={true}
-                label="pass"
-                placeholder="Write your surname"
+                label={t('label02', {ns: 'login-welcome'})}
+                placeholder={t('placeholder02', {ns: 'login-welcome'})}
                 onChangeText={handleChange('pass')}
                 value={values.pass}
               />
@@ -160,12 +160,14 @@ function LogIn({navigation}) {
 
               <View style={pagesStyles.flexRowCenter}>
                 <Checkbox onPress={() => setRememberMe(!rememberMe)} />
-                <Text style={pagesStyles.textC}>Remember Me</Text>
+                <Text style={pagesStyles.textC}>
+                  {t('rememberMe', {ns: 'login-welcome'})}
+                </Text>
               </View>
 
               <View style={pagesStyles.rightBottom}>
                 <Button
-                  text={'next'}
+                  text={t('btn01', {ns: 'common'})}
                   onPress={handleSubmit}
                   disabled={UIBlock}
                 />

@@ -6,6 +6,7 @@ import Button from '../../components/Button';
 import ProfilePhoto from '../../components/ProfilePhoto';
 import useStorage from '../../hooks/useStorage';
 import InfoCard from '../../components/InfoCard';
+import {useTranslation} from 'react-i18next'; //i18n
 
 function SignUp_1({route, navigation}) {
   //
@@ -13,6 +14,7 @@ function SignUp_1({route, navigation}) {
   const [user, setUser] = useState(' ');
   const {name, surname, b_date, tckn} = route.params;
   const [Photo, setPhoto] = useState(null);
+  const {t} = useTranslation(); //i18n
 
   function goToSignUp2() {
     if (Photo) {
@@ -64,9 +66,10 @@ function SignUp_1({route, navigation}) {
   if (Photo === 'warn') {
     return (
       <InfoCard
-        btnText={'Tamam'}
+        btnText={t('btn02', {ns: 'common'})}
         infoType={'WARNING'}
-        infoHeader={'lutfen resim seciniz'}
+        infoHeader={t('warn-header01', {ns: 'signup'})}
+        infoText={t('warn01', {ns: 'signup'})}
         onBtnPress={() => setPhoto(null)}
       />
     );
@@ -79,12 +82,12 @@ function SignUp_1({route, navigation}) {
       </View>
 
       <View style={pagesStyles.flexRowCenter}>
-        <Button text={'Gallery'} onPress={openGallery} />
-        <Button text={'Camera'} onPress={openCamera} />
+        <Button text={t('gallery', {ns: 'signup'})} onPress={openGallery} />
+        <Button text={t('camera', {ns: 'signup'})} onPress={openCamera} />
       </View>
 
       <View style={pagesStyles.rightBottom}>
-        <Button text={'goTo SignUp2'} onPress={goToSignUp2} />
+        <Button text={t('btn01', {ns: 'common'})} onPress={goToSignUp2} />
       </View>
     </SafeAreaView>
   );

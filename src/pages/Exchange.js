@@ -9,6 +9,7 @@ import pagesStyles from './pages.styles';
 import Config from 'react-native-config';
 import useStorage from '../hooks/useStorage';
 import InfoCard from '../components/InfoCard';
+import {useTranslation} from 'react-i18next'; //i18n
 
 function Exchange({route, navigation}) {
   const {data, loading, error, get, post} = useHttps();
@@ -18,6 +19,7 @@ function Exchange({route, navigation}) {
   const [selectlistData, setSelectlistData] = useState([]);
   const [rate2, setRate2] = useState(null);
   const darkTheme = useSelector(state => state.darkTheme.darkTheme); //redux
+  const {t} = useTranslation(); //i18n
   const [amount, setAmount] = useState(null);
   const [exchangeAccount, setExchangeAccount] = useState(null);
   const [warn, setWarn] = useState(false);
@@ -25,8 +27,14 @@ function Exchange({route, navigation}) {
 
   const method =
     exchangeMethod === 'BUY'
-      ? {title: 'SATIN AL', exchangeAccount: 'Alinacak Hesap'}
-      : {title: 'SAT', exchangeAccount: 'Aktarilacak  Hesap'};
+      ? {
+          title: t('btn01', {ns: 'watchlist'}),
+          exchangeAccount: t('account1', {ns: 'watchlist'}),
+        }
+      : {
+          title: t('btn02', {ns: 'watchlist'}),
+          exchangeAccount: t('account2', {ns: 'watchlist'}),
+        };
 
   useEffect(() => {
     (async () => {
@@ -139,58 +147,50 @@ function Exchange({route, navigation}) {
     return (
       <InfoCard
         onBtnPress={() => setWarn(false)}
-        btnText={'Tamam'}
+        btnText={t('btn02', {ns: 'common'})}
         infoType={'WARNING'}
-        infoHeader={'Eksik Form'}
-        infoText={'formdaki tum alanlari doldurdugunuza emin olunuz'}
+        infoHeader={t('warnHeader', {ns: 'watchlist'})}
+        infoText={t('warnText', {ns: 'watchlist'})}
       />
     );
   } else if (error) {
     return (
       <InfoCard
         onBtnPress={() => navigation.popToTop()}
-        btnText={'Tamam'}
+        btnText={t('btn02', {ns: 'common'})}
         infoType={'ERROR'}
-        infoHeader={'Hata'}
-        infoText={
-          'Talebiniz gerceklestirilirken bir hata olustu lutfen daha sonra tekrar deneyin'
-        }
+        infoHeader={t('err', {ns: 'common'})}
+        infoText={t('errText', {ns: 'common'})}
       />
     );
   } else if (StorageError) {
     return (
       <InfoCard
         onBtnPress={() => navigation.popToTop()}
-        btnText={'Tamam'}
+        btnText={t('btn02', {ns: 'common'})}
         infoType={'ERROR'}
-        infoHeader={'Islem Basarili'}
-        infoText={
-          'Islem basarili ancak gecmise kayit esnasinda bir hata olustu'
-        }
+        infoHeader={t('infoHeader1', {ns: 'watchlist'})}
+        infoText={t('infoText1', {ns: 'watchlist'})}
       />
     );
   } else if (data && data.data.status === 'exchange failed') {
     return (
       <InfoCard
         onBtnPress={() => navigation.popToTop()}
-        btnText={'Tamam'}
+        btnText={t('btn02', {ns: 'common'})}
         infoType={'INFO'}
-        infoHeader={'Islem Reddedildi'}
-        infoText={
-          'Isleminiz reddedildi, bilgilerinizden emin olduktan sonra tekrar deneyiniz, sorunun devam etmesi halinde musteri hizmetleriyle iletisime geciniz'
-        }
+        infoHeader={t('infoHeader2', {ns: 'watchlist'})}
+        infoText={t('infoText2', {ns: 'watchlist'})}
       />
     );
   } else if (data && data.data.status === 'exchange success') {
     return (
       <InfoCard
         onBtnPress={() => navigation.popToTop()}
-        btnText={'Tamam'}
+        btnText={t('btn02', {ns: 'common'})}
         infoType={'SUCCESS'}
-        infoHeader={'Islem Basarili'}
-        infoText={
-          'Islem Basarili, Islem Kaydinizi Gecmis sayfasinda gorebilirsiniz'
-        }
+        infoHeader={t('infoHeader1', {ns: 'watchlist'})}
+        infoText={t('infoText3', {ns: 'watchlist'})}
       />
     );
   }
@@ -214,20 +214,28 @@ function Exchange({route, navigation}) {
         setSelected={setExchangeAccount}
         save="AccountTitle"
         onSelect={getRate}
-        pleaceholder={'lutfen alinacak para turu secin'}
+        pleaceholder={t('label01', {ns: 'watchlist'})}
       />
 
       <Text style={darkTheme ? pagesStyles.textA_dark : pagesStyles.textA}>
         Oran ({abbreviation}/TL) : {rate}
       </Text>
-      <Input label={'Miktar'} value={amount} onChangeText={setAmount} />
+      <Input
+        label={t('label02', {ns: 'watchlist'})}
+        value={amount}
+        onChangeText={setAmount}
+      />
 
       <Text style={darkTheme ? pagesStyles.textA_dark : pagesStyles.textA}>
         Sonuc: {rate * Number(amount)}{' '}
       </Text>
 
       <View style={pagesStyles.rightBottom}>
-        <Button text={'Onayla'} onPress={approve} disabled={UIBlock} />
+        <Button
+          text={t('btn03', {ns: 'watchlist'})}
+          onPress={approve}
+          disabled={UIBlock}
+        />
       </View>
     </SafeAreaView>
   );

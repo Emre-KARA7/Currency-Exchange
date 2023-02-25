@@ -7,12 +7,14 @@ import Watchlist from '../pages/Watchlist';
 import EditWatchlist from '../pages/EditWatchlist';
 import Exchange from '../pages/Exchange';
 import {useSelector} from 'react-redux'; //redux
+import {useTranslation} from 'react-i18next'; //i18n
 import {Colors} from '../assets/colors';
 
 const Stack = createNativeStackNavigator();
 
 function WatchlistPage() {
   const darkTheme = useSelector(state => state.darkTheme.darkTheme); //redux
+  const {t, i18n} = useTranslation(); //i18n
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -42,7 +44,7 @@ function WatchlistPage() {
               />
             </View>
           ),
-          title: 'Watchlist',
+          title: t('watchlist', {ns: 'router'}),
           headerStyle: {
             backgroundColor: darkTheme
               ? Colors.dark_background
@@ -57,7 +59,7 @@ function WatchlistPage() {
       />
       <Stack.Screen
         options={{
-          title: 'Edit Watchlist',
+          title: t('edit-watchlist', {ns: 'router'}),
           headerTintColor: Colors.textSecondary,
           headerStyle: {
             backgroundColor: darkTheme
@@ -73,7 +75,7 @@ function WatchlistPage() {
       />
       <Stack.Screen
         options={{
-          title: 'Exchange',
+          title: t('exchange', {ns: 'router'}),
           headerTintColor: Colors.textSecondary,
           headerStyle: {
             backgroundColor: darkTheme

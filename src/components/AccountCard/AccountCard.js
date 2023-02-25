@@ -2,6 +2,7 @@ import React from 'react';
 import {TouchableOpacity, View, Text} from 'react-native';
 import {useSelector} from 'react-redux'; //redux
 import styles from './AccountCard.style';
+import {useTranslation} from 'react-i18next'; //i18n
 
 const AccountCard = ({
   accountTitle,
@@ -11,6 +12,7 @@ const AccountCard = ({
   onPress,
 }) => {
   const darkTheme = useSelector(state => state.darkTheme.darkTheme); //redux
+  const {t} = useTranslation(); //i18n
   return (
     <View>
       <TouchableOpacity
@@ -30,7 +32,7 @@ const AccountCard = ({
         <View style={styles.budgetBox}>
           <Text
             style={darkTheme ? styles.budgetBoxKey_dark : styles.budgetBoxKey}>
-            Bakiye:
+            {t('budget', {ns: 'account'})}:
           </Text>
           <Text
             style={

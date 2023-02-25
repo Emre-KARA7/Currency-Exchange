@@ -11,7 +11,7 @@ import InfoCard from '../components/InfoCard';
 
 function Settings({navigation}) {
   //
-  const {StorageLoading, StorageError, storageSet, storageGet} = useStorage();
+  const {StorageLoading, StorageError, storageSet} = useStorage();
   const dispatch = useDispatch();
   const {t, i18n} = useTranslation(); //i18n
   const darkTheme = useSelector(state => state.darkTheme.darkTheme); //get theme
@@ -27,6 +27,7 @@ function Settings({navigation}) {
   const langList = [
     {key: 'en', value: 'English'},
     {key: 'tr', value: 'Türkçe'},
+    {key: 'ja', value: '日本'},
   ];
 
   if (StorageLoading) return <InfoCard />;
@@ -36,14 +37,15 @@ function Settings({navigation}) {
         onBtnPress={() => {
           navigation.popToTop;
         }}
-        btnText={'Tamam'}
+        btnText={t('btn02', {ns: 'common'})}
         infoType={'ERROR'}
-        infoHeader={'Kayit Hatasi'}
-        infoText={'Ayarlar kaydedilemedi'}
+        infoHeader={t('infoHeader', {ns: 'settings'})}
+        infoText={t('infoText', {ns: 'settings'})}
       />
     );
   }
-
+  //
+  // <Text>{t('text02', {ns: 'app'})}</Text> //key - nanmespace
   return (
     <SafeAreaView
       style={
@@ -51,10 +53,9 @@ function Settings({navigation}) {
           ? pagesStyles.flexOnePaddingBG_dark
           : pagesStyles.flexOnePaddingBG
       }>
-      <Text>{t('text01')}</Text>
       <View style={pagesStyles.flexRowBetween}>
         <Text style={darkTheme ? pagesStyles.textB_dark : pagesStyles.textB}>
-          Dark Mode{' '}
+          {t('darkMode', {ns: 'settings'})}
         </Text>
         <Switch
           trackColor={{

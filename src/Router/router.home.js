@@ -8,11 +8,13 @@ import pagesStyles from '../pages/pages.styles';
 import HistoryPage from '../pages/History';
 import WatchlistPage from './router.watchlist'; //
 import AccountsPage from './router.accounts';
+import {useTranslation} from 'react-i18next'; //i18n
 
 const Tab = createBottomTabNavigator();
 
 function Home() {
   const darkTheme = useSelector(state => state.darkTheme.darkTheme); //redux
+  const {t, i18n} = useTranslation(); //i18n
   return (
     <Tab.Navigator
       screenOptions={({route}) => ({
@@ -62,7 +64,7 @@ function Home() {
               />
             </View>
           ),
-          title: 'History',
+          title: t('history', {ns: 'router'}),
           headerStyle: {
             backgroundColor: darkTheme
               ? Colors.dark_background
@@ -78,12 +80,12 @@ function Home() {
       <Tab.Screen
         name="AccountsPage"
         component={AccountsPage}
-        options={{headerShown: false, title: 'Accounts'}}
+        options={{headerShown: false, title: t('accounts', {ns: 'router'})}}
       />
       <Tab.Screen
         name="WatchlistPage"
         component={WatchlistPage}
-        options={{headerShown: false, title: 'watchlist'}}
+        options={{headerShown: false, title: t('watchlist', {ns: 'router'})}}
       />
     </Tab.Navigator>
   );

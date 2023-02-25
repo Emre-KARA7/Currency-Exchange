@@ -5,11 +5,13 @@ import EditWatchlistCard from '../components/EditWatchlistCard';
 import {useSelector} from 'react-redux'; //redux
 import useStorage from '../hooks/useStorage';
 import InfoCard from '../components/InfoCard';
+import {useTranslation} from 'react-i18next'; //i18n
 
 function EditWatchlist({navigation}) {
   //
   const {StorageLoading, StorageError, storageSet, storageGet} = useStorage();
   const darkTheme = useSelector(state => state.darkTheme.darkTheme); //redux
+  const {t} = useTranslation(); //i18n
   const [arrToWatch, setArrToWatch] = useState(' ');
   const data = [
     {id: 1, name: 'ABD DOLARI', abbrv: 'USD'},
@@ -50,11 +52,9 @@ function EditWatchlist({navigation}) {
     return (
       <InfoCard
         infoType={'ERROR'}
-        btnText={'TAMAM'}
-        infoHeader={'Hata'}
-        infoText={
-          'duzenleme sirasinda beklenmeyen bir hata olustu lutfen daha sonra tekrar deneyin'
-        }
+        btnText={t('btn02', {ns: 'common'})}
+        infoHeader={t('err', {ns: 'common'})}
+        infoText={t('errText', {ns: 'watchlist'})}
         onBtnPress={() => navigation.popToTop()}
       />
     );
