@@ -13,7 +13,7 @@ const HistoryCard = ({accountName, exchangeType, dateTime, amount}) => {
           style={
             darkTheme ? styles.amount_account_dark : styles.amount_account
           }>
-          {accountName}
+          VADESIZ {accountName}
         </Text>
         <Text
           style={

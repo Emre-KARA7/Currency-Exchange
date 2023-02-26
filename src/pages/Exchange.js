@@ -17,7 +17,6 @@ function Exchange({route, navigation}) {
   const {abbreviation, exchangeMethod, rate} = route.params;
   const [history, setHistory] = useState(' ');
   const [selectlistData, setSelectlistData] = useState([]);
-  const [rate2, setRate2] = useState(null);
   const darkTheme = useSelector(state => state.darkTheme.darkTheme); //redux
   const {t} = useTranslation(); //i18n
   const [amount, setAmount] = useState(null);
@@ -40,7 +39,6 @@ function Exchange({route, navigation}) {
     (async () => {
       if (history === ' ') {
         const h = await storageGet('history');
-        console.log('storage', h);
         if (h) setHistory(h);
       } else {
         await storageSet('history', history);
@@ -58,25 +56,26 @@ function Exchange({route, navigation}) {
         account1: abbreviation,
         account2: exchangeAccount,
       });
-      if ((data && data.data.status === 'exchange success') || true) {
+      if (true) {
+        //(data && data.data.status === 'exchange success')
         if (history === ' ') {
           setHistory([
             {
-              exchangeType: exchangeMethod,
+              exchangeType: exchangeMethod === 'BUY' ? 1 : 2, //1Buy 2Sell
               amount: amount,
-              dateTime: Date.now(),
+              dateTime: new Date(),
               id: 0,
-              accountName: 'vadesiz ' + abbreviation,
+              accountName: abbreviation,
             },
           ]);
         } else {
           setHistory([
             {
-              exchangeType: exchangeMethod,
+              exchangeType: exchangeMethod === 'BUY' ? 1 : 2, //1Buy 2Sell
               amount: amount,
-              dateTime: Date.now(),
+              dateTime: new Date(),
               id: history.length,
-              accountName: 'vadesiz ' + abbreviation,
+              accountName: abbreviation,
             },
             ...history,
           ]);
@@ -85,16 +84,16 @@ function Exchange({route, navigation}) {
     } else setWarn(true);
   }
 
-  async function getRate() {
-    //get Exchange account types rate
-    //rate2 yi kur setRate2
-    //donusum orani hesapla ve rate2 ye kaydet setRate2( rate / rate2 )
-    if (exchangeMethod === 'BUY') {
-      //hesapta yeterli para kontrolu
-    } else {
-      //hesapta yeterli para kontrolu
-    }
-  }
+  // async function getRate() {
+  //   //get Exchange account types rate
+  //   //rate2 yi kur setRate2
+  //   //donusum orani hesapla ve rate2 ye kaydet setRate2( rate / rate2 )
+  //   if (exchangeMethod === 'BUY') {
+  //     //hesapta yeterli para kontrolu
+  //   } else {
+  //     //hesapta yeterli para kontrolu
+  //   }
+  // }
 
   //sahip olunana hesaplar
   const Accounts = [
@@ -141,7 +140,7 @@ function Exchange({route, navigation}) {
     // get('https://aaaah.free.beeceptor.com/accounts');
     setSelectListFormat();
   }
-  console.log('storage  :', StorageLoading, '      https  :', loading);
+
   if (loading || StorageLoading) return <InfoCard />;
   else if (warn) {
     return (
@@ -213,7 +212,7 @@ function Exchange({route, navigation}) {
         data={selectlistData}
         setSelected={setExchangeAccount}
         save="AccountTitle"
-        onSelect={getRate}
+        onSelect={() => {}} //getRate
         pleaceholder={t('label01', {ns: 'watchlist'})}
       />
 

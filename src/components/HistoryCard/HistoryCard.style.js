@@ -9,6 +9,7 @@ export default StyleSheet.create({
     backgroundColor: Colors.background,
     margin: 3,
     padding: 3,
+    paddingHorizontal: 7,
   },
   container_dark: {
     borderWidth: 1,
@@ -17,6 +18,7 @@ export default StyleSheet.create({
     backgroundColor: Colors.dark_background,
     margin: 3,
     padding: 3,
+    paddingHorizontal: 7,
   },
   textType: {
     color: Colors.secondary,
