@@ -14,6 +14,7 @@ import useStorage from '../hooks/useStorage';
 import ProfilePhoto from '../components/ProfilePhoto';
 import InfoCard from '../components/InfoCard';
 import {useTranslation} from 'react-i18next'; //i18n
+import TouchID from 'react-native-touch-id';
 
 function LogIn({navigation}) {
   //
@@ -26,6 +27,7 @@ function LogIn({navigation}) {
   const [UIBlock, setUIBlock] = useState(false);
   const darkTheme = useSelector(state => state.darkTheme.darkTheme); //redux
   const {t} = useTranslation(); //i18n
+  const [biometrics, setBiometrics] = useState({touchID: false, faceID: false});
 
   async function handleForm(values) {
     setUIBlock(true);
@@ -53,6 +55,29 @@ function LogIn({navigation}) {
       //console.error('Login handle form error');
     }
   }
+
+  // useEffect(() => {
+  //   const optionalConfigObject = {
+  //     unifiedErrors: false, // use unified error messages (default false)
+  //     passcodeFallback: false, // if true is passed, itwill allow isSupported to return an error if the device is not enrolled in touch id/face id etc. Otherwise, it will just tell you what method is supported, even if the user is not enrolled.  (default false)
+  //   };
+  //   TouchID.isSupported(optionalConfigObject)
+  //     .then(biometryType => {
+  //       console.log('destekliyor' + biometryType);
+  //       const configs = {};
+  //       TouchID.authenticate('Login', configs)
+  //         .then(succes => {
+  //           console.log('girdin' + succes);
+  //           dispatch(changeAuthState(!authVal));
+  //         })
+  //         .catch(err => {
+  //           console.log('giremedin' + err);
+  //         });
+  //     })
+  //     .catch(err => {
+  //       console.log('desteklemio' + err);
+  //     });
+  // }); //biometric auth
 
   useEffect(() => {
     (async () => {

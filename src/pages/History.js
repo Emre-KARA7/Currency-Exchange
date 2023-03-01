@@ -13,72 +13,38 @@ import {useTranslation} from 'react-i18next'; //i18n
 
 function History({navigation}) {
   //
-  const [refreshing, setRefreshing] = useState(false);
-  const {StorageLoading, StorageError, storageGet} = useStorage();
-  const darkTheme = useSelector(state => state.darkTheme.darkTheme); //redux
-  const {t} = useTranslation(); //i18n
-  const [filterAppearance, setFilterAppearance] = useState(null);
-  const [data, setData] = useState(' ');
-  const [data2, setData2] = useState(null);
-  const [filterParams, setFilterParams] = useState({
-    account: null,
-    amount: null,
-    exchangeType: 3,
-    dateTime: null,
-  });
-  const listFitlterData = [
-    [
-      {key: 1, value: 'TL'},
-      {key: 2, value: 'USD'},
-      {key: 3, value: 'EUR'},
-      {key: 4, value: 'JPY'},
-      {key: 5, value: 'AUD'},
-      {key: 6, value: 'DKK'},
-      {key: 7, value: 'GBP'},
-      {key: 8, value: 'CHF'},
-      {key: 9, value: 'SEK'},
-      {key: 10, value: 'CAD'},
-      {key: 11, value: 'KWD'},
-      {key: 12, value: 'NOK'},
-      {key: 13, value: 'SAR'},
-      {key: 14, value: 'BGN'},
-      {key: 15, value: 'RON'},
-      {key: 16, value: 'RUB'},
-      {key: 17, value: 'IRR'},
-      {key: 18, value: 'CNY'},
-      {key: 19, value: 'PKR'},
-      {key: 20, value: 'QAR'},
-      {key: 21, value: 'KRW'},
-      {key: 22, value: 'AZN'},
-      {key: 23, value: 'AED'},
-    ],
-    [
-      {key: 1, value: t('type1', {ns: 'history'})}, //buy
-      {key: 2, value: t('type2', {ns: 'history'})}, //sell
-      {key: 3, value: t('type3', {ns: 'history'})}, //all
-    ],
-    [
-      {key: 1, value: t('time1', {ns: 'history'})},
-      {key: 2, value: t('time2', {ns: 'history'})},
-      {key: 3, value: t('time3', {ns: 'history'})},
-      {key: 4, value: t('time4', {ns: 'history'})},
-      {key: 5, value: t('time5', {ns: 'history'})},
-      {key: 6, value: t('time6', {ns: 'history'})},
-      {key: 7, value: t('time7', {ns: 'history'})},
-    ],
-  ];
-  const dateTimeAsDays = [7, 30, 91.25, 182.5, 365, 1096];
   useEffect(() => {
-    if (data === ' ') {
-      (async () => {
-        const a = await storageGet('history');
-        setData(a);
-      })();
-    }
-    setData2(data);
+    navigation.setOptions({
+      // eslint-disable-next-line react/no-unstable-nested-components
+      headerRight: () => (
+        <View style={pagesStyles.flexRowCenter}>
+          <Icon.Button
+            style={pagesStyles.iconBtnOuterStyle}
+            name="setting"
+            iconStyle={
+              darkTheme
+                ? pagesStyles.dark_iconBtnStyle
+                : pagesStyles.iconBtnStyle
+            }
+            onPress={() => navigation.navigate('SettingsScreen')}
+          />
+          <Icon.Button
+            style={pagesStyles.iconBtnOuterStyle}
+            name="filter"
+            iconStyle={
+              darkTheme
+                ? pagesStyles.dark_iconBtnStyle
+                : pagesStyles.iconBtnStyle
+            }
+            onPress={() => {
+              setFilterAppearance(filterPanel);
+            }}
+          />
+        </View>
+      ),
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data]); //FIRST data load
-
+  }, [navigation, setFilterAppearance]); //set header ICONS with new functionalities
   function filterPanel() {
     return (
       <View>
@@ -145,6 +111,74 @@ function History({navigation}) {
     );
   } // VIEW for filter options panel
 
+  const [refreshing, setRefreshing] = useState(false);
+  const {StorageLoading, StorageError, storageGet} = useStorage();
+  const darkTheme = useSelector(state => state.darkTheme.darkTheme); //redux
+  const {t} = useTranslation(); //i18n
+  const [filterAppearance, setFilterAppearance] = useState(null);
+  const [data, setData] = useState(' ');
+  const [data2, setData2] = useState(null);
+  const dateTimeAsDays = [7, 30, 91.25, 182.5, 365, 1096];
+  const [filterParams, setFilterParams] = useState({
+    account: null,
+    amount: null,
+    exchangeType: 3,
+    dateTime: null,
+  });
+  const listFitlterData = [
+    [
+      {key: 1, value: 'TL'},
+      {key: 2, value: 'USD'},
+      {key: 3, value: 'EUR'},
+      {key: 4, value: 'JPY'},
+      {key: 5, value: 'AUD'},
+      {key: 6, value: 'DKK'},
+      {key: 7, value: 'GBP'},
+      {key: 8, value: 'CHF'},
+      {key: 9, value: 'SEK'},
+      {key: 10, value: 'CAD'},
+      {key: 11, value: 'KWD'},
+      {key: 12, value: 'NOK'},
+      {key: 13, value: 'SAR'},
+      {key: 14, value: 'BGN'},
+      {key: 15, value: 'RON'},
+      {key: 16, value: 'RUB'},
+      {key: 17, value: 'IRR'},
+      {key: 18, value: 'CNY'},
+      {key: 19, value: 'PKR'},
+      {key: 20, value: 'QAR'},
+      {key: 21, value: 'KRW'},
+      {key: 22, value: 'AZN'},
+      {key: 23, value: 'AED'},
+    ],
+    [
+      {key: 1, value: t('type1', {ns: 'history'})}, //buy
+      {key: 2, value: t('type2', {ns: 'history'})}, //sell
+      {key: 3, value: t('type3', {ns: 'history'})}, //all
+    ],
+    [
+      {key: 1, value: t('time1', {ns: 'history'})},
+      {key: 2, value: t('time2', {ns: 'history'})},
+      {key: 3, value: t('time3', {ns: 'history'})},
+      {key: 4, value: t('time4', {ns: 'history'})},
+      {key: 5, value: t('time5', {ns: 'history'})},
+      {key: 6, value: t('time6', {ns: 'history'})},
+      {key: 7, value: t('time7', {ns: 'history'})},
+    ],
+  ];
+  //
+
+  useEffect(() => {
+    if (data === ' ') {
+      (async () => {
+        const a = await storageGet('history');
+        setData(a);
+      })();
+    }
+    setData2(data);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data]); //FIRST data load
+
   function resetFilterParams() {
     setFilterParams({
       account: null,
@@ -154,7 +188,7 @@ function History({navigation}) {
     });
     setFilterAppearance(null);
     onRefresh();
-  }
+  } //RESET filter
 
   useEffect(() => {
     if (data && data !== ' ') {
@@ -187,39 +221,6 @@ function History({navigation}) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filterParams]); //FILTER data acording to filterParams
 
-  useEffect(() => {
-    navigation.setOptions({
-      // eslint-disable-next-line react/no-unstable-nested-components
-      headerRight: () => (
-        <View style={pagesStyles.flexRowCenter}>
-          <Icon.Button
-            style={pagesStyles.iconBtnOuterStyle}
-            name="setting"
-            iconStyle={
-              darkTheme
-                ? pagesStyles.dark_iconBtnStyle
-                : pagesStyles.iconBtnStyle
-            }
-            onPress={() => navigation.navigate('SettingsScreen')}
-          />
-          <Icon.Button
-            style={pagesStyles.iconBtnOuterStyle}
-            name="filter"
-            iconStyle={
-              darkTheme
-                ? pagesStyles.dark_iconBtnStyle
-                : pagesStyles.iconBtnStyle
-            }
-            onPress={() => {
-              setFilterAppearance(filterPanel);
-            }}
-          />
-        </View>
-      ),
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [navigation, setFilterAppearance]); //set header ICONS with new functionalities
-
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
     (async () => {
@@ -243,7 +244,6 @@ function History({navigation}) {
     );
   }
 
-  //console.log(data);
   return (
     <SafeAreaView
       style={
