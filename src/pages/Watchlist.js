@@ -57,15 +57,15 @@ function Watchlist({navigation}) {
         data={data} //data
         renderItem={({item}) => (
           <WatchlistCard
-            name={item.name}
+            name={item.CurrencyName}
             abbreviation={item.abbrv}
-            buying={item.buying}
+            buying={item.ForexBuying}
             onPressBuy={() => {
-              goToExchangeScreen(item.abbrv, 'BUY', item.buying);
+              goToExchangeScreen(item.abbrv, 'BUY', item.ForexBuying);
             }}
-            selling={item.selling}
+            selling={item.ForexSelling}
             onPressSell={() => {
-              goToExchangeScreen(item.abbrv, 'SELL', item.selling);
+              goToExchangeScreen(item.abbrv, 'SELL', item.ForexSelling);
             }}
           />
         )}
