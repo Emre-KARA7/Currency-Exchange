@@ -1,16 +1,22 @@
-import React, {useState, useEffect} from 'react';
-import {Text, View} from 'react-native';
-import {Provider, useSelector} from 'react-redux'; //redux
-import store from './stores';
+import React from 'react';
+import {View, Text} from 'react-native';
 
 function Test() {
-  return (
-    <Provider store={store}>
-      <View>
-        <Text>Hayy</Text>
-      </View>
-    </Provider>
-  );
+  // const ws = new WebSocket('ws://192.168.0.15:8080'); ////wss://ws.postman-echo.com/raw //// wss://ws.kraken.com
+  // ws.onopen = e => {
+  //   console.log('BAGLANDIIIIII');
+  // };
+  // ws.addEventListener('message', function (event) {
+  //   console.log('\n\nDATA:\n', JSON.parse(event.data));
+  // });
+  // ws.onerror = e => {
+  //   console.log(e);
+  // };
+  // return (
+  //   <View>
+  //     <Text>TEST PAGE</Text>
+  //   </View>
+  // );
 }
 
 export default Test;

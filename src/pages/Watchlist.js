@@ -1,9 +1,10 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useCallback, useEffect} from 'react';
 import {SafeAreaView, RefreshControl, FlatList} from 'react-native';
 import WatchlistCard from '../components/WatchlistCard';
 import pagesStyles from './pages.styles';
 import {useSelector} from 'react-redux'; //redux
 import useStorage from '../hooks/useStorage';
+const ws = new WebSocket('ws://192.168.0.15:8080');
 
 function Watchlist({navigation}) {
   //
@@ -11,40 +12,15 @@ function Watchlist({navigation}) {
   const darkTheme = useSelector(state => state.darkTheme.darkTheme); //redux
   const {StorageLoading, StorageError, storageSet, storageGet} = useStorage();
   const [arrToWatch, setArrToWatch] = useState(' ');
+  const [data, setData] = useState(null);
 
-  const data = [
-    {
-      id: 1,
-      buying: 18.7412,
-      selling: 18.8156,
-      name: 'ABD DOLARI',
-      abbrv: 'USD',
-    },
-    {
-      id: 2,
-      buying: 18.7412,
-      selling: 18.8156,
-      name: 'AVUSTRALYA DOLARI',
-      abbrv: 'AVD',
-    },
-    {
-      id: 3,
-      buying: 18.7412,
-      selling: 18.8156,
-      name: 'DANİMARKA KRONU',
-      abbrv: 'DKR',
-    },
-    {id: 4, buying: 18.7412, selling: 18.8156, name: 'EURO', abbrv: 'EUR'},
-    {
-      id: 5,
-      buying: 18.7412,
-      selling: 18.8156,
-      name: 'İNGİLİZ STERLİNİ',
-      abbrv: 'STR',
-    },
-  ];
+  ws.onmessage = e => {
+    // a message was received
+    console.log(e.data);
+    setData(JSON.parse(e.data).arr);
+  };
 
-  const onRefresh = React.useCallback(() => {
+  const onRefresh = useCallback(() => {
     setRefreshing(true);
     (async () => {
       setArrToWatch('a');
@@ -78,7 +54,7 @@ function Watchlist({navigation}) {
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
-        data={data}
+        data={data} //data
         renderItem={({item}) => (
           <WatchlistCard
             name={item.name}
