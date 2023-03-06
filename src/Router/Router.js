@@ -68,7 +68,11 @@ function Router() {
                 // eslint-disable-next-line react/no-unstable-nested-components
                 headerRight: () => (
                   <Icon.Button
-                    style={pagesStyles.iconBtnOuterStyle}
+                    style={
+                      darkTheme
+                        ? pagesStyles.dark_iconBtnOuterStyle
+                        : pagesStyles.iconBtnOuterStyle
+                    }
                     name="setting"
                     iconStyle={
                       darkTheme

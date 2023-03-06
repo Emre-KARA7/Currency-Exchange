@@ -46,7 +46,7 @@ function SignUp_0({navigation}) {
   });
 
   return (
-    <SafeAreaView style={pagesStyles.padding}>
+    <SafeAreaView style={pagesStyles.signUp0_padding}>
       <Formik
         validationSchema={SignUp0Schema}
         onSubmit={handleForm}

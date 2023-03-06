@@ -1,26 +1,27 @@
 import {StyleSheet} from 'react-native';
 import {Colors} from '../../assets/colors';
+import percentage from '../../helpers/percentage';
 
 export default StyleSheet.create({
   container: {
-    margin: 10,
+    margin: percentage(1.3),
     backgroundColor: Colors.background,
   },
   container_dark: {
-    margin: 10,
+    margin: percentage(1.3),
     backgroundColor: Colors.dark_background,
   },
   label: {
-    margin: 5,
+    margin: percentage(1),
     marginBottom: 2,
-    fontSize: 16,
+    fontSize: percentage(3.6),
     fontWeight: '500',
     color: Colors.textPrimary,
   },
   label_dark: {
-    margin: 5,
+    margin: percentage(1),
     marginBottom: 2,
-    fontSize: 18,
+    fontSize: percentage(3.6),
     fontWeight: '500',
     color: Colors.dark_textPrimary,
   },

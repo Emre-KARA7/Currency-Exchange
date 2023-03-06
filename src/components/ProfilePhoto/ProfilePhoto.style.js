@@ -1,12 +1,13 @@
 import {StyleSheet} from 'react-native';
 import {Colors} from '../../assets/colors';
+import percentage from '../../helpers/percentage';
 
 export default StyleSheet.create({
   img: {
-    margin: 10,
+    margin: percentage(2),
     backgroundColor: Colors.mainLighter,
-    width: 150,
-    height: 150,
-    borderRadius: 75,
+    width: percentage(35),
+    height: percentage(35),
+    borderRadius: 100,
   },
 });

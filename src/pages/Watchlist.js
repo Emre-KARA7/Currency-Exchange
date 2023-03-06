@@ -16,7 +16,7 @@ function Watchlist({navigation}) {
 
   ws.onmessage = e => {
     // a message was received
-    console.log(e.data);
+    //console.log(e.data);
     setData(JSON.parse(e.data).arr);
   };
 

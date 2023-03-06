@@ -25,14 +25,18 @@ const WatchlistCard = ({
       </View>
 
       <View style={styles.innerBox}>
-        <Text style={darkTheme ? styles.textRate_dark : styles.textRate}>
+        <Text
+          numberOfLines={1}
+          style={darkTheme ? styles.textRate_dark : styles.textRate}>
           {buying}
         </Text>
         <Button text={t('btn01', {ns: 'watchlist'})} onPress={onPressBuy} />
       </View>
 
       <View style={styles.innerBox}>
-        <Text style={darkTheme ? styles.textRate_dark : styles.textRate}>
+        <Text
+          numberOfLines={1}
+          style={darkTheme ? styles.textRate_dark : styles.textRate}>
           {selling}
         </Text>
         <Button text={t('btn02', {ns: 'watchlist'})} onPress={onPressSell} />

@@ -24,7 +24,11 @@ function AccountsPage() {
           headerRight: () => (
             <View style={pagesStyles.flexRowCenter}>
               <Icon.Button
-                style={pagesStyles.iconBtnOuterStyle}
+                style={
+                  darkTheme
+                    ? pagesStyles.dark_iconBtnOuterStyle
+                    : pagesStyles.iconBtnOuterStyle
+                }
                 name="setting"
                 iconStyle={
                   darkTheme
@@ -34,7 +38,11 @@ function AccountsPage() {
                 onPress={() => navigation.navigate('SettingsScreen')}
               />
               <Icon.Button
-                style={pagesStyles.iconBtnOuterStyle}
+                style={
+                  darkTheme
+                    ? pagesStyles.dark_iconBtnOuterStyle
+                    : pagesStyles.iconBtnOuterStyle
+                }
                 name="pluscircle"
                 iconStyle={
                   darkTheme

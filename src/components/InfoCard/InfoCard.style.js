@@ -25,7 +25,7 @@ export default StyleSheet.create({
     color: Colors.yellow,
     textAlign: 'center',
     fontWeight: '500',
-    fontSize: 25,
+    fontSize: 250,
   },
   headerInformation: {
     color: Colors.blue,
@@ -49,11 +49,13 @@ export default StyleSheet.create({
     color: Colors.textPrimary,
     padding: 20,
     fontSize: 15,
+    textAlign: 'center',
   },
   text_dark: {
     color: Colors.dark_textPrimary,
     padding: 20,
     fontSize: 15,
+    textAlign: 'center',
   },
   btnError: {
     borderColor: Colors.red,

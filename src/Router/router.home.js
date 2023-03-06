@@ -44,7 +44,11 @@ function Home() {
           headerRight: () => (
             <View style={pagesStyles.flexRowCenter}>
               <Icon.Button
-                style={pagesStyles.iconBtnOuterStyle}
+                style={
+                  darkTheme
+                    ? pagesStyles.dark_iconBtnOuterStyle
+                    : pagesStyles.iconBtnOuterStyle
+                }
                 name="setting"
                 iconStyle={
                   darkTheme
@@ -54,7 +58,11 @@ function Home() {
                 onPress={() => navigation.navigate('SettingsScreen')}
               />
               <Icon.Button
-                style={pagesStyles.iconBtnOuterStyle}
+                style={
+                  darkTheme
+                    ? pagesStyles.dark_iconBtnOuterStyle
+                    : pagesStyles.iconBtnOuterStyle
+                }
                 name="filter"
                 iconStyle={
                   darkTheme

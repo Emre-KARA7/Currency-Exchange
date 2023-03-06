@@ -1,7 +1,14 @@
 import {StyleSheet} from 'react-native';
 import {Colors} from '../assets/colors';
+import percentage from '../helpers/percentage';
 
 export default StyleSheet.create({
+  //
+  signUp0_padding: {
+    padding: 10,
+    flex: 1,
+  },
+  //
   padding: {
     padding: 10,
     flex: 1,
@@ -64,6 +71,11 @@ export default StyleSheet.create({
     backgroundColor: Colors.background,
     color: Colors.textSecondary,
   },
+  dark_iconBtnOuterStyle: {
+    margin: -8,
+    backgroundColor: Colors.dark_background,
+    color: Colors.textSecondary,
+  },
   textA_dark: {
     color: Colors.dark_textPrimary,
     fontSize: 18,
@@ -90,7 +102,7 @@ export default StyleSheet.create({
   },
   textC: {
     color: Colors.main,
-    fontSize: 23,
+    fontSize: percentage(5.5),
     marginLeft: -15,
     fontWeight: '500',
     textAlignVertical: 'center',

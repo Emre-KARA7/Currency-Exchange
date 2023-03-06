@@ -23,7 +23,11 @@ function WatchlistPage() {
           headerRight: () => (
             <View style={pagesStyles.flexRowCenter}>
               <Icon.Button
-                style={pagesStyles.iconBtnOuterStyle}
+                style={
+                  darkTheme
+                    ? pagesStyles.dark_iconBtnOuterStyle
+                    : pagesStyles.iconBtnOuterStyle
+                }
                 name="setting"
                 iconStyle={
                   darkTheme
@@ -33,7 +37,11 @@ function WatchlistPage() {
                 onPress={() => navigation.navigate('SettingsScreen')}
               />
               <Icon.Button
-                style={pagesStyles.iconBtnOuterStyle}
+                style={
+                  darkTheme
+                    ? pagesStyles.dark_iconBtnOuterStyle
+                    : pagesStyles.iconBtnOuterStyle
+                }
                 name="edit"
                 iconStyle={
                   darkTheme

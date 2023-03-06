@@ -1,17 +1,18 @@
 import {StyleSheet} from 'react-native';
 import {Colors} from '../../assets/colors';
+import percentage from '../../helpers/percentage';
 
 export default StyleSheet.create({
   input: {
     color: Colors.textPrimary,
-    fontSize: 16,
+    fontSize: percentage(3.5),
   },
   input_dark: {
     color: Colors.dark_textPrimary,
-    fontSize: 16,
+    fontSize: percentage(3.5),
   },
 
-  container: {margin: 7},
+  container: {margin: percentage(1)},
   box: {borderColor: Colors.main},
   dropdown: {borderColor: Colors.secondaryLighter},
 

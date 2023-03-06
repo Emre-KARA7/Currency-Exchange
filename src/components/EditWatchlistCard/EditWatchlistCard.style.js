@@ -6,7 +6,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     borderWidth: 1,
     borderColor: Colors.secondary,
-    backgroundColor: Colors.background2,
+    backgroundColor: Colors.background,
     margin: 3,
     borderRadius: 5,
   },
