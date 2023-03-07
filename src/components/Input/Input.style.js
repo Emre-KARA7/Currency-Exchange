@@ -5,11 +5,11 @@ import percentage from '../../helpers/percentage';
 export default StyleSheet.create({
   container: {
     margin: percentage(1.3),
-    backgroundColor: Colors.background,
+    //backgroundColor: Colors.background,
   },
   container_dark: {
     margin: percentage(1.3),
-    backgroundColor: Colors.dark_background,
+    //backgroundColor: Colors.dark_background,
   },
   label: {
     margin: percentage(1),

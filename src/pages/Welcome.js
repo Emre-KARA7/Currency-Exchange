@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {SafeAreaView, View} from 'react-native';
+import {SafeAreaView, ImageBackground, View} from 'react-native';
 import pagesStyles from './pages.styles';
 import Button from '../components/Button';
 import useStorage from '../hooks/useStorage';
@@ -34,15 +34,24 @@ function Welcome({navigation}) {
   }
 
   return (
-    <SafeAreaView style={pagesStyles.Center}>
-      <View style={pagesStyles.flexRowCenter}>
-        <Button text={t('login', {ns: 'login-welcome'})} onPress={goToLogIn} />
-        <Button
-          text={t('signup', {ns: 'login-welcome'})}
-          onPress={goToSignUp}
-        />
-      </View>
-    </SafeAreaView>
+    <ImageBackground
+      source={require('../assets/img/sakura.jpg')}
+      imageStyle={{opacity: 0.5}}
+      resizeMode="cover"
+      style={pagesStyles.backgroundImg}>
+      <SafeAreaView style={pagesStyles.Center}>
+        <View style={pagesStyles.flexRowCenter}>
+          <Button
+            text={t('login', {ns: 'login-welcome'})}
+            onPress={goToLogIn}
+          />
+          <Button
+            text={t('signup', {ns: 'login-welcome'})}
+            onPress={goToSignUp}
+          />
+        </View>
+      </SafeAreaView>
+    </ImageBackground>
   );
 }
 

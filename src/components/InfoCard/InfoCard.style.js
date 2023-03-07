@@ -25,7 +25,7 @@ export default StyleSheet.create({
     color: Colors.yellow,
     textAlign: 'center',
     fontWeight: '500',
-    fontSize: 250,
+    fontSize: 25,
   },
   headerInformation: {
     color: Colors.blue,

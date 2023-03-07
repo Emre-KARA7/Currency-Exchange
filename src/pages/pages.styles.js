@@ -52,6 +52,14 @@ export default StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.dark_background,
   },
+  Login_flexOnePaddingBG: {
+    padding: 10,
+    flex: 1,
+  },
+  Login_flexOnePaddingBG_dark: {
+    padding: 10,
+    flex: 1,
+  },
   iconBtnStyle: {
     marginRight: 0,
     backgroundColor: Colors.background,
@@ -114,7 +122,10 @@ export default StyleSheet.create({
     textAlign: 'center',
     marginVertical: 20,
   },
-
+  backgroundImg: {
+    flex: 1,
+    justifyContent: 'center',
+  },
   Center: {
     justifyContent: 'center',
     alignItems: 'center',
