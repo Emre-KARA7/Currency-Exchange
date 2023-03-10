@@ -15,9 +15,12 @@ function Watchlist({navigation}) {
   const [data, setData] = useState(null);
 
   ws.onmessage = e => {
-    // a message was received
-    //console.log(e.data);
-    setData(JSON.parse(e.data).arr);
+    let rawData = JSON.parse(e.data).arr;
+    setData(
+      rawData.filter(e => {
+        return arrToWatch.includes(e.abbrv);
+      }),
+    );
   };
 
   const onRefresh = useCallback(() => {
@@ -27,7 +30,7 @@ function Watchlist({navigation}) {
     (async () => {
       setArrToWatch('a');
       const a = await storageGet('watchlist');
-      setArrToWatch(a);
+      setArrToWatch(a.map(x => x.abbrv));
     })();
     setRefreshing(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -37,7 +40,7 @@ function Watchlist({navigation}) {
     (async () => {
       if (arrToWatch === ' ') {
         const a = await storageGet('watchlist');
-        if (a) setArrToWatch(a);
+        if (a) setArrToWatch(a.map(x => x.abbrv));
         else setArrToWatch([]);
       }
       console.log(arrToWatch);

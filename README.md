@@ -49,16 +49,6 @@
 
 ***
 ### Usage Guide
-#### Welcome
-#### SignUp
-#### Login
-#### History
-#### Accounts
-#### Create Account
-#### Watchlist
-#### Edit Watchlist
-#### Exchange
-#### Settings
 ***
 ### Features
 

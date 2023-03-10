@@ -14,11 +14,116 @@ function EditWatchlist({navigation}) {
   const {t} = useTranslation(); //i18n
   const [arrToWatch, setArrToWatch] = useState(' ');
   const data = [
-    {id: 1, name: 'ABD DOLARI', abbrv: 'USD'},
-    {id: 2, name: 'AVUSTRALYA DOLARI', abbrv: 'AVD'},
-    {id: 3, name: 'DANİMARKA KRONU', abbrv: 'DKR'},
-    {id: 4, name: 'EURO', abbrv: 'EUR'},
-    {id: 5, name: 'İNGİLİZ STERLİNİ', abbrv: 'STR'},
+    {
+      id: 1,
+      name: 'ABD DOLARI',
+      abbrv: 'USD',
+    },
+    {
+      id: 2,
+      name: 'AVUSTRALYA DOLARI',
+      abbrv: 'AUD',
+    },
+    {
+      id: 3,
+      name: 'DANİMARKA KRONU',
+      abbrv: 'DKK',
+    },
+    {
+      id: 4,
+      name: 'EURO',
+      abbrv: 'EUR',
+    },
+    {
+      id: 5,
+      name: 'İNGİLİZ STERLİNİ',
+      abbrv: 'GBP',
+    },
+    {
+      id: 6,
+      name: 'İSVİÇRE FRANGI',
+      abbrv: 'CHF',
+    },
+    {
+      id: 7,
+      name: 'İSVEÇ KRONU',
+      abbrv: 'SEK',
+    },
+    {
+      id: 8,
+      name: 'KANADA DOLARI',
+      abbrv: 'CAD',
+    },
+    {
+      id: 9,
+      name: 'KUVEYT DİNARI',
+      abbrv: 'KWD',
+    },
+    {
+      id: 10,
+      name: 'NORVEÇ KRONU',
+      abbrv: 'NOK',
+    },
+    {
+      id: 11,
+      name: 'SUUDİ ARABİSTAN RİYALİ',
+      abbrv: 'SAR',
+    },
+    {
+      id: 12,
+      name: 'JAPON YENİ',
+      abbrv: 'JPY',
+    },
+    {
+      id: 13,
+      name: 'BULGAR LEVASI',
+      abbrv: 'BGN',
+    },
+    {
+      id: 14,
+      name: 'RUMEN LEYİ',
+      abbrv: 'RON',
+    },
+    {
+      id: 15,
+      name: 'RUS RUBLESİ',
+      abbrv: 'RUB',
+    },
+    {
+      id: 16,
+      name: 'İRAN RİYALİ',
+      abbrv: 'IRR',
+    },
+    {
+      id: 17,
+      name: 'ÇİN YUANI',
+      abbrv: 'CNY',
+    },
+    {
+      id: 18,
+      name: 'PAKİSTAN RUPİSİ',
+      abbrv: 'PKR',
+    },
+    {
+      id: 19,
+      name: 'KATAR RİYALİ',
+      abbrv: 'QAR',
+    },
+    {
+      id: 20,
+      name: 'GÜNEY KORE WONU',
+      abbrv: 'KRW',
+    },
+    {
+      id: 21,
+      name: 'AZERBAYCAN YENİ MANATI',
+      abbrv: 'AZN',
+    },
+    {
+      id: 22,
+      name: 'BİRLEŞİK ARAP EMİRLİKLERİ DİRHEMİ',
+      abbrv: 'AED',
+    },
   ];
 
   function add(abbrv) {
