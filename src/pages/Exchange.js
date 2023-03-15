@@ -14,8 +14,9 @@ import {useTranslation} from 'react-i18next'; //i18n
 function Exchange({route, navigation}) {
   const {data, loading, error, get, post} = useHttps();
   const {StorageLoading, StorageError, storageSet, storageGet} = useStorage();
-  const {abbreviation, exchangeMethod, rate} = route.params;
+  const {abbreviation, exchangeMethod, dataRates} = route.params;
   const [history, setHistory] = useState(' ');
+  const [rate, setRate] = useState(0);
   const [selectlistData, setSelectlistData] = useState([]);
   const darkTheme = useSelector(state => state.darkTheme.darkTheme); //redux
   const {t} = useTranslation(); //i18n
@@ -23,7 +24,6 @@ function Exchange({route, navigation}) {
   const [exchangeAccount, setExchangeAccount] = useState(null);
   const [warn, setWarn] = useState(false);
   const [UIBlock, setUIBlock] = useState(false);
-
   const method =
     exchangeMethod === 'BUY'
       ? {
@@ -35,6 +35,7 @@ function Exchange({route, navigation}) {
           exchangeAccount: t('account2', {ns: 'watchlist'}),
         };
 
+  console.log(dataRates);
   useEffect(() => {
     (async () => {
       if (history === ' ') {
@@ -84,60 +85,36 @@ function Exchange({route, navigation}) {
     } else setWarn(true);
   }
 
-  // async function getRate() {
-  //   //get Exchange account types rate
-  //   //rate2 yi kur setRate2
-  //   //donusum orani hesapla ve rate2 ye kaydet setRate2( rate / rate2 )
-  //   if (exchangeMethod === 'BUY') {
-  //     //hesapta yeterli para kontrolu
-  //   } else {
-  //     //hesapta yeterli para kontrolu
-  //   }
-  // }
-
-  //sahip olunana hesaplar
-  const Accounts = [
-    {
-      id: '1',
-      accountTitle: 'vadesiz TL',
-      connectedBranch: '19 BESIKTAS/IST',
-      IBAN: 'TR 1234 5678 9012 3456',
-      budget: 1598.04,
-    },
-    {
-      id: '2',
-      accountTitle: 'vadesiz EURO',
-      connectedBranch: '21 TONATO/AKS',
-      IBAN: 'TR 1234 5888 9012 3456',
-      budget: 1888.04,
-    },
-    {
-      id: '3',
-      accountTitle: 'vadesiz USD',
-      connectedBranch: '16 ISTIKLAL/KRM',
-      IBAN: 'TR 1234 5678 9012 3456',
-      budget: 1598.04,
-    },
-    {
-      id: '4',
-      accountTitle: 'vadesiz JPY',
-      connectedBranch: '19 BESIKTAS/IST',
-      IBAN: 'TR 1234 5678 9012 3456',
-      budget: 1598.04,
-    },
-  ];
+  async function getRate(abbrv2) {
+    //
+    const r1 = dataRates.find(e => e.abbrv === abbreviation);
+    const r2 =
+      abbrv2 == 25
+        ? {
+            id: 25,
+            ForexBuying: 1,
+            ForexSelling: 1,
+          }
+        : dataRates.find(e => e.id === abbrv2);
+    console.log('r1: ', r1, ' r2: ', r2);
+    //
+    if (exchangeMethod === 'BUY') {
+      setRate(r1.ForexBuying / r2.ForexBuying);
+    } else {
+      setRate(r2.ForexSelling / r1.ForexSelling);
+    }
+  }
 
   async function setSelectListFormat() {
     //get data
     var arr = [];
-    await Accounts.forEach(element => {
-      arr.push({key: element.id, value: element.accountTitle});
+    await dataRates.forEach(element => {
+      arr.push({key: element.id, value: element.Isim});
     });
-    setSelectlistData(arr);
+    setSelectlistData([...arr, {key: '25', value: 'TURK LIRASI'}]);
   }
 
   if (selectlistData.length === 0) {
-    // get('https://aaaah.free.beeceptor.com/accounts');
     setSelectListFormat();
   }
 
@@ -210,14 +187,18 @@ function Exchange({route, navigation}) {
       </Text>
       <Dropdown
         data={selectlistData}
-        setSelected={setExchangeAccount}
+        setSelected={e => {
+          setExchangeAccount(e);
+          console.log(e);
+          getRate(e);
+        }}
         save="AccountTitle"
         onSelect={() => {}} //getRate
         pleaceholder={t('label01', {ns: 'watchlist'})}
       />
 
       <Text style={darkTheme ? pagesStyles.textA_dark : pagesStyles.textA}>
-        Oran ({abbreviation}/TL) : {rate}
+        Oran: {rate}
       </Text>
       <Input
         label={t('label02', {ns: 'watchlist'})}
@@ -226,7 +207,7 @@ function Exchange({route, navigation}) {
       />
 
       <Text style={darkTheme ? pagesStyles.textA_dark : pagesStyles.textA}>
-        Sonuc: {rate * Number(amount)}{' '}
+        Sonuc:{rate * amount}
       </Text>
 
       <View style={pagesStyles.rightBottom}>

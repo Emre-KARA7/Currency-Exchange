@@ -48,8 +48,12 @@ function Watchlist({navigation}) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [arrToWatch]);
 
-  function goToExchangeScreen(abbreviation, exchangeMethod, rate) {
-    navigation.navigate('ExchangeScreen', {abbreviation, exchangeMethod, rate});
+  function goToExchangeScreen(abbreviation, exchangeMethod) {
+    navigation.navigate('ExchangeScreen', {
+      abbreviation,
+      exchangeMethod,
+      dataRates: data,
+    });
   }
 
   return (
@@ -66,11 +70,11 @@ function Watchlist({navigation}) {
             abbreviation={item.abbrv}
             buying={item.ForexBuying}
             onPressBuy={() => {
-              goToExchangeScreen(item.abbrv, 'BUY', item.ForexBuying);
+              goToExchangeScreen(item.abbrv, 'BUY');
             }}
             selling={item.ForexSelling}
             onPressSell={() => {
-              goToExchangeScreen(item.abbrv, 'SELL', item.ForexSelling);
+              goToExchangeScreen(item.abbrv, 'SELL');
             }}
           />
         )}
