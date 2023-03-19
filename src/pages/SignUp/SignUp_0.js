@@ -108,6 +108,7 @@ function SignUp_0({navigation}) {
               <Button
                 text={t('btn01', {ns: 'common'})}
                 onPress={handleSubmit}
+                colorsetNo={5}
               />
             </View>
           </View>

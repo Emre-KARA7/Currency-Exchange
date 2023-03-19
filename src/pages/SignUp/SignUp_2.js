@@ -124,6 +124,7 @@ function SignUp_2({route, navigation}) {
                 text={t('btn03', {ns: 'common'})}
                 onPress={handleSubmit}
                 disabled={UIBlock}
+                colorsetNo={5}
               />
             </View>
           </View>

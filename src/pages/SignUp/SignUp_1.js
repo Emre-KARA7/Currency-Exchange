@@ -82,12 +82,24 @@ function SignUp_1({route, navigation}) {
       </View>
 
       <View style={pagesStyles.flexRowCenter}>
-        <Button text={t('gallery', {ns: 'signup'})} onPress={openGallery} />
-        <Button text={t('camera', {ns: 'signup'})} onPress={openCamera} />
+        <Button
+          text={t('gallery', {ns: 'signup'})}
+          onPress={openGallery}
+          colorsetNo={6}
+        />
+        <Button
+          text={t('camera', {ns: 'signup'})}
+          onPress={openCamera}
+          colorsetNo={7}
+        />
       </View>
 
       <View style={pagesStyles.rightBottom}>
-        <Button text={t('btn01', {ns: 'common'})} onPress={goToSignUp2} />
+        <Button
+          text={t('btn01', {ns: 'common'})}
+          onPress={goToSignUp2}
+          colorsetNo={5}
+        />
       </View>
     </SafeAreaView>
   );
