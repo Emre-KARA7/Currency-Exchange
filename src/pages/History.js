@@ -75,7 +75,7 @@ function History({navigation}) {
       <LinearGradient
         start={{x: 0, y: 0}}
         end={{x: 0, y: 1}}
-        colors={darkTheme ? ['#303F9F', '#004D40'] : ['#fff', '#000']}
+        colors={darkTheme ? ['#303F9F', '#004D40'] : ['#BBDEFB', '#E0F2F1']}
         style={pagesStyles.history_filter_container}>
         <Input //amount
           label={t('amount', {ns: 'history'})}
