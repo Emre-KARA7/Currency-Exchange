@@ -10,6 +10,7 @@ import Dropdown from '../components/Dropdown';
 import useStorage from '../hooks/useStorage';
 import InfoCard from '../components/InfoCard';
 import {useTranslation} from 'react-i18next'; //i18n
+import LinearGradient from 'react-native-linear-gradient';
 
 function History({navigation}) {
   //
@@ -71,7 +72,11 @@ function History({navigation}) {
   //
   function filterPanel() {
     return (
-      <View>
+      <LinearGradient
+        start={{x: 0, y: 0}}
+        end={{x: 0, y: 1}}
+        colors={darkTheme ? ['#303F9F', '#004D40'] : ['#fff', '#000']}
+        style={pagesStyles.history_filter_container}>
         <Input //amount
           label={t('amount', {ns: 'history'})}
           value={filterParams.amount}
@@ -133,7 +138,7 @@ function History({navigation}) {
             colorsetNo={4}
           />
         </View>
-      </View>
+      </LinearGradient>
     );
   } // VIEW for filter options panel
   //

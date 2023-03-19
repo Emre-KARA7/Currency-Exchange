@@ -9,6 +9,10 @@ export default StyleSheet.create({
     flex: 1,
   },
   //
+  history_filter_container: {
+    borderRadius: percentage(2.5),
+  },
+  //
   padding: {
     padding: 10,
     flex: 1,
