@@ -44,10 +44,12 @@ function Welcome({navigation}) {
           <Button
             text={t('login', {ns: 'login-welcome'})}
             onPress={goToLogIn}
+            colorsetNo={0}
           />
           <Button
             text={t('signup', {ns: 'login-welcome'})}
             onPress={goToSignUp}
+            colorsetNo={1}
           />
         </View>
       </SafeAreaView>
