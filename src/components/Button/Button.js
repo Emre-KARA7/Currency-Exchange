@@ -43,6 +43,14 @@ const colorset = [
     ['#EC407A', '#D81B60'], //dark theme 7
     ['#F48FB1', '#EC407A'], //light theme
   ],
+  [
+    ['#039BE5', '#1E88E5'], //dark theme 8
+    ['#4FC3F7', '#64B5F6'], //light theme
+  ],
+  [
+    ['#1E88E5', '#3949AB'], //dark theme 9
+    ['#64B5F6', '#7986CB'], //light theme
+  ],
 ];
 
 const Button = ({text, onPress, disabled, colorsetNo}) => {
