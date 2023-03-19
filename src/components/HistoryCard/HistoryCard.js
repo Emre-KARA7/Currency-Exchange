@@ -2,12 +2,30 @@ import React from 'react';
 import {View, Text} from 'react-native';
 import styles from './HistoryCard.style';
 import {useSelector} from 'react-redux'; //redux
+import LinearGradient from 'react-native-linear-gradient';
 
-const HistoryCard = ({accountName, exchangeType, dateTime, amount}) => {
+const HistoryCard = ({
+  accountName,
+  exchangeType,
+  dateTime,
+  amount,
+  exchangeTypeAsNum,
+}) => {
   const darkTheme = useSelector(state => state.darkTheme.darkTheme); //redux
-
   return (
-    <View style={darkTheme ? styles.container_dark : styles.container}>
+    <LinearGradient
+      start={{x: 0, y: 0}}
+      end={{x: 0.8, y: 0}}
+      colors={
+        darkTheme
+          ? exchangeTypeAsNum == 1
+            ? ['#004D40', '#263238']
+            : ['#01579B', '#263238']
+          : exchangeTypeAsNum == 1
+          ? ['#80CBC4', '#EEEEEE']
+          : ['#81D4FA', '#EEEEEE']
+      }
+      style={styles.container}>
       <View style={styles.innerBox}>
         <Text
           style={
@@ -35,7 +53,7 @@ const HistoryCard = ({accountName, exchangeType, dateTime, amount}) => {
           {dateTime}
         </Text>
       </View>
-    </View>
+    </LinearGradient>
   );
 };
 

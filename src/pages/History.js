@@ -273,6 +273,7 @@ function History({navigation}) {
         data={data2}
         renderItem={({item}) => (
           <HistoryCard
+            exchangeTypeAsNum={item.exchangeType}
             exchangeType={
               item.exchangeType === 1
                 ? t('type1', {ns: 'history'})

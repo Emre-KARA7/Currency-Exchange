@@ -3,19 +3,7 @@ import {Colors} from '../../assets/colors';
 
 export default StyleSheet.create({
   container: {
-    borderWidth: 1,
-    borderColor: Colors.main,
     borderRadius: 5,
-    backgroundColor: Colors.background,
-    margin: 3,
-    padding: 3,
-    paddingHorizontal: 7,
-  },
-  container_dark: {
-    borderWidth: 1,
-    borderColor: Colors.main,
-    borderRadius: 5,
-    backgroundColor: Colors.dark_background,
     margin: 3,
     padding: 3,
     paddingHorizontal: 7,
