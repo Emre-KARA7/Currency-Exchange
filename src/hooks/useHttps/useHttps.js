@@ -9,6 +9,7 @@ function useHttps() {
 
   const post = async (url, data) => {
     try {
+      setError(null);
       setLoading(true);
       const resData = await axios.post(url, data);
       setData(resData);
@@ -21,6 +22,7 @@ function useHttps() {
 
   const get = async url => {
     try {
+      setError(null);
       setLoading(true);
       const {data: responseData} = await axios.get(url);
       setData(responseData);

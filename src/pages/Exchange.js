@@ -57,33 +57,36 @@ function Exchange({route, navigation}) {
         account1: abbreviation,
         account2: exchangeAccount,
       });
-      if (true) {
-        //(data && data.data.status === 'exchange success')
-        if (history === ' ') {
-          setHistory([
-            {
-              exchangeType: exchangeMethod === 'BUY' ? 1 : 2, //1Buy 2Sell
-              amount: amount,
-              dateTime: new Date(),
-              id: 0,
-              accountName: abbreviation,
-            },
-          ]);
-        } else {
-          setHistory([
-            {
-              exchangeType: exchangeMethod === 'BUY' ? 1 : 2, //1Buy 2Sell
-              amount: amount,
-              dateTime: new Date(),
-              id: history.length,
-              accountName: abbreviation,
-            },
-            ...history,
-          ]);
-        }
-      }
     } else setWarn(true);
   }
+
+  useEffect(() => {
+    if (data && data.data.status === 'exchange success') {
+      if (history === ' ') {
+        setHistory([
+          {
+            exchangeType: exchangeMethod === 'BUY' ? 1 : 2, //1Buy 2Sell
+            amount: amount,
+            dateTime: new Date(),
+            id: 0,
+            accountName: abbreviation,
+          },
+        ]);
+      } else {
+        setHistory([
+          {
+            exchangeType: exchangeMethod === 'BUY' ? 1 : 2, //1Buy 2Sell
+            amount: amount,
+            dateTime: new Date(),
+            id: history.length,
+            accountName: abbreviation,
+          },
+          ...history,
+        ]);
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data]);
 
   async function getRate(abbrv2) {
     //

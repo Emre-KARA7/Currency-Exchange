@@ -32,29 +32,13 @@ function LogIn({navigation}) {
   const darkTheme = useSelector(state => state.darkTheme.darkTheme); //redux
   const {t} = useTranslation(); //i18n
   const [biometricAuth, setbiometricAuth] = useState(false);
+  const [rememberMeValues, setRememberMeValues] = useState(null);
 
   async function handleForm(values) {
     setUIBlock(true);
     try {
+      setRememberMeValues(values);
       await post(Config.API_URL + 'login', values);
-      if ((data && data.data.status === 'login success') || true) {
-        if (rememberMe) {
-          setUser({
-            ...user,
-            tckn: values.tckn,
-            pass: values.pass,
-            rememberMe: true,
-          });
-        } else {
-          setUser({
-            ...user,
-            tckn: null,
-            pass: null,
-            rememberMe: false,
-          });
-        }
-        dispatch(changeAuthState(!authVal));
-      }
     } catch (err) {
       //console.error('Login handle form error');
     }
@@ -91,9 +75,33 @@ function LogIn({navigation}) {
         else setUser({});
       } else await storageSet('user', user);
     })();
-    console.log(user);
+    console.log('user', user);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
+
+  useEffect(() => {
+    console.log('values', rememberMeValues);
+    if (data && data.data.status === 'login success') {
+      if (rememberMe) {
+        storageSet('user', {
+          ...user,
+          tckn: rememberMeValues.tckn,
+          pass: rememberMeValues.pass,
+          rememberMe: true,
+        });
+      } else {
+        storageSet('user', {
+          ...user,
+          tckn: null,
+          pass: null,
+          rememberMe: false,
+        });
+      }
+      //storageSet('user', user);
+      dispatch(changeAuthState(true));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data]);
 
   const LoginSchema = Yup.object().shape({
     tckn: Yup.string()
@@ -139,7 +147,6 @@ function LogIn({navigation}) {
       />
     );
   }
-
   if (user !== ' ') {
     return (
       <ImageBackground
