@@ -150,7 +150,12 @@ function CreateAccount({navigation}) {
       />
 
       <View style={pagesStyles.rightBottom}>
-        <Button text={'next'} onPress={send} disabled={UIBlock} />
+        <Button
+          text={'next'}
+          onPress={send}
+          disabled={UIBlock}
+          colorsetNo={5}
+        />
       </View>
     </SafeAreaView>
   );

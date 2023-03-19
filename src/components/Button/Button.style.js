@@ -14,12 +14,6 @@ export default StyleSheet.create({
     borderRadius: percentage(2),
     width: percentage(28),
   },
-  container_dark: {
-    height: percentage(11.6),
-    margin: percentage(2.6),
-    borderRadius: percentage(2),
-    width: percentage(28),
-  },
   text: {
     fontSize: percentage(3.7),
     color: Colors.textPrimary,

@@ -10,17 +10,35 @@ import LinearGradient from 'react-native-linear-gradient';
 // ],
 
 const colorset = [
+  //if color not set default is PINK which iis first index
   [
-    ['#3F51B5', '#9C27B0'],
-    ['#F8BBD0', '#B3E5FC'],
+    ['#D500F9', '#D500F9'], //dark theme
+    ['#D500F9', '#D500F9'], //light theme
   ],
   [
-    ['#9C27B0', '#3F51B5'],
-    ['#B3E5FC', '#F8BBD0'],
+    ['#9C27B0', '#3F51B5'], //dark theme
+    ['#F8BBD0', '#B3E5FC'], //light theme
+  ],
+  [
+    ['#3F51B5', '#9C27B0'], //dark theme
+    ['#B3E5FC', '#F8BBD0'], //light theme
+  ],
+  [
+    ['#4CAF50', '#009688'], //dark theme
+    ['#C8E6C9', '#B2DFDB'], //light theme
+  ],
+  [
+    ['#009688', '#03A9F4'], //dark theme
+    ['#B2DFDB', '#B3E5FC'], //light theme
+  ],
+  [
+    ['#2196F3', '#3F51B5'], //dark theme
+    ['#64B5F6', '#7986CB'], //light theme
   ],
 ];
 
 const Button = ({text, onPress, disabled, colorsetNo}) => {
+  if (colorsetNo === null || colorsetNo === undefined) colorsetNo = 0;
   const darkTheme = useSelector(state => state.darkTheme.darkTheme); //redux
   return (
     <LinearGradient

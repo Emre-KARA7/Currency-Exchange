@@ -211,6 +211,7 @@ function LogIn({navigation}) {
                     text={t('btn01', {ns: 'common'})}
                     onPress={handleSubmit}
                     disabled={UIBlock}
+                    colorsetNo={1}
                   />
                 </View>
               </View>

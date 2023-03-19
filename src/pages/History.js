@@ -119,6 +119,7 @@ function History({navigation}) {
           <Button
             text={t('reset', {ns: 'history'})}
             onPress={resetFilterParams}
+            colorsetNo={3}
           />
           <Button
             text={t('apply', {ns: 'history'})}
@@ -129,6 +130,7 @@ function History({navigation}) {
                 setData(a);
               })();
             }}
+            colorsetNo={4}
           />
         </View>
       </View>
