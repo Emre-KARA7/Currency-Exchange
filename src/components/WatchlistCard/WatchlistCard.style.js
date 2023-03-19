@@ -4,18 +4,7 @@ import percentage from '../../helpers/percentage';
 
 export default StyleSheet.create({
   container: {
-    borderWidth: 1,
-    borderColor: Colors.main,
     borderRadius: 5,
-    backgroundColor: Colors.background,
-    margin: 3,
-    flexDirection: 'row',
-  },
-  container_dark: {
-    borderWidth: 1,
-    borderColor: Colors.main,
-    borderRadius: 5,
-    backgroundColor: Colors.dark_background,
     margin: 3,
     maxWidth: 500,
     flexDirection: 'row',

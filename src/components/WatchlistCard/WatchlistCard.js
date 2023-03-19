@@ -4,6 +4,7 @@ import styles from './WatchlistCard.style';
 import Button from '../Button';
 import {useSelector} from 'react-redux'; //redux
 import {useTranslation} from 'react-i18next'; //i18n
+import LinearGradient from 'react-native-linear-gradient';
 
 const WatchlistCard = ({
   name,
@@ -16,7 +17,11 @@ const WatchlistCard = ({
   const darkTheme = useSelector(state => state.darkTheme.darkTheme); //redux
   const {t} = useTranslation(); //i18n
   return (
-    <View style={darkTheme ? styles.container_dark : styles.container}>
+    <LinearGradient
+      start={{x: 0, y: 0}}
+      end={{x: 0.8, y: 0}}
+      colors={darkTheme ? ['#37474F', '#162228'] : ['#E0F2F1', '#B0BEC5']}
+      style={styles.container}>
       <View style={styles.innerBox}>
         <Text style={styles.textAbbrv}>{abbreviation}</Text>
         <Text style={darkTheme ? styles.textName_dark : styles.textName}>
@@ -49,7 +54,7 @@ const WatchlistCard = ({
           colorsetNo={9}
         />
       </View>
-    </View>
+    </LinearGradient>
   );
 };
 
