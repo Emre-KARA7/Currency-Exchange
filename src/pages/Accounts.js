@@ -65,6 +65,7 @@ function Accounts({navigation}) {
         data={data}
         renderItem={({item}) => (
           <AccountCard
+            idForColor={item.id}
             accountTitle={item.accountTitle}
             IBAN={item.IBAN}
             budget={item.budget}

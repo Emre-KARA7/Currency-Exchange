@@ -1,23 +1,20 @@
-import {ImageComponent, StyleSheet} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {Colors} from '../../assets/colors';
 import percentage from '../../helpers/percentage';
 
 export default StyleSheet.create({
-  container_dark: {
-    borderColor: Colors.main,
-    borderTopWidth: 1,
-    marginHorizontal: percentage(1),
-    paddingHorizontal: percentage(2),
-    paddingVertical: percentage(1),
-    backgroundColor: Colors.dark_background,
+  image: {
+    opacity: 0.2,
+    borderRadius: percentage(2.5),
+  },
+  imagebox: {
+    paddingHorizontal: percentage(5),
+    paddingVertical: percentage(5),
   },
   container: {
-    borderColor: Colors.mainLighter,
-    borderTopWidth: 1,
-    marginHorizontal: percentage(1),
-    paddingHorizontal: percentage(2),
-    paddingVertical: percentage(1),
-    backgroundColor: Colors.background,
+    margin: percentage(2),
+    borderRadius: percentage(2.5),
+    marginHorizontal: percentage(2),
   },
   title_dark: {
     fontSize: percentage(4),
@@ -31,19 +28,26 @@ export default StyleSheet.create({
   },
   connectedBranch_dark: {
     fontSize: percentage(3.45),
-    color: Colors.dark_textSecondary,
+    color: Colors.dark_textPrimary,
+    flex: 1,
+    textAlign: 'right',
   },
   connectedBranch: {
     fontSize: percentage(3.45),
-    color: Colors.textSecondary,
+    color: Colors.textPrimary,
+    flex: 1,
+    textAlign: 'right',
   },
   IBAN: {
-    fontSize: percentage(3.6),
-    color: Colors.textSecondary,
+    fontSize: percentage(5),
+    marginVertical: percentage(8),
+    textAlign: 'center',
   },
   IBAN_dark: {
-    fontSize: percentage(3.6),
-    color: Colors.dark_textSecondary,
+    fontSize: percentage(5),
+    color: Colors.dark_textPrimary,
+    marginVertical: percentage(8),
+    textAlign: 'center',
   },
   budgetBox: {
     flexDirection: 'row',
