@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {SafeAreaView, View, Text} from 'react-native';
+import {SafeAreaView, View, KeyboardAvoidingView, Text} from 'react-native';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
 import DatePicker from 'react-native-date-picker';

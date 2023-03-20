@@ -130,10 +130,10 @@ function History({navigation}) {
             text={t('apply', {ns: 'history'})}
             onPress={() => {
               setFilterAppearance(null);
-              (async () => {
-                const a = await storageGet('history');
-                setData(a);
-              })();
+              // (async () => {
+              //   const a = await storageGet('history');
+              //   setData(a);
+              // })();
             }}
             colorsetNo={4}
           />

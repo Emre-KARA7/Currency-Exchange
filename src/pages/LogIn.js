@@ -1,5 +1,11 @@
 import React, {useState, useEffect} from 'react';
-import {SafeAreaView, ImageBackground, Text, View} from 'react-native';
+import {
+  SafeAreaView,
+  ScrollView,
+  ImageBackground,
+  Text,
+  View,
+} from 'react-native';
 import {Formik} from 'formik';
 import Config from 'react-native-config';
 import {useDispatch, useSelector} from 'react-redux';
@@ -160,75 +166,77 @@ function LogIn({navigation}) {
               ? pagesStyles.Login_flexOnePaddingBG_dark
               : pagesStyles.Login_flexOnePaddingBG
           }>
-          <Formik
-            validationSchema={LoginSchema}
-            onSubmit={handleForm}
-            initialValues={{
-              tckn: user.rememberMe ? user.tckn : '',
-              pass: user.rememberMe ? user.pass : '',
-            }}>
-            {({handleSubmit, handleChange, touched, errors, values}) => (
-              <View
-                style={
-                  darkTheme
-                    ? pagesStyles.Login_flexOnePaddingBG_dark
-                    : pagesStyles.Login_flexOnePaddingBG
-                }>
-                <View style={pagesStyles.flexRowCenter}>
-                  <ProfilePhoto data={user.photo ? user.photo : false} />
-                </View>
+          <ScrollView>
+            <Formik
+              validationSchema={LoginSchema}
+              onSubmit={handleForm}
+              initialValues={{
+                tckn: user.rememberMe ? user.tckn : '',
+                pass: user.rememberMe ? user.pass : '',
+              }}>
+              {({handleSubmit, handleChange, touched, errors, values}) => (
+                <View
+                  style={
+                    darkTheme
+                      ? pagesStyles.Login_flexOnePaddingBG_dark
+                      : pagesStyles.Login_flexOnePaddingBG
+                  }>
+                  <View style={pagesStyles.flexRowCenter}>
+                    <ProfilePhoto data={user.photo ? user.photo : false} />
+                  </View>
 
-                <Input
-                  label={t('label01', {ns: 'login-welcome'})}
-                  placeholder={t('placeholder01', {ns: 'login-welcome'})}
-                  onChangeText={handleChange('tckn')}
-                  value={values.tckn}
-                />
-                {errors.tckn && touched.tckn ? (
-                  <Text style={pagesStyles.formWarnText}>{errors.tckn}</Text>
-                ) : null}
-
-                <Input
-                  secure={true}
-                  label={t('label02', {ns: 'login-welcome'})}
-                  placeholder={t('placeholder02', {ns: 'login-welcome'})}
-                  onChangeText={handleChange('pass')}
-                  value={values.pass}
-                />
-                {errors.pass && touched.pass ? (
-                  <Text style={pagesStyles.formWarnText}>{errors.pass}</Text>
-                ) : null}
-
-                <View style={pagesStyles.flexRowCenter}>
-                  <Checkbox onPress={() => setRememberMe(!rememberMe)} />
-                  <Text style={pagesStyles.textC}>
-                    {t('rememberMe', {ns: 'login-welcome'})}
-                  </Text>
-                </View>
-
-                <View style={pagesStyles.rightBottom}>
-                  <Button
-                    text={t('btn01', {ns: 'common'})}
-                    onPress={handleSubmit}
-                    disabled={UIBlock}
-                    colorsetNo={1}
+                  <Input
+                    label={t('label01', {ns: 'login-welcome'})}
+                    placeholder={t('placeholder01', {ns: 'login-welcome'})}
+                    onChangeText={handleChange('tckn')}
+                    value={values.tckn}
                   />
+                  {errors.tckn && touched.tckn ? (
+                    <Text style={pagesStyles.formWarnText}>{errors.tckn}</Text>
+                  ) : null}
+
+                  <Input
+                    secure={true}
+                    label={t('label02', {ns: 'login-welcome'})}
+                    placeholder={t('placeholder02', {ns: 'login-welcome'})}
+                    onChangeText={handleChange('pass')}
+                    value={values.pass}
+                  />
+                  {errors.pass && touched.pass ? (
+                    <Text style={pagesStyles.formWarnText}>{errors.pass}</Text>
+                  ) : null}
+
+                  <View style={pagesStyles.flexRowCenter}>
+                    <Checkbox onPress={() => setRememberMe(!rememberMe)} />
+                    <Text style={pagesStyles.textC}>
+                      {t('rememberMe', {ns: 'login-welcome'})}
+                    </Text>
+                  </View>
+
+                  <View style={pagesStyles.rightBottom}>
+                    <Button
+                      text={t('btn01', {ns: 'common'})}
+                      onPress={handleSubmit}
+                      disabled={UIBlock}
+                      colorsetNo={1}
+                    />
+                  </View>
                 </View>
-              </View>
-            )}
-          </Formik>
-          <View style={{alignSelf: 'flex-end', marginTop: -20, width: 100}}>
-            <Icon.Button
-              iconStyle={{fontSize: percentage(6)}}
-              name="fingerprint"
-              color={Colors.secondary}
-              onPress={() => {
-                setbiometricAuth(true);
-              }}
-              backgroundColor="rgba(200, 230, 201, 0)">
-              <Text style={pagesStyles.textB_dark}>Bio</Text>
-            </Icon.Button>
-          </View>
+              )}
+            </Formik>
+            <View style={{alignSelf: 'flex-end', marginTop: -20, width: 100}}>
+              <Icon.Button
+                iconStyle={{fontSize: percentage(6)}}
+                name="fingerprint"
+                color={Colors.secondary}
+                onPress={() => {
+                  setbiometricAuth(true);
+                }}
+                backgroundColor="rgba(200, 230, 201, 0)">
+                <Text style={pagesStyles.textB_dark}>Bio</Text>
+              </Icon.Button>
+            </View>
+          </ScrollView>
         </SafeAreaView>
       </ImageBackground>
     );

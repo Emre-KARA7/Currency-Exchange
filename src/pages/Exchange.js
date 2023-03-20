@@ -125,7 +125,10 @@ function Exchange({route, navigation}) {
   else if (warn) {
     return (
       <InfoCard
-        onBtnPress={() => setWarn(false)}
+        onBtnPress={() => {
+          setWarn(false);
+          navigation.popToTop();
+        }}
         btnText={t('btn02', {ns: 'common'})}
         infoType={'WARNING'}
         infoHeader={t('warnHeader', {ns: 'watchlist'})}
