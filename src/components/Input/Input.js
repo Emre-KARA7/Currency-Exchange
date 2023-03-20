@@ -7,7 +7,7 @@ import {Colors} from '../../assets/colors';
 function Input({label, value, placeholder, onChangeText, secure}) {
   const darkTheme = useSelector(state => state.darkTheme.darkTheme); //redux
   return (
-    <View style={darkTheme ? styles.container_dark : styles.container}>
+    <View style={styles.container}>
       <Text style={darkTheme ? styles.label_dark : styles.label}>{label}</Text>
       <View style={styles.innerContainer}>
         <TextInput

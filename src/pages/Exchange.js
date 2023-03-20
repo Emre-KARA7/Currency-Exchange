@@ -218,6 +218,7 @@ function Exchange({route, navigation}) {
           text={t('btn03', {ns: 'watchlist'})}
           onPress={approve}
           disabled={UIBlock}
+          colorsetNo={5}
         />
       </View>
     </SafeAreaView>
