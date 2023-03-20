@@ -13,7 +13,12 @@ export default StyleSheet.create({
   },
 
   container: {margin: percentage(1)},
-  box: {borderColor: Colors.main},
+  box: {
+    borderColor: '#1E88E5',
+    borderRadius: 0,
+    borderBottomWidth: 2,
+    borderWidth: 0,
+  },
   dropdown: {borderColor: Colors.secondaryLighter},
 
   disabledItem_dark: {backgroundColor: Colors.dark_background},

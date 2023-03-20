@@ -22,11 +22,11 @@ const Dropdown = ({data, setSelected, pleaceholder, save, onSelect}) => {
           darkTheme ? styles.dropdownText_dark : styles.dropdownText
         }
         dropdownItemStyles={styles.dropdownItem}
-        arrowicon={<Icon name={'chevron-down'} size={20} color={Colors.main} />}
+        arrowicon={<Icon name={'chevron-down'} size={20} color={'#1E88E5'} />}
         searchicon={
-          <Icon name={'magnifying-glass'} size={20} color={Colors.main} />
+          <Icon name={'magnifying-glass'} size={20} color={'#1E88E5'} />
         }
-        closeicon={<Icon name={'cross'} size={20} color={Colors.main} />}
+        closeicon={<Icon name={'cross'} size={20} color={'#1E88E5'} />}
         placeholder={pleaceholder}
         setSelected={setSelected}
         data={data}
