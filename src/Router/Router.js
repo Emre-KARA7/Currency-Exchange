@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Icon from 'react-native-vector-icons/AntDesign';
@@ -9,6 +9,7 @@ import pagesStyles from '../pages/pages.styles';
 import InfoCard from '../components/InfoCard';
 import NetInfo from '@react-native-community/netinfo';
 import {useTranslation} from 'react-i18next'; //i18n
+import SplashScreen from 'react-native-splash-screen';
 // screens
 import Welcome from '../pages/Welcome';
 import LogIn from '../pages/LogIn';
@@ -195,6 +196,10 @@ function Router() {
 }
 
 function RouterWrapper() {
+  useEffect(() => {
+    SplashScreen.hide();
+  }, []);
+
   return (
     <Provider store={store}>
       <Router />
