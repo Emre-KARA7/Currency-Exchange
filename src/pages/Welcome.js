@@ -13,7 +13,7 @@ function Welcome({navigation}) {
   const [first, setFirst] = useState(true);
   const dispatch = useDispatch();
   const {t, i18n} = useTranslation(); //i18n
-
+  
   if (first) {
     (async () => {
       setFirst(false);
