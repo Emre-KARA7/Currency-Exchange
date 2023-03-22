@@ -67,11 +67,13 @@ export default StyleSheet.create({
     flex: 1,
     textAlign: 'right',
     color: Colors.textPrimary,
+    alignSelf: 'flex-end',
   },
   budgetBoxValue_dark: {
     fontSize: percentage(4.5),
     flex: 1,
     textAlign: 'right',
     color: Colors.dark_textPrimary,
+    alignSelf: 'flex-end',
   },
 });

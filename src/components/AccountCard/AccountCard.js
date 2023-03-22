@@ -4,6 +4,7 @@ import {useSelector} from 'react-redux'; //redux
 import styles from './AccountCard.style';
 import {useTranslation} from 'react-i18next'; //i18n
 import LinearGradient from 'react-native-linear-gradient';
+import QRcode from '../QRcode';
 
 const AccountCard = ({
   idForColor,
@@ -49,12 +50,7 @@ const AccountCard = ({
 
           <Text style={darkTheme ? styles.IBAN_dark : styles.IBAN}>{IBAN}</Text>
           <View style={styles.budgetBox}>
-            <Text
-              style={
-                darkTheme ? styles.budgetBoxKey_dark : styles.budgetBoxKey
-              }>
-              BRAND
-            </Text>
+            <QRcode value={IBAN} />
             <Text
               style={
                 darkTheme ? styles.budgetBoxValue_dark : styles.budgetBoxValue
