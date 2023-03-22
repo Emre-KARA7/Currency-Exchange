@@ -16,7 +16,7 @@ const AccountCard = ({
   const darkTheme = useSelector(state => state.darkTheme.darkTheme); //redux
   const {t} = useTranslation(); //i18n
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={onPress}>
       <LinearGradient
         start={{x: 0, y: 0}}
         end={{x: 1, y: 1}}

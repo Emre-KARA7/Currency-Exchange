@@ -7,6 +7,7 @@ import {useSelector} from 'react-redux'; //redux
 import InfoCard from '../components/InfoCard';
 import Config from 'react-native-config';
 import {useTranslation} from 'react-i18next'; //i18n
+import Clipboard from '@react-native-clipboard/clipboard';
 
 function Accounts({navigation}) {
   //
@@ -70,6 +71,9 @@ function Accounts({navigation}) {
             IBAN={item.IBAN}
             budget={item.budget}
             connectedBranch={item.connectedBranch}
+            onPress={() => {
+              Clipboard.setString(item.IBAN);
+            }}
           />
         )}
         keyExtractor={item => item.id}
