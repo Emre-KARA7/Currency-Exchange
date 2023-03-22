@@ -6,6 +6,7 @@ import useStorage from '../hooks/useStorage';
 import {changeTheme} from '../stores/darkTheme';
 import {useDispatch, useSelector} from 'react-redux';
 import {useTranslation} from 'react-i18next'; //i18n
+import QRcode from '../components/QRcode';
 
 function Welcome({navigation}) {
   //
@@ -13,7 +14,7 @@ function Welcome({navigation}) {
   const [first, setFirst] = useState(true);
   const dispatch = useDispatch();
   const {t, i18n} = useTranslation(); //i18n
-  
+
   if (first) {
     (async () => {
       setFirst(false);
@@ -52,6 +53,7 @@ function Welcome({navigation}) {
             colorsetNo={2}
           />
         </View>
+        <QRcode value={'https://play.google.com/store/apps?gl=TR'} />
       </SafeAreaView>
     </ImageBackground>
   );
