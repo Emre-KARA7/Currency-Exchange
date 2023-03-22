@@ -1,6 +1,5 @@
 import React, {useEffect} from 'react';
 import {SafeAreaView, View, Switch, Text} from 'react-native';
-import {useDispatch, useSelector} from 'react-redux';
 import {changeTheme} from '../stores/darkTheme';
 import {useTranslation} from 'react-i18next'; //i18n
 import pagesStyles from './pages.styles';
@@ -8,10 +7,14 @@ import Dropdown from '../components/Dropdown';
 import {Colors} from '../assets/colors';
 import useStorage from '../hooks/useStorage';
 import InfoCard from '../components/InfoCard';
+import Button from '../components/Button';
+import {useDispatch, useSelector} from 'react-redux';
+import auth, {changeAuthState} from '../stores/auth';
 
 function Settings({navigation}) {
   //
   const {StorageLoading, StorageError, storageSet} = useStorage();
+  const {auth} = useSelector(state => state.auth);
   const dispatch = useDispatch();
   const {t, i18n} = useTranslation(); //i18n
   const darkTheme = useSelector(state => state.darkTheme.darkTheme); //get theme
@@ -75,6 +78,21 @@ function Settings({navigation}) {
         save={'key'}
         pleaceholder={'Language'}
       />
+      {auth ? (
+        <Button
+          text={'Safe Logout'}
+          colorsetNo={10}
+          onPress={() => {
+            /*
+          other 
+          logout
+          functions
+          */
+            dispatch(changeAuthState(false));
+            navigation.popToTop();
+          }}
+        />
+      ) : null}
     </SafeAreaView>
   );
 }
