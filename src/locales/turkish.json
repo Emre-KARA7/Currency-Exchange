@@ -94,7 +94,8 @@
     "settings": {
         "infoHeader": "Kayıt Hatası",
         "infoText": "Ayarlar kaydedilemedi",
-        "darkMode": "Karanlık mod"
+        "darkMode": "Karanlık mod",
+        "logout":"Güvenli Çıkış"
     },
     "router": {
         "accounts": "Hesaplarım",

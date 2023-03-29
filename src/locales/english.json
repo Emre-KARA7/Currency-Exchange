@@ -94,7 +94,8 @@
     "settings": {
         "infoHeader": "Registration Error",
         "infoText": "Failed to save settings",
-        "darkMode": "Dark mode"
+        "darkMode": "Dark mode",
+        "logout":"Safe Logout"
     },
     "router": {
         "accounts": "My accounts",

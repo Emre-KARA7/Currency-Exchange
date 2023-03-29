@@ -151,7 +151,7 @@ function CreateAccount({navigation}) {
 
       <View style={pagesStyles.rightBottom}>
         <Button
-          text={'next'}
+          text={t('btn01', {ns: 'common'})}
           onPress={send}
           disabled={UIBlock}
           colorsetNo={5}

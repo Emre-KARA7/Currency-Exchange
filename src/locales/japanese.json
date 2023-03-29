@@ -94,7 +94,8 @@
     "settings": {
         "infoHeader": "登録エラー",
         "infoText": "設定を保存できませんでした",
-        "darkMode": "ダークモード"
+        "darkMode": "ダークモード",
+        "logout":"安全なログアウト"
     },
     "router": {
         "accounts": "私のアカウント",

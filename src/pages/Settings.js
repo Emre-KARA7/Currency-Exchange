@@ -80,7 +80,7 @@ function Settings({navigation}) {
       />
       {auth ? (
         <Button
-          text={'Safe Logout'}
+          text={t('logout', {ns: 'settings'})}
           colorsetNo={10}
           onPress={() => {
             /*
