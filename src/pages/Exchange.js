@@ -204,7 +204,7 @@ function Exchange({route, navigation}) {
       />
 
       <Text style={darkTheme ? pagesStyles.textA_dark : pagesStyles.textA}>
-        Oran: {rate}
+        Oran: {Math.ceil(rate * 10000) / 10000}
       </Text>
       <Input
         label={t('label02', {ns: 'watchlist'})}
@@ -213,7 +213,7 @@ function Exchange({route, navigation}) {
       />
 
       <Text style={darkTheme ? pagesStyles.textA_dark : pagesStyles.textA}>
-        Sonuc:{rate * amount}
+        Sonuc:{Math.ceil(rate * amount * 10000) / 10000}
       </Text>
 
       <View style={pagesStyles.rightBottom}>
