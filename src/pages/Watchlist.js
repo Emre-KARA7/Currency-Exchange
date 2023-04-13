@@ -26,7 +26,7 @@ function Watchlist({navigation}) {
   const onRefresh = useCallback(() => {
     setRefreshing(true);
     ws.close();
-    ws = new WebSocket('ws://192.168.0.15:8080');
+    ws = new WebSocket('ws://192.168.0.10:8080');
     (async () => {
       setArrToWatch('a');
       const a = await storageGet('watchlist');
