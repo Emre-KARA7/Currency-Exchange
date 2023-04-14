@@ -11,6 +11,7 @@ import useStorage from '../hooks/useStorage';
 import InfoCard from '../components/InfoCard';
 import {useTranslation} from 'react-i18next'; //i18n
 import LinearGradient from 'react-native-linear-gradient';
+import HeaderRight from '../components/HeaderRight/HeaderRight';
 
 function History({navigation}) {
   //
@@ -146,38 +147,11 @@ function History({navigation}) {
     navigation.setOptions({
       // eslint-disable-next-line react/no-unstable-nested-components
       headerRight: () => (
-        <View style={pagesStyles.flexRowCenter}>
-          <Icon.Button
-            style={
-              darkTheme
-                ? pagesStyles.dark_iconBtnOuterStyle
-                : pagesStyles.iconBtnOuterStyle
-            }
-            name="setting"
-            iconStyle={
-              darkTheme
-                ? pagesStyles.dark_iconBtnStyle
-                : pagesStyles.iconBtnStyle
-            }
-            onPress={() => navigation.navigate('SettingsScreen')}
-          />
-          <Icon.Button
-            style={
-              darkTheme
-                ? pagesStyles.dark_iconBtnOuterStyle
-                : pagesStyles.iconBtnOuterStyle
-            }
-            name="filter"
-            iconStyle={
-              darkTheme
-                ? pagesStyles.dark_iconBtnStyle
-                : pagesStyles.iconBtnStyle
-            }
-            onPress={() => {
-              setFilterAppearance(filterPanel);
-            }}
-          />
-        </View>
+        <HeaderRight
+          navigation={navigation}
+          iconName={'filter'}
+          onPresss={() => setFilterAppearance(filterPanel)}
+        />
       ),
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps

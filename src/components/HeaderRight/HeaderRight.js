@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import {View} from 'react-native';
 import {useSelector} from 'react-redux'; //redux
 
-const HeaderRight = ({navigation, iconName, navigateScreenName}) => {
+const HeaderRight = ({navigation, iconName, navigateScreenName, onPresss}) => {
   const darkTheme = useSelector(state => state.darkTheme.darkTheme); //redux
   return (
     <View style={styles.flexRowCenter}>
@@ -22,7 +22,10 @@ const HeaderRight = ({navigation, iconName, navigateScreenName}) => {
         }
         name={iconName}
         iconStyle={darkTheme ? styles.dark_iconBtnStyle : styles.iconBtnStyle}
-        onPress={() => navigation.navigate(navigateScreenName)}
+        onPress={() => {
+          if (onPresss) onPresss();
+          else navigation.navigate(navigateScreenName);
+        }}
       />
     </View>
   );

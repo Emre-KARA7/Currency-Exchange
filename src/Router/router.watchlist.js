@@ -1,8 +1,5 @@
 import React from 'react';
-import {View} from 'react-native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import Icon from 'react-native-vector-icons/AntDesign';
-import pagesStyles from '../pages/pages.styles';
 import Watchlist from '../pages/Watchlist';
 import EditWatchlist from '../pages/EditWatchlist';
 import Exchange from '../pages/Exchange';
@@ -15,7 +12,7 @@ const Stack = createNativeStackNavigator();
 
 function WatchlistPage() {
   const darkTheme = useSelector(state => state.darkTheme.darkTheme); //redux
-  const {t, i18n} = useTranslation(); //i18n
+  const {t} = useTranslation(); //i18n
 
   const screens = [
     {
