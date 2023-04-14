@@ -26,6 +26,95 @@ function Router() {
   const darkTheme = useSelector(state => state.darkTheme.darkTheme); //redux
   const {t, i18n} = useTranslation(); //i18n
   const [netConnection, setNetConnection] = useState(true);
+  const unAuthScreens = [
+    {
+      name: 'WelcomeScreen',
+      component: Welcome,
+      options: ({navigation}) => ({
+        // eslint-disable-next-line react/no-unstable-nested-components
+        headerRight: () => (
+          <HeaderIconButton
+            iconName={'setting'}
+            navigateScreenName={'SettingsScreen'}
+            navigation={navigation}
+          />
+        ),
+        title: t('welcome', {ns: 'router'}),
+        headerStyle: {
+          backgroundColor: darkTheme
+            ? Colors.dark_background
+            : Colors.background,
+        },
+        headerTitleStyle: {
+          color: darkTheme ? Colors.dark_textPrimary : Colors.textPrimary,
+        },
+      }),
+    },
+    {
+      name: 'LogInScreen',
+      component: LogIn,
+      options: {
+        title: t('login', {ns: 'router'}),
+        headerTintColor: Colors.textSecondary,
+        headerStyle: {
+          backgroundColor: darkTheme
+            ? Colors.dark_background
+            : Colors.background,
+        },
+        headerTitleStyle: {
+          color: darkTheme ? Colors.dark_textPrimary : Colors.textPrimary,
+        },
+      },
+    },
+    {
+      name: 'SignUp0Screen',
+      component: SignUp_0,
+      options: {
+        title: t('signup', {ns: 'router'}),
+        headerTintColor: Colors.textSecondary,
+        headerStyle: {
+          backgroundColor: darkTheme
+            ? Colors.dark_background
+            : Colors.background,
+        },
+        headerTitleStyle: {
+          color: darkTheme ? Colors.dark_textPrimary : Colors.textPrimary,
+        },
+      },
+    },
+    {
+      name: 'SignUp1Screen',
+      component: SignUp_1,
+      options: {
+        title: t('signup', {ns: 'router'}),
+        headerTintColor: Colors.textSecondary,
+        headerStyle: {
+          backgroundColor: darkTheme
+            ? Colors.dark_background
+            : Colors.background,
+        },
+        headerTitleStyle: {
+          color: darkTheme ? Colors.dark_textPrimary : Colors.textPrimary,
+        },
+      },
+    },
+    {
+      name: 'SignUp2Screen',
+      component: SignUp_2,
+      options: {
+        title: t('signup', {ns: 'router'}),
+        headerTintColor: Colors.textSecondary,
+        headerStyle: {
+          backgroundColor: darkTheme
+            ? Colors.dark_background
+            : Colors.background,
+        },
+        headerTitleStyle: {
+          color: darkTheme ? Colors.dark_textPrimary : Colors.textPrimary,
+        },
+      },
+    },
+  ];
 
   const unsubscribe = NetInfo.addEventListener(state => {
     if (netConnection !== state.isConnected)
@@ -65,103 +154,13 @@ function Router() {
           </Stack.Group>
         ) : (
           <Stack.Group>
-            <Stack.Screen
-              options={({navigation}) => ({
-                // eslint-disable-next-line react/no-unstable-nested-components
-                headerRight: () => (
-                  <HeaderIconButton
-                    iconName={'setting'}
-                    navigateScreenName={'SettingsScreen'}
-                    navigation={navigation}
-                  />
-                ),
-                title: t('welcome', {ns: 'router'}),
-                headerStyle: {
-                  backgroundColor: darkTheme
-                    ? Colors.dark_background
-                    : Colors.background,
-                },
-                headerTitleStyle: {
-                  color: darkTheme
-                    ? Colors.dark_textPrimary
-                    : Colors.textPrimary,
-                },
-              })}
-              name="WelcomeScreen"
-              component={Welcome}
-            />
-            <Stack.Screen
-              options={{
-                title: t('login', {ns: 'router'}),
-                headerTintColor: Colors.textSecondary,
-                headerStyle: {
-                  backgroundColor: darkTheme
-                    ? Colors.dark_background
-                    : Colors.background,
-                },
-                headerTitleStyle: {
-                  color: darkTheme
-                    ? Colors.dark_textPrimary
-                    : Colors.textPrimary,
-                },
-              }}
-              name="LogInScreen"
-              component={LogIn}
-            />
-            <Stack.Screen
-              options={{
-                title: t('signup', {ns: 'router'}),
-                headerTintColor: Colors.textSecondary,
-                headerStyle: {
-                  backgroundColor: darkTheme
-                    ? Colors.dark_background
-                    : Colors.background,
-                },
-                headerTitleStyle: {
-                  color: darkTheme
-                    ? Colors.dark_textPrimary
-                    : Colors.textPrimary,
-                },
-              }}
-              name="SignUp0Screen"
-              component={SignUp_0}
-            />
-            <Stack.Screen
-              options={{
-                title: t('signup', {ns: 'router'}),
-                headerTintColor: Colors.textSecondary,
-                headerStyle: {
-                  backgroundColor: darkTheme
-                    ? Colors.dark_background
-                    : Colors.background,
-                },
-                headerTitleStyle: {
-                  color: darkTheme
-                    ? Colors.dark_textPrimary
-                    : Colors.textPrimary,
-                },
-              }}
-              name="SignUp1Screen"
-              component={SignUp_1}
-            />
-            <Stack.Screen
-              options={{
-                title: t('signup', {ns: 'router'}),
-                headerTintColor: Colors.textSecondary,
-                headerStyle: {
-                  backgroundColor: darkTheme
-                    ? Colors.dark_background
-                    : Colors.background,
-                },
-                headerTitleStyle: {
-                  color: darkTheme
-                    ? Colors.dark_textPrimary
-                    : Colors.textPrimary,
-                },
-              }}
-              name="SignUp2Screen"
-              component={SignUp_2}
-            />
+            {unAuthScreens.map(e => (
+              <Stack.Screen
+                name={e.name}
+                component={e.component}
+                options={e.options}
+              />
+            ))}
           </Stack.Group>
         )}
         <Stack.Group>
