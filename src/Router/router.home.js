@@ -15,6 +15,65 @@ const Tab = createBottomTabNavigator();
 function Home() {
   const darkTheme = useSelector(state => state.darkTheme.darkTheme); //redux
   const {t, i18n} = useTranslation(); //i18n
+  const screens = [
+    {
+      name: 'HistoryPage',
+      component: HistoryPage,
+      options: ({navigation}) => ({
+        headerRight: () => (
+          <View style={pagesStyles.flexRowCenter}>
+            <Icon.Button
+              style={
+                darkTheme
+                  ? pagesStyles.dark_iconBtnOuterStyle
+                  : pagesStyles.iconBtnOuterStyle
+              }
+              name="setting"
+              iconStyle={
+                darkTheme
+                  ? pagesStyles.dark_iconBtnStyle
+                  : pagesStyles.iconBtnStyle
+              }
+              onPress={() => navigation.navigate('SettingsScreen')}
+            />
+            <Icon.Button
+              style={
+                darkTheme
+                  ? pagesStyles.dark_iconBtnOuterStyle
+                  : pagesStyles.iconBtnOuterStyle
+              }
+              name="filter"
+              iconStyle={
+                darkTheme
+                  ? pagesStyles.dark_iconBtnStyle
+                  : pagesStyles.iconBtnStyle
+              }
+            />
+          </View>
+        ),
+        title: t('history', {ns: 'router'}),
+        headerStyle: {
+          backgroundColor: darkTheme
+            ? Colors.dark_background
+            : Colors.background,
+        },
+        headerTitleStyle: {
+          color: darkTheme ? Colors.dark_textPrimary : Colors.textPrimary,
+        },
+      }),
+    },
+    {
+      name: 'AccountsPage',
+      component: AccountsPage,
+      options: {headerShown: false, title: t('accounts', {ns: 'router'})},
+    },
+    {
+      name: 'WatchlistPage',
+      component: WatchlistPage,
+      options: {headerShown: false, title: t('watchlist', {ns: 'router'})},
+    },
+  ];
+
   return (
     <Tab.Navigator
       screenOptions={({route}) => ({
@@ -38,7 +97,10 @@ function Home() {
         tabBarActiveTintColor: Colors.secondary,
         tabBarInactiveTintColor: 'gray',
       })}>
-      <Tab.Screen
+      {screens.map(e => (
+        <Tab.Screen name={e.name} component={e.component} options={e.options} />
+      ))}
+      {/* <Tab.Screen
         options={({navigation}) => ({
           // eslint-disable-next-line react/no-unstable-nested-components
           headerRight: () => (
@@ -94,7 +156,7 @@ function Home() {
         name="WatchlistPage"
         component={WatchlistPage}
         options={{headerShown: false, title: t('watchlist', {ns: 'router'})}}
-      />
+      /> */}
     </Tab.Navigator>
   );
 }
