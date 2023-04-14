@@ -18,6 +18,7 @@ import SignUp_1 from '../pages/SignUp/SignUp_1';
 import SignUp_2 from '../pages/SignUp/SignUp_2';
 import Settings from '../pages/Settings';
 import Home from './router.home';
+import HeaderIconButton from '../components/HeaderIconButton/HeaderIconButton';
 const Stack = createNativeStackNavigator();
 
 function Router() {
@@ -68,19 +69,10 @@ function Router() {
               options={({navigation}) => ({
                 // eslint-disable-next-line react/no-unstable-nested-components
                 headerRight: () => (
-                  <Icon.Button
-                    style={
-                      darkTheme
-                        ? pagesStyles.dark_iconBtnOuterStyle
-                        : pagesStyles.iconBtnOuterStyle
-                    }
-                    name="setting"
-                    iconStyle={
-                      darkTheme
-                        ? pagesStyles.dark_iconBtnStyle
-                        : pagesStyles.iconBtnStyle
-                    }
-                    onPress={() => navigation.navigate('SettingsScreen')}
+                  <HeaderIconButton
+                    iconName={'setting'}
+                    navigateScreenName={'SettingsScreen'}
+                    navigation={navigation}
                   />
                 ),
                 title: t('welcome', {ns: 'router'}),
