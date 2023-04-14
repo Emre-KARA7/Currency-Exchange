@@ -9,6 +9,7 @@ import Exchange from '../pages/Exchange';
 import {useSelector} from 'react-redux'; //redux
 import {useTranslation} from 'react-i18next'; //i18n
 import {Colors} from '../assets/colors';
+import HeaderRight from '../components/HeaderRight/HeaderRight';
 
 const Stack = createNativeStackNavigator();
 
@@ -21,37 +22,13 @@ function WatchlistPage() {
       name: 'WatchlistScreen',
       component: Watchlist,
       options: ({navigation}) => ({
+        // eslint-disable-next-line react/no-unstable-nested-components
         headerRight: () => (
-          <View style={pagesStyles.flexRowCenter}>
-            <Icon.Button
-              style={
-                darkTheme
-                  ? pagesStyles.dark_iconBtnOuterStyle
-                  : pagesStyles.iconBtnOuterStyle
-              }
-              name="setting"
-              iconStyle={
-                darkTheme
-                  ? pagesStyles.dark_iconBtnStyle
-                  : pagesStyles.iconBtnStyle
-              }
-              onPress={() => navigation.navigate('SettingsScreen')}
-            />
-            <Icon.Button
-              style={
-                darkTheme
-                  ? pagesStyles.dark_iconBtnOuterStyle
-                  : pagesStyles.iconBtnOuterStyle
-              }
-              name="edit"
-              iconStyle={
-                darkTheme
-                  ? pagesStyles.dark_iconBtnStyle
-                  : pagesStyles.iconBtnStyle
-              }
-              onPress={() => navigation.navigate('EditWatchlistScreen')}
-            />
-          </View>
+          <HeaderRight
+            navigation={navigation}
+            iconName={'edit'}
+            navigateScreenName={'EditWatchlistScreen'}
+          />
         ),
         title: t('watchlist', {ns: 'router'}),
         headerStyle: {
