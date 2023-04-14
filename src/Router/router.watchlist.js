@@ -15,88 +15,98 @@ const Stack = createNativeStackNavigator();
 function WatchlistPage() {
   const darkTheme = useSelector(state => state.darkTheme.darkTheme); //redux
   const {t, i18n} = useTranslation(); //i18n
+
+  const screens = [
+    {
+      name: 'WatchlistScreen',
+      component: Watchlist,
+      options: ({navigation}) => ({
+        // eslint-disable-next-line react/no-unstable-nested-components
+        headerRight: () => (
+          <View style={pagesStyles.flexRowCenter}>
+            <Icon.Button
+              style={
+                darkTheme
+                  ? pagesStyles.dark_iconBtnOuterStyle
+                  : pagesStyles.iconBtnOuterStyle
+              }
+              name="setting"
+              iconStyle={
+                darkTheme
+                  ? pagesStyles.dark_iconBtnStyle
+                  : pagesStyles.iconBtnStyle
+              }
+              onPress={() => navigation.navigate('SettingsScreen')}
+            />
+            <Icon.Button
+              style={
+                darkTheme
+                  ? pagesStyles.dark_iconBtnOuterStyle
+                  : pagesStyles.iconBtnOuterStyle
+              }
+              name="edit"
+              iconStyle={
+                darkTheme
+                  ? pagesStyles.dark_iconBtnStyle
+                  : pagesStyles.iconBtnStyle
+              }
+              onPress={() => navigation.navigate('EditWatchlistScreen')}
+            />
+          </View>
+        ),
+        title: t('watchlist', {ns: 'router'}),
+        headerStyle: {
+          backgroundColor: darkTheme
+            ? Colors.dark_background
+            : Colors.background,
+        },
+        headerTitleStyle: {
+          color: darkTheme ? Colors.dark_textPrimary : Colors.textPrimary,
+        },
+      }),
+    },
+    {
+      name: 'EditWatchlistScreen',
+      component: EditWatchlist,
+      options: {
+        title: t('edit-watchlist', {ns: 'router'}),
+        headerTintColor: Colors.textSecondary,
+        headerStyle: {
+          backgroundColor: darkTheme
+            ? Colors.dark_background
+            : Colors.background,
+        },
+        headerTitleStyle: {
+          color: darkTheme ? Colors.dark_textPrimary : Colors.textPrimary,
+        },
+      },
+    },
+    {
+      name: 'ExchangeScreen',
+      component: Exchange,
+      options: {
+        title: t('exchange', {ns: 'router'}),
+        headerTintColor: Colors.textSecondary,
+        headerStyle: {
+          backgroundColor: darkTheme
+            ? Colors.dark_background
+            : Colors.background,
+        },
+        headerTitleStyle: {
+          color: darkTheme ? Colors.dark_textPrimary : Colors.textPrimary,
+        },
+      },
+    },
+  ];
   return (
     <Stack.Navigator>
-      <Stack.Screen
-        options={({navigation}) => ({
-          // eslint-disable-next-line react/no-unstable-nested-components
-          headerRight: () => (
-            <View style={pagesStyles.flexRowCenter}>
-              <Icon.Button
-                style={
-                  darkTheme
-                    ? pagesStyles.dark_iconBtnOuterStyle
-                    : pagesStyles.iconBtnOuterStyle
-                }
-                name="setting"
-                iconStyle={
-                  darkTheme
-                    ? pagesStyles.dark_iconBtnStyle
-                    : pagesStyles.iconBtnStyle
-                }
-                onPress={() => navigation.navigate('SettingsScreen')}
-              />
-              <Icon.Button
-                style={
-                  darkTheme
-                    ? pagesStyles.dark_iconBtnOuterStyle
-                    : pagesStyles.iconBtnOuterStyle
-                }
-                name="edit"
-                iconStyle={
-                  darkTheme
-                    ? pagesStyles.dark_iconBtnStyle
-                    : pagesStyles.iconBtnStyle
-                }
-                onPress={() => navigation.navigate('EditWatchlistScreen')}
-              />
-            </View>
-          ),
-          title: t('watchlist', {ns: 'router'}),
-          headerStyle: {
-            backgroundColor: darkTheme
-              ? Colors.dark_background
-              : Colors.background,
-          },
-          headerTitleStyle: {
-            color: darkTheme ? Colors.dark_textPrimary : Colors.textPrimary,
-          },
-        })}
-        name="WatchlistScreen"
-        component={Watchlist}
-      />
-      <Stack.Screen
-        options={{
-          title: t('edit-watchlist', {ns: 'router'}),
-          headerTintColor: Colors.textSecondary,
-          headerStyle: {
-            backgroundColor: darkTheme
-              ? Colors.dark_background
-              : Colors.background,
-          },
-          headerTitleStyle: {
-            color: darkTheme ? Colors.dark_textPrimary : Colors.textPrimary,
-          },
-        }}
-        name="EditWatchlistScreen"
-        component={EditWatchlist}
-      />
-      <Stack.Screen
-        options={{
-          title: t('exchange', {ns: 'router'}),
-          headerTintColor: Colors.textSecondary,
-          headerStyle: {
-            backgroundColor: darkTheme
-              ? Colors.dark_background
-              : Colors.background,
-          },
-          headerTitleStyle: {
-            color: darkTheme ? Colors.dark_textPrimary : Colors.textPrimary,
-          },
-        }}
-        name="ExchangeScreen"
-        component={Exchange}
-      />
+      {screens.map(e => (
+        <Stack.Screen
+          name={e.name}
+          component={e.component}
+          options={e.options}
+        />
+      ))}
     </Stack.Navigator>
   );
 }
