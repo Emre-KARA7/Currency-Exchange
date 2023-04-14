@@ -1,55 +1,27 @@
 import React from 'react';
-import {View} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/AntDesign';
 import {useSelector} from 'react-redux'; //redux
 import {Colors} from '../assets/colors';
-import pagesStyles from '../pages/pages.styles';
 import HistoryPage from '../pages/History';
 import WatchlistPage from './router.watchlist'; //
 import AccountsPage from './router.accounts';
 import {useTranslation} from 'react-i18next'; //i18n
+import HeaderRight from '../components/HeaderRight/HeaderRight';
 
 const Tab = createBottomTabNavigator();
 
 function Home() {
   const darkTheme = useSelector(state => state.darkTheme.darkTheme); //redux
-  const {t, i18n} = useTranslation(); //i18n
+  const {t} = useTranslation(); //i18n
   const screens = [
     {
       name: 'HistoryPage',
       component: HistoryPage,
       options: ({navigation}) => ({
+        // eslint-disable-next-line react/no-unstable-nested-components
         headerRight: () => (
-          <View style={pagesStyles.flexRowCenter}>
-            <Icon.Button
-              style={
-                darkTheme
-                  ? pagesStyles.dark_iconBtnOuterStyle
-                  : pagesStyles.iconBtnOuterStyle
-              }
-              name="setting"
-              iconStyle={
-                darkTheme
-                  ? pagesStyles.dark_iconBtnStyle
-                  : pagesStyles.iconBtnStyle
-              }
-              onPress={() => navigation.navigate('SettingsScreen')}
-            />
-            <Icon.Button
-              style={
-                darkTheme
-                  ? pagesStyles.dark_iconBtnOuterStyle
-                  : pagesStyles.iconBtnOuterStyle
-              }
-              name="filter"
-              iconStyle={
-                darkTheme
-                  ? pagesStyles.dark_iconBtnStyle
-                  : pagesStyles.iconBtnStyle
-              }
-            />
-          </View>
+          <HeaderRight navigation={navigation} iconName={'filter'} />
         ),
         title: t('history', {ns: 'router'}),
         headerStyle: {
