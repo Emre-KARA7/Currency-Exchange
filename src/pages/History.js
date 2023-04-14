@@ -4,7 +4,6 @@ import Button from '../components/Button';
 import HistoryCard from '../components/HistoryCard';
 import Input from '../components/Input';
 import pagesStyles from './pages.styles';
-import Icon from 'react-native-vector-icons/AntDesign';
 import {useSelector} from 'react-redux'; //redux
 import Dropdown from '../components/Dropdown';
 import useStorage from '../hooks/useStorage';
@@ -142,7 +141,7 @@ function History({navigation}) {
       </LinearGradient>
     );
   } // VIEW for filter options panel
-  //
+
   useEffect(() => {
     navigation.setOptions({
       // eslint-disable-next-line react/no-unstable-nested-components
@@ -150,12 +149,13 @@ function History({navigation}) {
         <HeaderRight
           navigation={navigation}
           iconName={'filter'}
-          onPresss={() => setFilterAppearance(filterPanel)}
+          onPress={() => setFilterAppearance(filterPanel)}
         />
       ),
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [navigation, setFilterAppearance, darkTheme]); //set header ICONS with new functionalities
+
   useEffect(() => {
     if (data === ' ') {
       (async () => {

@@ -1,31 +1,21 @@
 import React from 'react';
 import styles from './HeaderRight.style';
-import Icon from 'react-native-vector-icons/AntDesign';
 import {View} from 'react-native';
-import {useSelector} from 'react-redux'; //redux
+import HeaderIconButton from '../HeaderIconButton/HeaderIconButton';
 
-const HeaderRight = ({navigation, iconName, navigateScreenName, onPresss}) => {
-  const darkTheme = useSelector(state => state.darkTheme.darkTheme); //redux
+const HeaderRight = ({navigation, iconName, navigateScreenName, onPress}) => {
   return (
     <View style={styles.flexRowCenter}>
-      <Icon.Button
-        style={
-          darkTheme ? styles.dark_iconBtnOuterStyle : styles.iconBtnOuterStyle
-        }
-        name="setting"
-        iconStyle={darkTheme ? styles.dark_iconBtnStyle : styles.iconBtnStyle}
-        onPress={() => navigation.navigate('SettingsScreen')}
+      <HeaderIconButton
+        navigation={navigation}
+        iconName={'setting'}
+        navigateScreenName={'SettingsScreen'}
       />
-      <Icon.Button
-        style={
-          darkTheme ? styles.dark_iconBtnOuterStyle : styles.iconBtnOuterStyle
-        }
-        name={iconName}
-        iconStyle={darkTheme ? styles.dark_iconBtnStyle : styles.iconBtnStyle}
-        onPress={() => {
-          if (onPresss) onPresss();
-          else navigation.navigate(navigateScreenName);
-        }}
+      <HeaderIconButton
+        navigation={navigation}
+        iconName={iconName}
+        navigateScreenName={navigateScreenName}
+        onPresss={onPress}
       />
     </View>
   );
