@@ -21,7 +21,6 @@ function WatchlistPage() {
       name: 'WatchlistScreen',
       component: Watchlist,
       options: ({navigation}) => ({
-        // eslint-disable-next-line react/no-unstable-nested-components
         headerRight: () => (
           <View style={pagesStyles.flexRowCenter}>
             <Icon.Button

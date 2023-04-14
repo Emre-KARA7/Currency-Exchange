@@ -1,19 +1,16 @@
 import React from 'react';
-import {View} from 'react-native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import Icon from 'react-native-vector-icons/AntDesign';
-import pagesStyles from '../pages/pages.styles';
 import {useSelector} from 'react-redux'; //redux
 import Accounts from '../pages/Accounts';
 import CreateAccount from '../pages/CreateAccount';
 import {Colors} from '../assets/colors';
 import {useTranslation} from 'react-i18next'; //i18n
-
+import HeaderRight from '../components/HeaderRight/HeaderRight';
 const Stack = createNativeStackNavigator();
 
 function AccountsPage() {
   const darkTheme = useSelector(state => state.darkTheme.darkTheme); //redux
-  const {t, i18n} = useTranslation(); //i18n
+  const {t} = useTranslation(); //i18n
 
   const screens = [
     {
@@ -22,37 +19,13 @@ function AccountsPage() {
       options: ({navigation}) => ({
         // eslint-disable-next-line react/no-unstable-nested-components
         headerRight: () => (
-          <View style={pagesStyles.flexRowCenter}>
-            <Icon.Button
-              style={
-                darkTheme
-                  ? pagesStyles.dark_iconBtnOuterStyle
-                  : pagesStyles.iconBtnOuterStyle
-              }
-              name="setting"
-              iconStyle={
-                darkTheme
-                  ? pagesStyles.dark_iconBtnStyle
-                  : pagesStyles.iconBtnStyle
-              }
-              onPress={() => navigation.navigate('SettingsScreen')}
-            />
-            <Icon.Button
-              style={
-                darkTheme
-                  ? pagesStyles.dark_iconBtnOuterStyle
-                  : pagesStyles.iconBtnOuterStyle
-              }
-              name="pluscircle"
-              iconStyle={
-                darkTheme
-                  ? pagesStyles.dark_iconBtnStyle
-                  : pagesStyles.iconBtnStyle
-              }
-              onPress={() => navigation.navigate('CreateAccountScreen')}
-            />
-          </View>
+          <HeaderRight
+            navigation={navigation}
+            iconName={'pluscircle'}
+            navigateScreenName={'CreateAccountScreen'}
+          />
         ),
+
         title: t('accounts', {ns: 'router'}),
         headerStyle: {
           backgroundColor: darkTheme
