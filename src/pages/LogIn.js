@@ -23,7 +23,6 @@ import {useTranslation} from 'react-i18next'; //i18n
 import TouchID from 'react-native-touch-id';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {Colors} from '../assets/colors';
-import {set} from 'immer/dist/internal';
 import percentage from '../helpers/percentage';
 
 function LogIn({navigation}) {
