@@ -10,7 +10,6 @@ import {Formik} from 'formik';
 import Config from 'react-native-config';
 import {useDispatch, useSelector} from 'react-redux';
 import {changeAuthState} from '../stores/auth';
-import * as Yup from 'yup';
 import pagesStyles from './pages.styles';
 import Checkbox from '../components/Checkbox';
 import Input from '../components/Input';
@@ -24,6 +23,7 @@ import TouchID from 'react-native-touch-id';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {Colors} from '../assets/colors';
 import percentage from '../helpers/percentage';
+import {yup} from '../helpers/yupSchemas';
 
 function LogIn({navigation}) {
   //
@@ -38,7 +38,7 @@ function LogIn({navigation}) {
   const {t} = useTranslation(); //i18n
   const [biometricAuth, setbiometricAuth] = useState(false);
   const [rememberMeValues, setRememberMeValues] = useState(null);
-
+  const LoginSchema = yup('LoginSchema');
   async function handleForm(values) {
     setUIBlock(true);
     try {
@@ -107,18 +107,6 @@ function LogIn({navigation}) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
-
-  const LoginSchema = Yup.object().shape({
-    tckn: Yup.string()
-      .min(11, t('yup01', {ns: 'common'}))
-      .max(11, t('yup02', {ns: 'common'}))
-      .matches(/^\d+$/, t('yup04', {ns: 'common'}))
-      .required(t('yup03', {ns: 'common'})),
-    pass: Yup.string()
-      .min(2, t('yup01', {ns: 'common'}))
-      .max(50, t('yup02', {ns: 'common'}))
-      .required(t('yup03', {ns: 'common'})),
-  });
 
   if (StorageLoading || loading) return <InfoCard />;
   else if (error) {

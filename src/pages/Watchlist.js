@@ -4,7 +4,7 @@ import WatchlistCard from '../components/WatchlistCard';
 import pagesStyles from './pages.styles';
 import {useSelector} from 'react-redux'; //redux
 import useStorage from '../hooks/useStorage';
-let ws = new WebSocket('ws://192.168.0.15:8080');
+let ws = new WebSocket('ws://192.168.77.127:8080');
 
 function Watchlist({navigation}) {
   //
