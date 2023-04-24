@@ -3,12 +3,12 @@ import {SafeAreaView, View, Text} from 'react-native';
 import {Formik} from 'formik';
 import useHttps from '../../hooks/useHttps';
 import Config from 'react-native-config';
-import * as Yup from 'yup';
 import pagesStyles from '../pages.styles';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
 import InfoCard from '../../components/InfoCard';
 import {useTranslation} from 'react-i18next'; //i18n
+import { yup } from '../../helpers/yupSchemas';
 
 function SignUp_2({route, navigation}) {
   //
@@ -16,30 +16,13 @@ function SignUp_2({route, navigation}) {
   const {data, loading, error, post} = useHttps();
   const [UIBlock, setUIBlock] = useState(false);
   const {t} = useTranslation(); //i18n
+  
+  const SignUp2Schema = yup('SignUp2Schema');
 
   function handleForm(values) {
     setUIBlock(true);
     post(Config.API_URL + 'signup', values);
   }
-
-  const SignUp2Schema = Yup.object().shape({
-    tel: Yup.string()
-      .matches(
-        /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/,
-        t('yup05', {ns: 'common'}),
-      )
-      .min(10, t('yup01', {ns: 'common'}))
-      .max(10, t('yup02', {ns: 'common'}))
-      .required(t('yup03', {ns: 'common'})),
-    pass1: Yup.string()
-      .min(2, t('yup01', {ns: 'common'}))
-      .max(50, t('yup02', {ns: 'common'}))
-      .required(t('yup03', {ns: 'common'})),
-    pass2: Yup.string()
-      .min(2, t('yup01', {ns: 'common'}))
-      .max(50, t('yup02', {ns: 'common'}))
-      .required(t('yup03', {ns: 'common'})),
-  });
 
   if (error) {
     return (

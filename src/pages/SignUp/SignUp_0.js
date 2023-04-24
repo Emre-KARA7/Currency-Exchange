@@ -1,18 +1,19 @@
 import React, {useState} from 'react';
 import {SafeAreaView, View, KeyboardAvoidingView, Text} from 'react-native';
 import {Formik} from 'formik';
-import * as Yup from 'yup';
 import DatePicker from 'react-native-date-picker';
 import pagesStyles from '../pages.styles';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
 import TextInputBtn from '../../components/TextInputBtn';
 import {useTranslation} from 'react-i18next'; //i18n
+import {yup} from '../../helpers/yupSchemas';
 
 function SignUp_0({navigation}) {
   //
   const [open, setOpen] = useState(false);
   const {t} = useTranslation(); //i18n
+  const SignUp0Schema = yup('SignUp0Schema');
 
   function handleForm(values) {
     console.log(values);
@@ -25,25 +26,6 @@ function SignUp_0({navigation}) {
   }
 
   //<Text>{t('text02', {ns: 'app'})}</Text> //key - nanmespace
-  const SignUp0Schema = Yup.object().shape({
-    tckn: Yup.string()
-      .min(11, t('yup01', {ns: 'common'}))
-      .max(11, t('yup02', {ns: 'common'}))
-      .matches(/^\d+$/, t('yup04', {ns: 'common'}))
-      .required(t('yup03', {ns: 'common'})),
-    name: Yup.string()
-      .min(2, t('yup01', {ns: 'common'}))
-      .max(50, t('yup02', {ns: 'common'}))
-      .required(t('yup03', {ns: 'common'})),
-    surname: Yup.string()
-      .min(2, t('yup01', {ns: 'common'}))
-      .max(50, t('yup02', {ns: 'common'}))
-      .required(t('yup03', {ns: 'common'})),
-    b_date: Yup.string()
-      .min(2, t('yup01', {ns: 'common'}))
-      .max(50, t('yup02', {ns: 'common'}))
-      .required(t('yup03', {ns: 'common'})),
-  });
 
   return (
     <SafeAreaView style={pagesStyles.signUp0_padding}>
