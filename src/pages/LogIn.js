@@ -19,11 +19,11 @@ import useStorage from '../hooks/useStorage';
 import ProfilePhoto from '../components/ProfilePhoto';
 import InfoCard from '../components/InfoCard';
 import {useTranslation} from 'react-i18next'; //i18n
-import TouchID from 'react-native-touch-id';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {Colors} from '../assets/colors';
 import percentage from '../helpers/percentage';
 import {yup} from '../helpers/yupSchemas';
+import {bio} from '../helpers/biometricAuth';
 
 function LogIn({navigation}) {
   //
@@ -36,9 +36,9 @@ function LogIn({navigation}) {
   const [UIBlock, setUIBlock] = useState(false);
   const darkTheme = useSelector(state => state.darkTheme.darkTheme); //redux
   const {t} = useTranslation(); //i18n
-  const [biometricAuth, setbiometricAuth] = useState(false);
   const [rememberMeValues, setRememberMeValues] = useState(null);
   const LoginSchema = yup('LoginSchema');
+  const [biometricAuth, setbiometricAuth] = useState(false);
   async function handleForm(values) {
     setUIBlock(true);
     try {
@@ -49,28 +49,7 @@ function LogIn({navigation}) {
     }
   }
 
-  useEffect(() => {
-    if (biometricAuth) {
-      const optionalConfigObject = {
-        unifiedErrors: false, // use unified error messages (default false)
-        passcodeFallback: false, // if true is passed, itwill allow isSupported to return an error if the device is not enrolled in touch id/face id etc. Otherwise, it will just tell you what method is supported, even if the user is not enrolled.  (default false)
-      };
-      TouchID.isSupported(optionalConfigObject)
-        .then(biometryType => {
-          TouchID.authenticate('Login')
-            .then(succes => {
-              dispatch(changeAuthState(!authVal));
-            })
-            .catch(err => {
-              setbiometricAuth(false);
-            });
-        })
-        .catch(err => {
-          console.log('desteklemio' + err);
-        });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [biometricAuth]); //biometric auth
+  bio(biometricAuth,setbiometricAuth);
 
   useEffect(() => {
     (async () => {
