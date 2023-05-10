@@ -4,13 +4,13 @@ import WatchlistCard from '../components/WatchlistCard';
 import pagesStyles from './pages.styles';
 import {useSelector} from 'react-redux'; //redux
 import useStorage from '../hooks/useStorage';
-let ws = new WebSocket('ws://192.168.77.127:8080');
+let ws = new WebSocket('ws://192.168.3.102:8080');
 
 function Watchlist({navigation}) {
   //
   const [refreshing, setRefreshing] = useState(false);
   const darkTheme = useSelector(state => state.darkTheme.darkTheme); //redux
-  const {StorageLoading, StorageError, storageSet, storageGet} = useStorage();
+  const {StorageLoading, StorageError, storageGet} = useStorage();
   const [arrToWatch, setArrToWatch] = useState(' ');
   const [data, setData] = useState(null);
 
@@ -26,7 +26,7 @@ function Watchlist({navigation}) {
   const onRefresh = useCallback(() => {
     setRefreshing(true);
     ws.close();
-    ws = new WebSocket('ws://192.168.0.10:8080');
+    ws = new WebSocket('ws://192.168.77.127:8080');
     (async () => {
       setArrToWatch('a');
       const a = await storageGet('watchlist');

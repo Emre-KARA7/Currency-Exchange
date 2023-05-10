@@ -64,7 +64,6 @@ function LogIn({navigation}) {
   }, [user]);
 
   useEffect(() => {
-    console.log('values', rememberMeValues);
     if (data && data.data.status === 'login success') {
       if (rememberMe) {
         storageSet('user', {

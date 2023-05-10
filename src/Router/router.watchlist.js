@@ -59,7 +59,6 @@ function WatchlistPage() {
       component: Exchange,
       options: {
         title: t('exchange', {ns: 'router'}),
-        headerTintColor: Colors.textSecondary,
         headerStyle: {
           backgroundColor: darkTheme
             ? Colors.dark_background
